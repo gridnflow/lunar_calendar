@@ -283,15 +283,17 @@ class _DayCell extends StatelessWidget {
       textColor = cs.onPrimaryContainer;
     }
 
-    return Container(
-      margin: const EdgeInsets.all(3),
-      decoration: bgColor != null
-          ? BoxDecoration(color: bgColor, shape: BoxShape.circle)
-          : null,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: 34,
+          height: 34,
+          decoration: bgColor != null
+              ? BoxDecoration(color: bgColor, shape: BoxShape.circle)
+              : null,
+          alignment: Alignment.center,
+          child: Text(
             '${day.day}',
             style: TextStyle(
               fontSize: 14,
@@ -299,12 +301,13 @@ class _DayCell extends StatelessWidget {
               color: textColor,
             ),
           ),
-          Text(
-            lunarLabel,
-            style: TextStyle(fontSize: 9, color: textColor.withValues(alpha: 0.6)),
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(height: 2),
+        Text(
+          lunarLabel,
+          style: const TextStyle(fontSize: 9, color: Colors.black54),
+        ),
+      ],
     );
   }
 }
