@@ -1,0 +1,19 @@
+{
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/build/**": true,
+    "**/.dart_tool/**": true,
+    "**/ios/Pods/**": true,
+    "**/ios/.symlinks/**": true,
+    "**/android/.gradle/**": true,
+    "**/android/build/**": true
+  },
+  "search.exclude": {
+    "**/build": true,
+    "**/.dart_tool": true,
+    "**/ios/Pods": true,
+    "**/android/.gradle": true
+  },
+  "git.autofetchPeriod": 180
+}
