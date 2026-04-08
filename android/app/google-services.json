@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "646421173230",
+    "project_id": "lunar-calendar-c4b7c",
+    "storage_bucket": "lunar-calendar-c4b7c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646421173230:android:5d69e2383b8687de7074ff",
+        "android_client_info": {
+          "package_name": "com.gridnflow.lunar.calendar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "646421173230-obfj9g51d18t92ivkcuiriupk3evknqo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gridnflow.lunar.calendar",
+            "certificate_hash": "e442d3b4a71e51cc915a08db76a8ab42bf4a2364"
+          }
+        },
+        {
+          "client_id": "646421173230-vfgd4krk2pokjpabag8fp9iopsl5lmic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUTPfYxfH_3DFYEMzHVjtchpQtsS9nsFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "646421173230-vfgd4krk2pokjpabag8fp9iopsl5lmic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -33,7 +33,7 @@ class AuthService {
   /// Returns the OAuth access token needed for Google Calendar API calls.
   /// Requests the calendar scope on first use if not already granted.
   Future<String?> getGoogleAccessToken() async {
-    final account =
+    var account =
         _googleSignIn.currentUser ?? await _googleSignIn.signInSilently();
     if (account == null) return null;
 
@@ -41,6 +41,8 @@ class AuthService {
     final hasCalendar = await _googleSignIn.requestScopes([_calendarScope]);
     if (!hasCalendar) return null;
 
+    // Re-authenticate silently so the new token includes the calendar scope.
+    account = await _googleSignIn.signInSilently() ?? account;
     final auth = await account.authentication;
     return auth.accessToken;
   }

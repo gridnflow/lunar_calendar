@@ -31,7 +31,27 @@ class CalendarScreen extends ConsumerWidget {
       ),
       body: eventsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text('Error: $e')),
+        error: (e, _) => Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.calendar_today, size: 48, color: Colors.grey),
+                const SizedBox(height: 16),
+                const Text('Google Calendar 연결 필요', style: TextStyle(fontSize: 16)),
+                const SizedBox(height: 8),
+                Text('$e', style: const TextStyle(fontSize: 12, color: Colors.grey), textAlign: TextAlign.center),
+                const SizedBox(height: 16),
+                FilledButton.icon(
+                  onPressed: () => ref.invalidate(upcomingEventsProvider),
+                  icon: const Icon(Icons.refresh),
+                  label: const Text('재시도'),
+                ),
+              ],
+            ),
+          ),
+        ),
         data: (events) {
           if (events.isEmpty) {
             return const Center(child: Text('No upcoming events'));
