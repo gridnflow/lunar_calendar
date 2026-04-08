@@ -74,6 +74,11 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             onPressed: () => _showAddAnniversaryDialog(context),
           ),
           IconButton(
+            icon: const Icon(Icons.list_alt),
+            tooltip: '기념일 목록',
+            onPressed: () => _showAnniversaryListSheet(context),
+          ),
+          IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () => ref.invalidate(upcomingEventsProvider),
           ),
@@ -237,6 +242,20 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         SnackBar(content: Text('${nameCtrl.text.trim()} 기념일이 추가됐습니다')),
       );
     }
+  }
+
+  Future<void> _showAnniversaryListSheet(BuildContext context) async {
+    final uid = ref.read(currentUserIdProvider);
+    if (uid == null) return;
+
+    await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (_) => _AnniversaryListSheet(uid: uid),
+    );
   }
 
   Future<void> _showRegisterBirthdayDialog(BuildContext context) async {
@@ -568,6 +587,144 @@ class _PickerField extends StatelessWidget {
         (i) => DropdownMenuItem(value: min + i, child: Text('${min + i}')),
       ),
       onChanged: (v) => onChanged(v ?? value),
+    );
+  }
+}
+
+class _AnniversaryListSheet extends ConsumerWidget {
+  final String uid;
+  const _AnniversaryListSheet({required this.uid});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final anniversariesAsync = ref.watch(anniversariesProvider);
+
+    return DraggableScrollableSheet(
+      expand: false,
+      initialChildSize: 0.5,
+      maxChildSize: 0.85,
+      builder: (_, controller) => Column(
+        children: [
+          const SizedBox(height: 8),
+          Container(
+            width: 40,
+            height: 4,
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Row(
+              children: [
+                const Text('기념일 목록',
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                const Spacer(),
+                FilledButton.icon(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    // Re-open add dialog after sheet closes
+                    Future.microtask(() {
+                      if (context.mounted) {
+                        // ignore: invalid_use_of_protected_member
+                      }
+                    });
+                  },
+                  icon: const Icon(Icons.close, size: 16),
+                  label: const Text('닫기'),
+                  style: FilledButton.styleFrom(
+                      backgroundColor: Colors.grey[200],
+                      foregroundColor: Colors.black87),
+                ),
+              ],
+            ),
+          ),
+          const Divider(height: 1),
+          Expanded(
+            child: anniversariesAsync.when(
+              loading: () =>
+                  const Center(child: CircularProgressIndicator()),
+              error: (e, _) => Center(child: Text('오류: $e')),
+              data: (list) {
+                if (list.isEmpty) {
+                  return const Center(
+                    child: Text('등록된 기념일이 없습니다',
+                        style: TextStyle(color: Colors.grey)),
+                  );
+                }
+                return ListView.separated(
+                  controller: controller,
+                  itemCount: list.length,
+                  separatorBuilder: (_, _) =>
+                      const Divider(height: 1, indent: 56),
+                  itemBuilder: (context, i) {
+                    final ann = list[i];
+                    final color = ann.type == '제사'
+                        ? Colors.red
+                        : ann.type == '생일'
+                            ? Colors.orange
+                            : Colors.green;
+                    final icon = ann.type == '제사'
+                        ? Icons.local_fire_department
+                        : ann.type == '생일'
+                            ? Icons.cake
+                            : Icons.star;
+                    return ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: color.withValues(alpha: 0.15),
+                        child: Icon(icon, color: color, size: 20),
+                      ),
+                      title: Text(ann.name),
+                      subtitle: Text(
+                          '음력 ${ann.lunarMonth}월 ${ann.lunarDay}일${ann.isLeap ? ' (윤달)' : ''}  ·  ${ann.type}'),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete_outline,
+                            color: Colors.red),
+                        onPressed: () async {
+                          final ok = await showDialog<bool>(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                              title: const Text('기념일 삭제'),
+                              content:
+                                  Text('"${ann.name}"을 삭제할까요?'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(ctx, false),
+                                    child: const Text('취소')),
+                                FilledButton(
+                                    onPressed: () =>
+                                        Navigator.pop(ctx, true),
+                                    style: FilledButton.styleFrom(
+                                        backgroundColor: Colors.red),
+                                    child: const Text('삭제')),
+                              ],
+                            ),
+                          );
+                          if (ok == true && context.mounted) {
+                            await ref
+                                .read(anniversaryServiceProvider)
+                                .delete(uid, ann.id);
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content:
+                                        Text('"${ann.name}" 삭제됐습니다')),
+                              );
+                            }
+                          }
+                        },
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
