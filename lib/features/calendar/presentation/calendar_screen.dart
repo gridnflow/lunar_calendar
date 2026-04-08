@@ -267,7 +267,10 @@ class _DayCell extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = colorScheme ?? Theme.of(context).colorScheme;
     final lunarDate = lunar.solarToLunar(day);
+    final lunarMonth = lunarDate.getMonth();
     final lunarDay = lunarDate.getDay();
+    // Show "M/D" on the 1st of each lunar month, just day otherwise
+    final lunarLabel = lunarDay == 1 ? '$lunarMonth월' : '$lunarDay';
 
     Color? bgColor;
     Color textColor = Colors.black87;
@@ -297,7 +300,7 @@ class _DayCell extends StatelessWidget {
             ),
           ),
           Text(
-            '$lunarDay',
+            lunarLabel,
             style: TextStyle(fontSize: 9, color: textColor.withValues(alpha: 0.6)),
           ),
         ],
