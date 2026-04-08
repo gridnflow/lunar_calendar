@@ -37,6 +37,61 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     _isLunar = profile.isLunarBirth;
   }
 
+  Future<void> _registerBirthday(BuildContext context) async {
+    final user = ref.read(currentUserProvider);
+    if (user == null) return;
+
+    final profile = await ref.read(userServiceProvider).getProfile(user.uid);
+    if (profile == null) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('생일 정보를 먼저 저장해주세요')),
+        );
+      }
+      return;
+    }
+
+    if (!mounted) return;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('내 생일 등록'),
+        content: Text(
+          '음력 생일 (${profile.birthMonth}월 ${profile.birthDay}일)을\n'
+          'Google Calendar에 20년치 등록할까요?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('취소'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('등록'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true) return;
+
+    final dates = ref.read(lunarServiceProvider).getLunarBirthdayDates(
+          birthMonth: profile.birthMonth,
+          birthDay: profile.birthDay,
+        );
+
+    await ref.read(calendarServiceProvider).registerLunarBirthdays(
+          name: profile.displayName,
+          dates: dates,
+        );
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('${dates.length}개 생일 일정이 등록됐습니다!')),
+      );
+    }
+  }
+
   Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _saving = true);
@@ -117,6 +172,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         : const Text('Save'),
                   ),
                   const Divider(height: 48),
+                  OutlinedButton.icon(
+                    onPressed: _saving ? null : () => _registerBirthday(context),
+                    icon: const Icon(Icons.cake),
+                    label: const Text('내 생일 등록'),
+                    style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(48)),
+                  ),
+                  const SizedBox(height: 12),
                   OutlinedButton(
                     onPressed: () => ref.read(authServiceProvider).signOut(),
                     style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(48)),

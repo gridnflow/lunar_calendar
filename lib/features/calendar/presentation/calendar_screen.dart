@@ -127,14 +127,8 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             eventsForDay: (day) => _eventsForDay(day, events),
             anniversariesForDay: (day) =>
                 _anniversariesForDay(day, anniversaries, lunar),
-            onRegisterBirthday: () => _showRegisterBirthdayDialog(context),
           );
         },
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _showRegisterBirthdayDialog(context),
-        icon: const Icon(Icons.cake),
-        label: const Text('음력 생일 등록'),
       ),
     );
   }
@@ -258,61 +252,6 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     );
   }
 
-  Future<void> _showRegisterBirthdayDialog(BuildContext context) async {
-    final uid = ref.read(currentUserIdProvider);
-    if (uid == null) return;
-
-    final profile = await ref.read(userServiceProvider).getProfile(uid);
-    if (profile == null) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Settings에서 생일 정보를 먼저 입력해주세요')),
-        );
-      }
-      return;
-    }
-
-    if (!context.mounted) return;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('음력 생일 등록'),
-        content: Text(
-          '음력 생일 (${profile.birthMonth}월 ${profile.birthDay}일)을\n'
-          'Google Calendar에 20년치 등록할까요?',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('취소'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('등록'),
-          ),
-        ],
-      ),
-    );
-
-    if (confirmed != true) return;
-
-    final dates = ref.read(lunarServiceProvider).getLunarBirthdayDates(
-          birthMonth: profile.birthMonth,
-          birthDay: profile.birthDay,
-        );
-
-    await ref.read(calendarServiceProvider).registerLunarBirthdays(
-          name: profile.displayName,
-          dates: dates,
-        );
-
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('${dates.length}개 생일 일정이 등록됐습니다!')),
-      );
-      ref.invalidate(upcomingEventsProvider);
-    }
-  }
 }
 
 class _CalendarBody extends StatelessWidget {
@@ -324,8 +263,6 @@ class _CalendarBody extends StatelessWidget {
   final void Function(DateTime, DateTime) onDaySelected;
   final List<gcal.Event> Function(DateTime) eventsForDay;
   final List<FamilyAnniversary> Function(DateTime) anniversariesForDay;
-  final VoidCallback onRegisterBirthday;
-
   const _CalendarBody({
     required this.events,
     required this.anniversaries,
@@ -335,7 +272,6 @@ class _CalendarBody extends StatelessWidget {
     required this.onDaySelected,
     required this.eventsForDay,
     required this.anniversariesForDay,
-    required this.onRegisterBirthday,
   });
 
   @override
