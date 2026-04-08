@@ -3,8 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/services/auth_service.dart';
+import '../../../core/services/notification_service.dart';
+import '../../../core/services/user_service.dart';
 
 final _authServiceProvider = Provider((ref) => AuthService());
+final _userServiceProvider = Provider((ref) => UserService());
+final _notificationServiceProvider = Provider((ref) => NotificationService());
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
@@ -12,6 +16,8 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authService = ref.read(_authServiceProvider);
+    final userService = ref.read(_userServiceProvider);
+    final notificationService = ref.read(_notificationServiceProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -36,7 +42,21 @@ class LoginScreen extends ConsumerWidget {
                 FilledButton.icon(
                   onPressed: () async {
                     try {
-                      await authService.signInWithGoogle();
+                      final credential = await authService.signInWithGoogle();
+                      final user = credential.user!;
+
+                      // Create Firestore profile entry if first sign-in
+                      await userService.createFromGoogleUser(user);
+
+                      // Save FCM token for push notifications
+                      final fcmToken = await notificationService.getToken();
+                      if (fcmToken != null) {
+                        await userService.saveFcmToken(user.uid, fcmToken);
+                      }
+
+                      // Subscribe to daily fortune topic
+                      await notificationService.subscribeToTopic('daily_fortune');
+
                       if (context.mounted) context.go('/calendar');
                     } catch (e) {
                       if (context.mounted) {

@@ -30,6 +30,10 @@ class UserService {
     });
   }
 
+  Future<void> saveFcmToken(String uid, String token) async {
+    await _users.doc(uid).set({'fcmToken': token}, SetOptions(merge: true));
+  }
+
   Future<void> createFromGoogleUser(User user) async {
     final exists = await hasProfile(user.uid);
     if (exists) return;
