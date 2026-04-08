@@ -12,13 +12,16 @@ class AnniversaryService {
       _db.collection('users').doc(uid).collection('anniversaries');
 
   Stream<List<FamilyAnniversary>> watchAnniversaries(String uid) {
-    return _col(uid)
-        .orderBy('lunarMonth')
-        .orderBy('lunarDay')
-        .snapshots()
-        .map((snap) => snap.docs
-            .map((d) => FamilyAnniversary.fromFirestore(d.id, d.data()))
-            .toList());
+    return _col(uid).snapshots().map((snap) {
+      final list = snap.docs
+          .map((d) => FamilyAnniversary.fromFirestore(d.id, d.data()))
+          .toList();
+      list.sort((a, b) {
+        final m = a.lunarMonth.compareTo(b.lunarMonth);
+        return m != 0 ? m : a.lunarDay.compareTo(b.lunarDay);
+      });
+      return list;
+    });
   }
 
   Future<void> add(String uid, FamilyAnniversary ann) async {
