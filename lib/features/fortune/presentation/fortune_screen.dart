@@ -1,27 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../core/services/lunar_service.dart';
-import '../../../core/services/user_service.dart';
-import '../../../core/models/user_profile.dart';
-
-final _lunarServiceProvider = Provider((ref) => LunarService());
-final _userServiceProvider = Provider((ref) => UserService());
-
-final _profileProvider = FutureProvider<UserProfile?>((ref) {
-  final uid = FirebaseAuth.instance.currentUser?.uid;
-  if (uid == null) return Future.value(null);
-  return ref.read(_userServiceProvider).getProfile(uid);
-});
+import '../../../core/providers/service_providers.dart';
 
 class FortuneScreen extends ConsumerWidget {
   const FortuneScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lunar = ref.read(_lunarServiceProvider);
-    final profileAsync = ref.watch(_profileProvider);
+    final lunar = ref.read(lunarServiceProvider);
+    final profileAsync = ref.watch(userProfileProvider);
 
     final todayLunar = lunar.todayLunarString();
     final dayPillar = lunar.todayDayPillar();
@@ -34,13 +22,13 @@ class FortuneScreen extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          // Today's lunar date card
           _InfoCard(
             title: 'Today',
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(todayLunar, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text(todayLunar,
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 Row(children: [
                   _PillarChip(label: yearPillar),
@@ -60,26 +48,19 @@ class FortuneScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 16),
-
-          // Personal 사주 card
           profileAsync.when(
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (e, _) => const SizedBox.shrink(),
             data: (profile) {
               if (profile == null || profile.birthYear == 0) {
-                return _InfoCard(
+                return const _InfoCard(
                   title: 'Your Saju (四柱)',
-                  child: Column(
-                    children: [
-                      const Text('Enter your birth info in Settings to see your four pillars.'),
-                      const SizedBox(height: 8),
-                    ],
-                  ),
+                  child: Text('Enter your birth info in Settings to see your four pillars.'),
                 );
               }
 
               final birthDate = profile.isLunarBirth
-                  ? ref.read(_lunarServiceProvider).lunarToSolar(
+                  ? lunar.lunarToSolar(
                       profile.birthYear, profile.birthMonth, profile.birthDay)
                   : DateTime(profile.birthYear, profile.birthMonth, profile.birthDay);
 
@@ -124,7 +105,11 @@ class _InfoCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            Text(title,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 12),
             child,
           ],
@@ -146,7 +131,8 @@ class _PillarChip extends StatelessWidget {
         color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Text(label, style: TextStyle(color: Theme.of(context).colorScheme.onPrimaryContainer)),
+      child: Text(label,
+          style: TextStyle(color: Theme.of(context).colorScheme.onPrimaryContainer)),
     );
   }
 }

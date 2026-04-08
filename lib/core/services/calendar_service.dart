@@ -5,16 +5,19 @@ import 'auth_service.dart';
 
 class CalendarService {
   final AuthService _authService;
-  CalendarService(this._authService);
+  // Injected in tests to avoid real HTTP calls
+  final gcal.CalendarApi? Function(String token)? _apiFactory;
+
+  CalendarService(this._authService, {gcal.CalendarApi? Function(String token)? apiFactory})
+      : _apiFactory = apiFactory;
 
   Future<gcal.CalendarApi?> _getApi() async {
     final token = await _authService.getGoogleAccessToken();
     if (token == null) return null;
-    final client = _AuthClient(token);
-    return gcal.CalendarApi(client);
+    if (_apiFactory != null) return _apiFactory(token);
+    return gcal.CalendarApi(_AuthClient(token));
   }
 
-  /// Insert a single event into the user's primary calendar.
   Future<void> insertEvent({
     required String title,
     required DateTime date,
@@ -35,7 +38,6 @@ class CalendarService {
     await api.events.insert(event, 'primary');
   }
 
-  /// Register all lunar birthday dates for the next [years] years.
   Future<void> registerLunarBirthdays({
     required String name,
     required List<DateTime> dates,
@@ -49,7 +51,6 @@ class CalendarService {
     }
   }
 
-  /// Fetch upcoming events from the primary calendar.
   Future<List<gcal.Event>> getUpcomingEvents({int maxResults = 30}) async {
     final api = await _getApi();
     if (api == null) return [];

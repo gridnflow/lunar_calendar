@@ -4,7 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../models/user_profile.dart';
 
 class UserService {
-  final _db = FirebaseFirestore.instance;
+  final FirebaseFirestore _db;
+  UserService({FirebaseFirestore? db}) : _db = db ?? FirebaseFirestore.instance;
 
   CollectionReference<Map<String, dynamic>> get _users => _db.collection('users');
 

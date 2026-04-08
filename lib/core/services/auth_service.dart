@@ -3,8 +3,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lunar_calendar/core/constants/app_constants.dart';
 
 class AuthService {
-  final _auth = FirebaseAuth.instance;
-  final _googleSignIn = GoogleSignIn(scopes: AppConstants.googleScopes);
+  final FirebaseAuth _auth;
+  final GoogleSignIn _googleSignIn;
+
+  AuthService({FirebaseAuth? auth, GoogleSignIn? googleSignIn})
+      : _auth = auth ?? FirebaseAuth.instance,
+        _googleSignIn = googleSignIn ??
+            GoogleSignIn(scopes: AppConstants.googleScopes);
 
   Stream<User?> get authStateChanges => _auth.authStateChanges();
   User? get currentUser => _auth.currentUser;
@@ -23,7 +28,8 @@ class AuthService {
 
   /// Returns the OAuth access token needed for Google Calendar API calls.
   Future<String?> getGoogleAccessToken() async {
-    final account = _googleSignIn.currentUser ?? await _googleSignIn.signInSilently();
+    final account =
+        _googleSignIn.currentUser ?? await _googleSignIn.signInSilently();
     if (account == null) return null;
     final auth = await account.authentication;
     return auth.accessToken;

@@ -1,31 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:googleapis/calendar/v3.dart' as gcal;
-
-import '../../../core/services/auth_service.dart';
-import '../../../core/services/calendar_service.dart';
-import '../../../core/services/lunar_service.dart';
-import '../../../core/services/user_service.dart';
-
-final _authServiceProvider = Provider((ref) => AuthService());
-final _calendarServiceProvider = Provider(
-  (ref) => CalendarService(ref.read(_authServiceProvider)),
-);
-final _lunarServiceProvider = Provider((ref) => LunarService());
-final _userServiceProvider = Provider((ref) => UserService());
-
-final _upcomingEventsProvider = FutureProvider<List<gcal.Event>>((ref) {
-  return ref.read(_calendarServiceProvider).getUpcomingEvents();
-});
+import '../../../core/providers/service_providers.dart';
 
 class CalendarScreen extends ConsumerWidget {
   const CalendarScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lunar = ref.read(_lunarServiceProvider);
-    final eventsAsync = ref.watch(_upcomingEventsProvider);
+    final lunar = ref.read(lunarServiceProvider);
+    final eventsAsync = ref.watch(upcomingEventsProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -33,14 +16,16 @@ class CalendarScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text('Calendar'),
-            Text(lunar.todayLunarString(),
-                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal)),
+            Text(
+              lunar.todayLunarString(),
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+            ),
           ],
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: () => ref.invalidate(_upcomingEventsProvider),
+            onPressed: () => ref.invalidate(upcomingEventsProvider),
           ),
         ],
       ),
@@ -60,7 +45,9 @@ class CalendarScreen extends ConsumerWidget {
                 leading: const Icon(Icons.event),
                 title: Text(event.summary ?? ''),
                 subtitle: date != null
-                    ? Text('${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}')
+                    ? Text(
+                        '${date.year}-${date.month.toString().padLeft(2, '0')}-'
+                        '${date.day.toString().padLeft(2, '0')}')
                     : null,
               );
             },
@@ -76,14 +63,15 @@ class CalendarScreen extends ConsumerWidget {
   }
 
   Future<void> _showRegisterBirthdayDialog(BuildContext context, WidgetRef ref) async {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final uid = ref.read(currentUserIdProvider);
     if (uid == null) return;
 
-    final profile = await ref.read(_userServiceProvider).getProfile(uid);
+    final profile = await ref.read(userServiceProvider).getProfile(uid);
     if (profile == null) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please set your birth info in Settings first')),
+          const SnackBar(
+              content: Text('Please set your birth info in Settings first')),
         );
       }
       return;
@@ -99,30 +87,33 @@ class CalendarScreen extends ConsumerWidget {
           'to Google Calendar for the next 20 years?',
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancel')),
-          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Register')),
+          TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: const Text('Cancel')),
+          FilledButton(
+              onPressed: () => Navigator.pop(ctx, true),
+              child: const Text('Register')),
         ],
       ),
     );
 
     if (confirmed != true) return;
 
-    final lunar = ref.read(_lunarServiceProvider);
-    final dates = lunar.getLunarBirthdayDates(
-      birthMonth: profile.birthMonth,
-      birthDay: profile.birthDay,
-    );
+    final dates = ref.read(lunarServiceProvider).getLunarBirthdayDates(
+          birthMonth: profile.birthMonth,
+          birthDay: profile.birthDay,
+        );
 
-    await ref.read(_calendarServiceProvider).registerLunarBirthdays(
-      name: profile.displayName,
-      dates: dates,
-    );
+    await ref.read(calendarServiceProvider).registerLunarBirthdays(
+          name: profile.displayName,
+          dates: dates,
+        );
 
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('${dates.length} birthday events registered!')),
       );
-      ref.invalidate(_upcomingEventsProvider);
+      ref.invalidate(upcomingEventsProvider);
     }
   }
 }

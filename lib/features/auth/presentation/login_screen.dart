@@ -2,23 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/services/auth_service.dart';
-import '../../../core/services/notification_service.dart';
-import '../../../core/services/user_service.dart';
-
-final _authServiceProvider = Provider((ref) => AuthService());
-final _userServiceProvider = Provider((ref) => UserService());
-final _notificationServiceProvider = Provider((ref) => NotificationService());
+import '../../../core/providers/service_providers.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authService = ref.read(_authServiceProvider);
-    final userService = ref.read(_userServiceProvider);
-    final notificationService = ref.read(_notificationServiceProvider);
-
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -40,32 +30,7 @@ class LoginScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 48),
                 FilledButton.icon(
-                  onPressed: () async {
-                    try {
-                      final credential = await authService.signInWithGoogle();
-                      final user = credential.user!;
-
-                      // Create Firestore profile entry if first sign-in
-                      await userService.createFromGoogleUser(user);
-
-                      // Save FCM token for push notifications
-                      final fcmToken = await notificationService.getToken();
-                      if (fcmToken != null) {
-                        await userService.saveFcmToken(user.uid, fcmToken);
-                      }
-
-                      // Subscribe to daily fortune topic
-                      await notificationService.subscribeToTopic('daily_fortune');
-
-                      if (context.mounted) context.go('/calendar');
-                    } catch (e) {
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Sign-in failed: $e')),
-                        );
-                      }
-                    }
-                  },
+                  onPressed: () => _signIn(context, ref),
                   icon: const Icon(Icons.login),
                   label: const Text('Sign in with Google'),
                   style: FilledButton.styleFrom(
@@ -78,5 +43,29 @@ class LoginScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _signIn(BuildContext context, WidgetRef ref) async {
+    try {
+      final credential = await ref.read(authServiceProvider).signInWithGoogle();
+      final user = credential.user!;
+
+      await ref.read(userServiceProvider).createFromGoogleUser(user);
+
+      final fcmToken = await ref.read(notificationServiceProvider).getToken();
+      if (fcmToken != null) {
+        await ref.read(userServiceProvider).saveFcmToken(user.uid, fcmToken);
+      }
+
+      await ref.read(notificationServiceProvider).subscribeToTopic('daily_fortune');
+
+      if (context.mounted) context.go('/calendar');
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Sign-in failed: $e')),
+        );
+      }
+    }
   }
 }

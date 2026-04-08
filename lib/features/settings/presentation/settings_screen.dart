@@ -1,19 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../core/models/user_profile.dart';
-import '../../../core/services/user_service.dart';
-import '../../../core/services/auth_service.dart';
-
-final _userServiceProvider = Provider((ref) => UserService());
-final _authServiceProvider = Provider((ref) => AuthService());
-
-final _profileProvider = FutureProvider<UserProfile?>((ref) async {
-  final uid = FirebaseAuth.instance.currentUser?.uid;
-  if (uid == null) return null;
-  return ref.read(_userServiceProvider).getProfile(uid);
-});
+import '../../../core/providers/service_providers.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -52,7 +41,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _saving = true);
 
-    final user = FirebaseAuth.instance.currentUser!;
+    final user = ref.read(currentUserProvider)!;
     final profile = UserProfile(
       uid: user.uid,
       email: user.email ?? '',
@@ -64,20 +53,20 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       isLunarBirth: _isLunar,
     );
 
-    await ref.read(_userServiceProvider).saveProfile(profile);
+    await ref.read(userServiceProvider).saveProfile(profile);
     setState(() => _saving = false);
 
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Saved')),
       );
-      ref.invalidate(_profileProvider);
+      ref.invalidate(userProfileProvider);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final profileAsync = ref.watch(_profileProvider);
+    final profileAsync = ref.watch(userProfileProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Settings')),
@@ -105,7 +94,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     Expanded(child: _NumberField(controller: _dayCtrl, label: 'Day', min: 1, max: 31)),
                   ]),
                   const SizedBox(height: 12),
-                  _NumberField(controller: _hourCtrl, label: 'Hour (optional, 0–23)', min: 0, max: 23, required: false),
+                  _NumberField(
+                    controller: _hourCtrl,
+                    label: 'Hour (optional, 0–23)',
+                    min: 0,
+                    max: 23,
+                    required: false,
+                  ),
                   const SizedBox(height: 12),
                   SwitchListTile(
                     contentPadding: EdgeInsets.zero,
@@ -117,11 +112,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   FilledButton(
                     onPressed: _saving ? null : _save,
                     style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(48)),
-                    child: _saving ? const CircularProgressIndicator() : const Text('Save'),
+                    child: _saving
+                        ? const CircularProgressIndicator()
+                        : const Text('Save'),
                   ),
                   const Divider(height: 48),
                   OutlinedButton(
-                    onPressed: () => ref.read(_authServiceProvider).signOut(),
+                    onPressed: () => ref.read(authServiceProvider).signOut(),
                     style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(48)),
                     child: const Text('Sign Out'),
                   ),
