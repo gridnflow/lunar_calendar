@@ -7,20 +7,11 @@ void main() {
       expect(AppConstants.appName, 'Lunar Calendar');
     });
 
-    test('googleScopes contains calendar scope', () {
+    test('calendarScope is Google Calendar API scope', () {
       expect(
-        AppConstants.googleScopes,
-        contains('https://www.googleapis.com/auth/calendar'),
+        AppConstants.calendarScope,
+        'https://www.googleapis.com/auth/calendar',
       );
-    });
-
-    test('googleScopes contains email and profile', () {
-      expect(AppConstants.googleScopes, contains('email'));
-      expect(AppConstants.googleScopes, contains('profile'));
-    });
-
-    test('googleScopes has exactly 3 entries', () {
-      expect(AppConstants.googleScopes.length, 3);
     });
 
     test('functionsRegion is set', () {

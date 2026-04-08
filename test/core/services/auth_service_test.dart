@@ -92,11 +92,24 @@ void main() {
         expect(token, isNull);
       });
 
-      test('returns access token from current account', () async {
+      test('returns null when calendar scope is denied', () async {
+        final mockAccount = MockGoogleSignInAccount();
+
+        when(() => mockGoogleSignIn.currentUser).thenReturn(mockAccount);
+        when(() => mockGoogleSignIn.requestScopes(any()))
+            .thenAnswer((_) async => false);
+
+        final token = await service.getGoogleAccessToken();
+        expect(token, isNull);
+      });
+
+      test('returns access token when calendar scope is granted', () async {
         final mockAccount = MockGoogleSignInAccount();
         final mockGoogleAuth = MockGoogleSignInAuthentication();
 
         when(() => mockGoogleSignIn.currentUser).thenReturn(mockAccount);
+        when(() => mockGoogleSignIn.requestScopes(any()))
+            .thenAnswer((_) async => true);
         when(() => mockAccount.authentication)
             .thenAnswer((_) async => mockGoogleAuth);
         when(() => mockGoogleAuth.accessToken).thenReturn('my-token');
@@ -112,6 +125,8 @@ void main() {
         when(() => mockGoogleSignIn.currentUser).thenReturn(null);
         when(() => mockGoogleSignIn.signInSilently())
             .thenAnswer((_) async => mockAccount);
+        when(() => mockGoogleSignIn.requestScopes(any()))
+            .thenAnswer((_) async => true);
         when(() => mockAccount.authentication)
             .thenAnswer((_) async => mockGoogleAuth);
         when(() => mockGoogleAuth.accessToken).thenReturn('silent-token');

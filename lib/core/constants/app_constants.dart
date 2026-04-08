@@ -1,12 +1,9 @@
 class AppConstants {
   static const String appName = 'Lunar Calendar';
 
-  // Google Calendar API scopes
-  static const List<String> googleScopes = [
-    'https://www.googleapis.com/auth/calendar',
-    'email',
-    'profile',
-  ];
+  // Google Calendar API scope (requested lazily after sign-in)
+  static const String calendarScope =
+      'https://www.googleapis.com/auth/calendar';
 
   // Cloud Functions region
   static const String functionsRegion = 'asia-northeast3';
