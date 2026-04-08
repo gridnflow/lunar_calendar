@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:googleapis/calendar/v3.dart' as gcal;
 
+import '../models/family_anniversary.dart';
 import '../models/user_profile.dart';
+import '../services/anniversary_service.dart';
 import '../services/auth_service.dart';
 import '../services/calendar_service.dart';
 import '../services/lunar_service.dart';
@@ -42,4 +44,14 @@ final userProfileProvider = FutureProvider<UserProfile?>((ref) async {
 /// Upcoming Google Calendar events.
 final upcomingEventsProvider = FutureProvider<List<gcal.Event>>((ref) {
   return ref.read(calendarServiceProvider).getUpcomingEvents();
+});
+
+final anniversaryServiceProvider =
+    Provider<AnniversaryService>((ref) => AnniversaryService());
+
+/// Stream of the current user's family anniversaries.
+final anniversariesProvider = StreamProvider<List<FamilyAnniversary>>((ref) {
+  final uid = ref.watch(currentUserIdProvider);
+  if (uid == null) return const Stream.empty();
+  return ref.read(anniversaryServiceProvider).watchAnniversaries(uid);
 });
