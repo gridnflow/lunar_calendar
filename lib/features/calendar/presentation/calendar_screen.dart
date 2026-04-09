@@ -550,15 +550,7 @@ class _AnniversaryListSheet extends ConsumerWidget {
                         TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: colorScheme.onSurface)),
                 const Spacer(),
                 FilledButton.icon(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    // Re-open add dialog after sheet closes
-                    Future.microtask(() {
-                      if (context.mounted) {
-                        // ignore: invalid_use_of_protected_member
-                      }
-                    });
-                  },
+                  onPressed: () => Navigator.pop(context),
                   icon: const Icon(Icons.close, size: 16),
                   label: const Text('닫기'),
                   style: FilledButton.styleFrom(
