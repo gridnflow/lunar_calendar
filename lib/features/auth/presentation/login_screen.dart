@@ -9,35 +9,62 @@ class LoginScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.calendar_month, size: 80, color: Color(0xFF1A237E)),
-                const SizedBox(height: 24),
-                const Text(
-                  'Lunar Calendar',
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  '음력 달력 · 오늘의 운세 · 일정 관리',
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-                const SizedBox(height: 48),
-                FilledButton.icon(
-                  onPressed: () => _signIn(context, ref),
-                  icon: const Icon(Icons.login),
-                  label: const Text('Sign in with Google'),
-                  style: FilledButton.styleFrom(
-                    minimumSize: const Size.fromHeight(52),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              colorScheme.primaryContainer.withValues(alpha: 0.3),
+              colorScheme.surface,
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: colorScheme.primaryContainer,
+                    ),
+                    child: Icon(Icons.calendar_month, size: 52, color: colorScheme.primary),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 28),
+                  Text(
+                    'Lunar Calendar',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: colorScheme.onSurface,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    '음력 달력 · 오늘의 운세 · 일정 관리',
+                    style: TextStyle(fontSize: 14, color: colorScheme.onSurfaceVariant),
+                  ),
+                  const SizedBox(height: 48),
+                  FilledButton.icon(
+                    onPressed: () => _signIn(context, ref),
+                    icon: const Icon(Icons.login),
+                    label: const Text('Sign in with Google'),
+                    style: FilledButton.styleFrom(
+                      minimumSize: const Size.fromHeight(52),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -6,6 +6,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../../core/models/family_anniversary.dart';
 import '../../../core/providers/service_providers.dart';
 import '../../../core/services/lunar_service.dart';
+import '../../../core/theme/app_theme.dart';
 
 class CalendarScreen extends ConsumerStatefulWidget {
   const CalendarScreen({super.key});
@@ -92,13 +93,13 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.calendar_today, size: 48, color: Colors.grey),
+                Icon(Icons.calendar_today, size: 48, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 const SizedBox(height: 16),
                 const Text('Google Calendar 연결 필요',
                     style: TextStyle(fontSize: 16)),
                 const SizedBox(height: 8),
                 Text('$e',
-                    style: const TextStyle(fontSize: 12, color: Colors.grey),
+                    style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant),
                     textAlign: TextAlign.center),
                 const SizedBox(height: 16),
                 FilledButton.icon(
@@ -312,11 +313,7 @@ class _CalendarBody extends StatelessWidget {
                 dots.add(_dot(colorScheme.primary));
               }
               for (final ann in anniversariesForDay(day)) {
-                dots.add(_dot(ann.type == '제사'
-                    ? Colors.red
-                    : ann.type == '생일'
-                        ? Colors.orange
-                        : Colors.green));
+                dots.add(_dot(AppTheme.anniversaryColor(ann.type)));
               }
               if (dots.isEmpty) return const SizedBox.shrink();
               return Padding(
@@ -349,13 +346,12 @@ class _CalendarBody extends StatelessWidget {
         const Divider(height: 1),
         // Anniversary chips for selected day
         if (selectedAnniversaries.isNotEmpty)
-          _AnniversaryBar(
-              anniversaries: selectedAnniversaries, context: context),
+          _AnniversaryBar(anniversaries: selectedAnniversaries),
         Expanded(
           child: selectedEvents.isEmpty
-              ? const Center(
+              ? Center(
                   child: Text('이 날의 일정이 없습니다',
-                      style: TextStyle(color: Colors.grey)))
+                      style: TextStyle(color: colorScheme.onSurfaceVariant)))
               : ListView.separated(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   itemCount: selectedEvents.length,
@@ -393,10 +389,8 @@ class _CalendarBody extends StatelessWidget {
 
 class _AnniversaryBar extends StatelessWidget {
   final List<FamilyAnniversary> anniversaries;
-  final BuildContext context;
 
-  const _AnniversaryBar(
-      {required this.anniversaries, required this.context});
+  const _AnniversaryBar({required this.anniversaries});
 
   @override
   Widget build(BuildContext outerContext) {
@@ -408,16 +402,8 @@ class _AnniversaryBar extends StatelessWidget {
         spacing: 8,
         runSpacing: 4,
         children: anniversaries.map((ann) {
-          final color = ann.type == '제사'
-              ? Colors.red
-              : ann.type == '생일'
-                  ? Colors.orange
-                  : Colors.green;
-          final icon = ann.type == '제사'
-              ? Icons.local_fire_department
-              : ann.type == '생일'
-                  ? Icons.cake
-                  : Icons.star;
+          final color = AppTheme.anniversaryColor(ann.type);
+          final icon = AppTheme.anniversaryIcon(ann.type);
           return Chip(
             avatar: Icon(icon, size: 16, color: color),
             label: Text('${ann.name} (음력 ${ann.lunarMonth}/${ann.lunarDay})'),
@@ -454,7 +440,7 @@ class _DayCell extends StatelessWidget {
     final lunarLabel = lunarDay == 1 ? '$lunarMonth월' : '$lunarDay';
 
     Color? bgColor;
-    Color textColor = Colors.black87;
+    Color textColor = cs.onSurface;
 
     if (isSelected) {
       bgColor = cs.primary;
@@ -487,7 +473,7 @@ class _DayCell extends StatelessWidget {
         const SizedBox(height: 2),
         Text(
           lunarLabel,
-          style: const TextStyle(fontSize: 9, color: Colors.black54),
+          style: TextStyle(fontSize: 9, color: cs.onSurfaceVariant),
         ),
       ],
     );
@@ -535,6 +521,8 @@ class _AnniversaryListSheet extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final anniversariesAsync = ref.watch(anniversariesProvider);
 
+    final colorScheme = Theme.of(context).colorScheme;
+
     return DraggableScrollableSheet(
       expand: false,
       initialChildSize: 0.5,
@@ -546,7 +534,7 @@ class _AnniversaryListSheet extends ConsumerWidget {
             width: 40,
             height: 4,
             decoration: BoxDecoration(
-              color: Colors.grey[300],
+              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -554,9 +542,9 @@ class _AnniversaryListSheet extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Row(
               children: [
-                const Text('기념일 목록',
+                Text('기념일 목록',
                     style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: colorScheme.onSurface)),
                 const Spacer(),
                 FilledButton.icon(
                   onPressed: () {
@@ -571,8 +559,8 @@ class _AnniversaryListSheet extends ConsumerWidget {
                   icon: const Icon(Icons.close, size: 16),
                   label: const Text('닫기'),
                   style: FilledButton.styleFrom(
-                      backgroundColor: Colors.grey[200],
-                      foregroundColor: Colors.black87),
+                      backgroundColor: colorScheme.surfaceContainerHighest,
+                      foregroundColor: colorScheme.onSurface),
                 ),
               ],
             ),
@@ -585,9 +573,9 @@ class _AnniversaryListSheet extends ConsumerWidget {
               error: (e, _) => Center(child: Text('오류: $e')),
               data: (list) {
                 if (list.isEmpty) {
-                  return const Center(
+                  return Center(
                     child: Text('등록된 기념일이 없습니다',
-                        style: TextStyle(color: Colors.grey)),
+                        style: TextStyle(color: colorScheme.onSurfaceVariant)),
                   );
                 }
                 return ListView.separated(
@@ -597,16 +585,8 @@ class _AnniversaryListSheet extends ConsumerWidget {
                       const Divider(height: 1, indent: 56),
                   itemBuilder: (context, i) {
                     final ann = list[i];
-                    final color = ann.type == '제사'
-                        ? Colors.red
-                        : ann.type == '생일'
-                            ? Colors.orange
-                            : Colors.green;
-                    final icon = ann.type == '제사'
-                        ? Icons.local_fire_department
-                        : ann.type == '생일'
-                            ? Icons.cake
-                            : Icons.star;
+                    final color = AppTheme.anniversaryColor(ann.type);
+                    final icon = AppTheme.anniversaryIcon(ann.type);
                     return ListTile(
                       leading: CircleAvatar(
                         backgroundColor: color.withValues(alpha: 0.15),
@@ -616,8 +596,8 @@ class _AnniversaryListSheet extends ConsumerWidget {
                       subtitle: Text(
                           '음력 ${ann.lunarMonth}월 ${ann.lunarDay}일${ann.isLeap ? ' (윤달)' : ''}  ·  ${ann.type}'),
                       trailing: IconButton(
-                        icon: const Icon(Icons.delete_outline,
-                            color: Colors.red),
+                        icon: Icon(Icons.delete_outline,
+                            color: colorScheme.error),
                         onPressed: () async {
                           final ok = await showDialog<bool>(
                             context: context,
@@ -634,7 +614,7 @@ class _AnniversaryListSheet extends ConsumerWidget {
                                     onPressed: () =>
                                         Navigator.pop(ctx, true),
                                     style: FilledButton.styleFrom(
-                                        backgroundColor: Colors.red),
+                                        backgroundColor: colorScheme.error),
                                     child: const Text('삭제')),
                               ],
                             ),
