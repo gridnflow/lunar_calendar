@@ -63,6 +63,17 @@ final fortuneServiceProvider = Provider<FortuneService>((ref) {
   return FortuneService(apiKey: apiKey);
 });
 
+/// 기념일 변경 시 알림 자동 재스케줄링 (App 위젯에서 watch)
+final anniversaryNotificationSchedulerProvider = Provider<void>((ref) {
+  final anniversariesAsync = ref.watch(anniversariesProvider);
+  final lunar = ref.read(lunarServiceProvider);
+  final notifications = ref.read(notificationServiceProvider);
+
+  anniversariesAsync.whenData((anniversaries) {
+    notifications.scheduleAnniversaryNotifications(anniversaries, lunar);
+  });
+});
+
 /// Today's fortune text (cached per session).
 final todayFortuneProvider = FutureProvider<String>((ref) async {
   final lunar = ref.read(lunarServiceProvider);

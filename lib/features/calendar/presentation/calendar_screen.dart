@@ -406,7 +406,10 @@ class _AnniversaryBar extends StatelessWidget {
           final icon = AppTheme.anniversaryIcon(ann.type);
           return Chip(
             avatar: Icon(icon, size: 16, color: color),
-            label: Text('${ann.name} (음력 ${ann.lunarMonth}/${ann.lunarDay})'),
+            label: Text(
+              '${ann.name} (음력 ${ann.lunarMonth}/${ann.lunarDay})',
+              style: const TextStyle(color: Colors.black),
+            ),
             backgroundColor: color.withValues(alpha: 0.12),
             side: BorderSide(color: color.withValues(alpha: 0.4)),
           );
@@ -437,7 +440,7 @@ class _DayCell extends StatelessWidget {
     final lunarDate = lunar.solarToLunar(day);
     final lunarMonth = lunarDate.getMonth();
     final lunarDay = lunarDate.getDay();
-    final lunarLabel = lunarDay == 1 ? '$lunarMonth월' : '$lunarDay';
+    final lunarLabel = '$lunarMonth/$lunarDay';
 
     Color? bgColor;
     Color textColor = cs.onSurface;
