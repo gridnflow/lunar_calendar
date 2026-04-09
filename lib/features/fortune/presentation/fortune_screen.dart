@@ -10,6 +10,7 @@ class FortuneScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final lunar = ref.read(lunarServiceProvider);
     final profileAsync = ref.watch(userProfileProvider);
+    final fortuneAsync = ref.watch(todayFortuneProvider);
 
     final todayLunar = lunar.todayLunarString();
     final dayPillar = lunar.todayDayPillar();
@@ -18,12 +19,20 @@ class FortuneScreen extends ConsumerWidget {
     final solarTerm = lunar.todaySolarTerm();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Today\'s Fortune')),
+      appBar: AppBar(
+        title: const Text('오늘의 운세'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () => ref.invalidate(todayFortuneProvider),
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
           _InfoCard(
-            title: 'Today',
+            title: '오늘',
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -48,14 +57,28 @@ class FortuneScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 16),
+          // Fortune text card
+          _InfoCard(
+            title: '운세',
+            child: fortuneAsync.when(
+              loading: () => const Padding(
+                padding: EdgeInsets.symmetric(vertical: 24),
+                child: Center(child: CircularProgressIndicator()),
+              ),
+              error: (e, _) => Text('운세를 불러올 수 없습니다: $e',
+                  style: TextStyle(color: Theme.of(context).colorScheme.error)),
+              data: (text) => _FortuneText(text: text),
+            ),
+          ),
+          const SizedBox(height: 16),
           profileAsync.when(
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (e, _) => const SizedBox.shrink(),
             data: (profile) {
               if (profile == null || profile.birthYear == 0) {
                 return const _InfoCard(
-                  title: 'Your Saju (四柱)',
-                  child: Text('Enter your birth info in Settings to see your four pillars.'),
+                  title: '사주 (四柱)',
+                  child: Text('Settings에서 생년월일을 입력하면 사주를 볼 수 있습니다.'),
                 );
               }
 
@@ -72,7 +95,7 @@ class FortuneScreen extends ConsumerWidget {
               );
 
               return _InfoCard(
-                title: 'Your Saju (四柱)',
+                title: '사주 (四柱)',
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -88,6 +111,58 @@ class FortuneScreen extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _FortuneText extends StatelessWidget {
+  final String text;
+  const _FortuneText({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final sections = text.split('\n\n');
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: sections.map((section) {
+        if (section.trim().isEmpty) return const SizedBox.shrink();
+        // Bold header if starts with **
+        if (section.startsWith('**')) {
+          final end = section.indexOf('**', 2);
+          if (end != -1) {
+            final title = section.substring(2, end);
+            final body = section.substring(end + 2).trim();
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: cs.primaryContainer,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Text(title,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: cs.onPrimaryContainer,
+                            fontSize: 13)),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(body, style: const TextStyle(height: 1.6)),
+                ],
+              ),
+            );
+          }
+        }
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: Text(section, style: const TextStyle(height: 1.6)),
+        );
+      }).toList(),
     );
   }
 }
@@ -146,7 +221,10 @@ class _SajuColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(label, style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant)),
+        Text(label,
+            style: TextStyle(
+                fontSize: 12,
+                color: Theme.of(context).colorScheme.onSurfaceVariant)),
         const SizedBox(height: 4),
         Text(value, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
       ],

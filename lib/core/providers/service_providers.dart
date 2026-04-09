@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:googleapis/calendar/v3.dart' as gcal;
 
 import '../models/family_anniversary.dart';
@@ -7,6 +8,7 @@ import '../models/user_profile.dart';
 import '../services/anniversary_service.dart';
 import '../services/auth_service.dart';
 import '../services/calendar_service.dart';
+import '../services/fortune_service.dart';
 import '../services/lunar_service.dart';
 import '../services/notification_service.dart';
 import '../services/user_service.dart';
@@ -54,4 +56,40 @@ final anniversariesProvider = StreamProvider<List<FamilyAnniversary>>((ref) {
   final uid = ref.watch(currentUserIdProvider);
   if (uid == null) return const Stream.empty();
   return ref.read(anniversaryServiceProvider).watchAnniversaries(uid);
+});
+
+final fortuneServiceProvider = Provider<FortuneService>((ref) {
+  final apiKey = dotenv.maybeGet('GEMINI_API_KEY') ?? '';
+  return FortuneService(apiKey: apiKey);
+});
+
+/// Today's fortune text (cached per session).
+final todayFortuneProvider = FutureProvider<String>((ref) async {
+  final lunar = ref.read(lunarServiceProvider);
+  final profile = await ref.watch(userProfileProvider.future);
+  final fortune = ref.read(fortuneServiceProvider);
+
+  Map<String, String>? saju;
+  if (profile != null && profile.birthYear != 0) {
+    final birthDate = profile.isLunarBirth
+        ? lunar.lunarToSolar(profile.birthYear, profile.birthMonth, profile.birthDay)
+        : DateTime(profile.birthYear, profile.birthMonth, profile.birthDay);
+    saju = lunar.getSaju(
+      year: birthDate.year,
+      month: birthDate.month,
+      day: birthDate.day,
+      hour: profile.birthHour,
+    );
+  }
+
+  return fortune.getTodayFortune(
+    yearPillar: lunar.todayYearPillar(),
+    monthPillar: lunar.todayMonthPillar(),
+    dayPillar: lunar.todayDayPillar(),
+    lunarDate: lunar.todayLunarString(),
+    sajuYear: saju?['year'],
+    sajuMonth: saju?['month'],
+    sajuDay: saju?['day'],
+    sajuHour: saju?['hour'],
+  );
 });
