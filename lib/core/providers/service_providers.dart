@@ -12,6 +12,7 @@ import '../services/fortune_service.dart';
 import '../services/lunar_service.dart';
 import '../services/notification_service.dart';
 import '../services/user_service.dart';
+import '../services/widget_service.dart';
 
 final authServiceProvider = Provider<AuthService>((ref) => AuthService());
 
@@ -74,6 +75,9 @@ final anniversaryNotificationSchedulerProvider = Provider<void>((ref) {
   });
 });
 
+final widgetServiceProvider =
+    Provider<WidgetService>((ref) => WidgetService());
+
 /// Today's fortune text (cached per session).
 final todayFortuneProvider = FutureProvider<String>((ref) async {
   final lunar = ref.read(lunarServiceProvider);
@@ -93,7 +97,7 @@ final todayFortuneProvider = FutureProvider<String>((ref) async {
     );
   }
 
-  return fortune.getTodayFortune(
+  final text = await fortune.getTodayFortune(
     yearPillar: lunar.todayYearPillar(),
     monthPillar: lunar.todayMonthPillar(),
     dayPillar: lunar.todayDayPillar(),
@@ -103,4 +107,13 @@ final todayFortuneProvider = FutureProvider<String>((ref) async {
     sajuDay: saju?['day'],
     sajuHour: saju?['hour'],
   );
+
+  // 위젯 데이터 갱신 (fire-and-forget)
+  ref.read(widgetServiceProvider).updateWidgets(
+        lunar: lunar,
+        profile: profile,
+        fortuneText: text,
+      );
+
+  return text;
 });

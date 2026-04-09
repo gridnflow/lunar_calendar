@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/widget_background"
+    android:padding="12dp">
+
+    <!-- 양력 날짜 -->
+    <TextView
+        android:id="@+id/widget_solar_full"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="----년 --월 --일"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="#FF000000" />
+
+    <!-- 음력 날짜 -->
+    <TextView
+        android:id="@+id/widget_lunar_full"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="음력 --월 --일"
+        android:textSize="11sp"
+        android:textColor="#AA000000" />
+
+    <!-- 구분선 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#22000000" />
+
+    <!-- 일주 -->
+    <TextView
+        android:id="@+id/widget_day_pillar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="일주 --"
+        android:textSize="12sp"
+        android:textColor="#FF000000" />
+
+    <!-- 절기 -->
+    <TextView
+        android:id="@+id/widget_solar_term"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text=""
+        android:textSize="11sp"
+        android:textColor="#FF6200EE" />
+
+</LinearLayout>
