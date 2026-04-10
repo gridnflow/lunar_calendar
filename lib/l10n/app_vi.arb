@@ -1,0 +1,127 @@
+{
+  "@@locale": "vi",
+
+  "appTitle": "Lịch Âm",
+
+  "navCalendar": "Lịch",
+  "navFortune": "Tử vi",
+  "navFamily": "Gia đình",
+  "navSettings": "Cài đặt",
+
+  "calendarTitle": "Lịch",
+  "calendarNoEvents": "Không có sự kiện trong ngày này",
+  "calendarConnectRequired": "Cần kết nối Google Calendar",
+  "calendarRetry": "Thử lại",
+  "calendarAddAnniversary": "Thêm ngày kỷ niệm",
+  "calendarAnniversaryList": "Danh sách kỷ niệm",
+
+  "anniversaryAdd": "Thêm ngày kỷ niệm",
+  "anniversaryName": "Tên (ví dụ: Giỗ bà nội)",
+  "anniversaryType_jesa": "Giỗ",
+  "anniversaryType_birthday": "Sinh nhật",
+  "anniversaryType_other": "Khác",
+  "anniversaryLunarHint": "Vui lòng nhập ngày theo âm lịch.\nVD: Sinh nhật âm lịch 15/3 → chọn tháng 3, ngày 15",
+  "anniversaryLunarMonth": "Tháng âm lịch",
+  "anniversaryLunarDay": "Ngày âm lịch",
+  "anniversaryLeapMonth": "Tháng nhuận",
+  "anniversaryCancel": "Hủy",
+  "anniversarySave": "Lưu",
+  "anniversaryDelete": "Xóa kỷ niệm",
+  "anniversaryDeleteConfirm": "Xóa \"{name}\"?",
+  "@anniversaryDeleteConfirm": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryAdded": "Đã thêm {name}",
+  "@anniversaryAdded": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryDeleted": "Đã xóa \"{name}\"",
+  "@anniversaryDeleted": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryEmpty": "Chưa có ngày kỷ niệm nào",
+  "anniversaryListTitle": "Danh sách kỷ niệm",
+  "anniversaryClose": "Đóng",
+
+  "fortuneTitle": "Tử vi hôm nay",
+  "fortuneLoading": "Đang tải tử vi...",
+  "fortuneError": "Không thể tải tử vi: {error}",
+  "@fortuneError": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "fortuneSaju": "Tứ trụ",
+  "fortuneSajuPrompt": "Nhập ngày sinh trong Cài đặt để xem Tứ trụ.",
+  "fortuneToday": "Hôm nay",
+  "fortuneSolarTerm": "Tiết khí: {term}",
+  "@fortuneSolarTerm": {
+    "placeholders": { "term": { "type": "String" } }
+  },
+
+  "familyTitle": "Kỷ niệm gia đình",
+  "familyEmpty": "Chưa có ngày kỷ niệm nào",
+  "familyAddButton": "Thêm kỷ niệm",
+
+  "settingsTitle": "Cài đặt",
+  "settingsBirthDate": "Ngày sinh",
+  "settingsRegisterBirthday": "Đăng ký sinh nhật vào Google Calendar",
+  "settingsSignOut": "Đăng xuất",
+  "settingsBirthdayDialogTitle": "Đăng ký sinh nhật",
+  "settingsBirthdayDialogBody": "Đăng ký sinh nhật âm lịch ({month}/{day}) vào Google Calendar cho 20 năm?",
+  "@settingsBirthdayDialogBody": {
+    "placeholders": {
+      "month": { "type": "int" },
+      "day": { "type": "int" }
+    }
+  },
+  "settingsBirthdayRegistered": "Đã đăng ký {count} sự kiện sinh nhật!",
+  "@settingsBirthdayRegistered": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "settingsBirthdayNone": "Không tìm thấy ngày sinh. Vui lòng nhập trong quá trình giới thiệu.",
+  "settingsLegalTitle": "Thông tin & Pháp lý",
+  "settingsPrivacy": "Chính sách bảo mật",
+  "settingsPrivacyBody": "Ứng dụng thu thập tên và email qua Google Sign-In, lưu ngày sinh vào Firestore. Thông tin chỉ dùng để tính tử vi và tứ trụ, không chia sẻ với bên thứ ba.",
+  "settingsCalendarPermission": "Quyền Google Calendar",
+  "settingsCalendarPermissionBody": "Khi dùng tính năng đồng bộ, chúng tôi yêu cầu quyền đọc/ghi Google Calendar. Quyền này chỉ dùng để xem lịch và đăng ký sinh nhật âm lịch.",
+  "settingsNotificationPermission": "Quyền thông báo",
+  "settingsNotificationPermissionBody": "Thông báo cục bộ nhắc nhở kỷ niệm (trước 7 ngày, 3 ngày và ngay hôm đó). Thông báo chỉ xử lý trên thiết bị, không gửi đến máy chủ bên ngoài.",
+  "settingsAI": "Tử vi AI (Gemini)",
+  "settingsAIBody": "Tử vi hôm nay được tạo bởi Google Gemini API. Thông tin tứ trụ có thể được gửi khi tạo. Chuyển sang tử vi cục bộ sau 1.200 lần/ngày.",
+  "settingsAdMob": "Quảng cáo (AdMob)",
+  "settingsAdMobBody": "Ứng dụng hiển thị quảng cáo qua Google AdMob. AdMob có thể thu thập mã định danh thiết bị để tối ưu hóa quảng cáo. Xem Chính sách bảo mật của Google để biết thêm.",
+  "settingsVersion": "Phiên bản {version}  ·  © 2026 Gridnflow",
+  "@settingsVersion": {
+    "placeholders": { "version": { "type": "String" } }
+  },
+
+  "onboardingTitle": "Cho chúng tôi biết ngày sinh của bạn",
+  "onboardingSubtitle": "Dùng để tính tử vi và tứ trụ.\nBạn có thể thay đổi sau trong Cài đặt.",
+  "onboardingSolar": "Dương lịch",
+  "onboardingLunar": "Âm lịch",
+  "onboardingSolarHint": "Nhập ngày dương lịch (VD: ngày 20 tháng 4 năm 1990)",
+  "onboardingLunarHint": "Nhập ngày âm lịch (VD: âm lịch 15/3)",
+  "onboardingYear": "Năm",
+  "onboardingMonth": "Tháng",
+  "onboardingDay": "Ngày",
+  "onboardingHour": "Giờ sinh (tùy chọn, 0–23)",
+  "onboardingStart": "Bắt đầu",
+  "onboardingSkip": "Nhập sau",
+  "onboardingRequired": "Bắt buộc",
+  "onboardingRange": "{min}–{max}",
+  "@onboardingRange": {
+    "placeholders": {
+      "min": { "type": "int" },
+      "max": { "type": "int" }
+    }
+  },
+
+  "loginTitle": "Đăng nhập để tiếp tục",
+  "loginGoogle": "Tiếp tục bằng Google",
+
+  "languageSelect": "Chọn ngôn ngữ",
+  "languageEn": "English",
+  "languageKo": "한국어",
+  "languageJa": "日本語",
+  "languageZhHans": "简体中文",
+  "languageZhHant": "繁體中文"
+}

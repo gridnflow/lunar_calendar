@@ -8,8 +8,10 @@ import '../../features/auth/presentation/login_screen.dart';
 import '../../features/calendar/presentation/calendar_screen.dart';
 import '../../features/family/presentation/family_screen.dart';
 import '../../features/fortune/presentation/fortune_screen.dart';
+import '../../features/onboarding/presentation/language_screen.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
+import '../providers/locale_provider.dart';
 import '../providers/service_providers.dart';
 import '../services/ad_service.dart'; // AdIds.banner
 
@@ -36,10 +38,11 @@ final routerProvider = Provider<GoRouter>((ref) {
 
       final profile = profileAsync.valueOrNull;
       final needsOnboarding = profile == null;
-      final onOnboarding = loc == '/onboarding';
+      final onOnboardingFlow =
+          loc == '/language' || loc == '/onboarding';
 
-      if (needsOnboarding && !onOnboarding) return '/onboarding';
-      if (!needsOnboarding && (loc == '/login' || onOnboarding)) {
+      if (needsOnboarding && !onOnboardingFlow) return '/language';
+      if (!needsOnboarding && (loc == '/login' || onOnboardingFlow)) {
         return '/calendar';
       }
       return null;
@@ -48,6 +51,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/login',
         builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: '/language',
+        builder: (context, state) => const LanguageScreen(),
       ),
       GoRoute(
         path: '/onboarding',

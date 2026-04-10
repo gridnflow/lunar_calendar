@@ -1,0 +1,127 @@
+{
+  "@@locale": "zh",
+
+  "appTitle": "农历日历",
+
+  "navCalendar": "日历",
+  "navFortune": "运势",
+  "navFamily": "家人",
+  "navSettings": "设置",
+
+  "calendarTitle": "日历",
+  "calendarNoEvents": "当天没有日程",
+  "calendarConnectRequired": "需要连接 Google 日历",
+  "calendarRetry": "重试",
+  "calendarAddAnniversary": "添加纪念日",
+  "calendarAnniversaryList": "纪念日列表",
+
+  "anniversaryAdd": "添加纪念日",
+  "anniversaryName": "名称（例：祖母忌日）",
+  "anniversaryType_jesa": "祭祀",
+  "anniversaryType_birthday": "生日",
+  "anniversaryType_other": "其他",
+  "anniversaryLunarHint": "请按农历输入日期。\n例）农历生日3月15日→选择3月15日",
+  "anniversaryLunarMonth": "农历月",
+  "anniversaryLunarDay": "农历日",
+  "anniversaryLeapMonth": "闰月",
+  "anniversaryCancel": "取消",
+  "anniversarySave": "保存",
+  "anniversaryDelete": "删除纪念日",
+  "anniversaryDeleteConfirm": "确定删除\"{name}\"？",
+  "@anniversaryDeleteConfirm": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryAdded": "已添加 {name}",
+  "@anniversaryAdded": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryDeleted": "已删除\"{name}\"",
+  "@anniversaryDeleted": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryEmpty": "暂无纪念日",
+  "anniversaryListTitle": "纪念日列表",
+  "anniversaryClose": "关闭",
+
+  "fortuneTitle": "今日运势",
+  "fortuneLoading": "正在加载运势...",
+  "fortuneError": "无法加载运势: {error}",
+  "@fortuneError": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "fortuneSaju": "四柱八字",
+  "fortuneSajuPrompt": "在设置中输入生日即可查看四柱八字。",
+  "fortuneToday": "今天",
+  "fortuneSolarTerm": "节气: {term}",
+  "@fortuneSolarTerm": {
+    "placeholders": { "term": { "type": "String" } }
+  },
+
+  "familyTitle": "家人纪念日",
+  "familyEmpty": "暂无纪念日",
+  "familyAddButton": "添加纪念日",
+
+  "settingsTitle": "设置",
+  "settingsBirthDate": "生日",
+  "settingsRegisterBirthday": "将生日注册到 Google 日历",
+  "settingsSignOut": "退出登录",
+  "settingsBirthdayDialogTitle": "注册我的生日",
+  "settingsBirthdayDialogBody": "将农历生日（{month}月{day}日）注册到 Google 日历20年？",
+  "@settingsBirthdayDialogBody": {
+    "placeholders": {
+      "month": { "type": "int" },
+      "day": { "type": "int" }
+    }
+  },
+  "settingsBirthdayRegistered": "已注册 {count} 个生日日程！",
+  "@settingsBirthdayRegistered": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "settingsBirthdayNone": "未找到生日信息，请在引导页输入。",
+  "settingsLegalTitle": "信息与法律声明",
+  "settingsPrivacy": "隐私政策",
+  "settingsPrivacyBody": "本应用通过Google登录收集姓名和邮箱，并将生日存储在Firestore中。所收集信息仅用于运势和四柱八字计算，不会提供给第三方。",
+  "settingsCalendarPermission": "Google 日历权限",
+  "settingsCalendarPermissionBody": "使用日历同步功能时，将请求Google日历的读写权限。该权限仅用于查看日程和注册农历生日。",
+  "settingsNotificationPermission": "通知权限",
+  "settingsNotificationPermissionBody": "使用本地通知提醒纪念日（提前7天、3天及当天）。通知仅在设备本地处理，不会发送到外部服务器。",
+  "settingsAI": "AI 运势（Gemini）",
+  "settingsAIBody": "今日运势由Google Gemini API生成。生成时可能会发送四柱信息。每日超过1200次后将切换为本地运势。",
+  "settingsAdMob": "广告（AdMob）",
+  "settingsAdMobBody": "本应用通过Google AdMob展示广告。AdMob可能收集设备标识符等信息用于广告优化。详情请参阅Google隐私政策。",
+  "settingsVersion": "Version {version}  ·  © 2026 Gridnflow",
+  "@settingsVersion": {
+    "placeholders": { "version": { "type": "String" } }
+  },
+
+  "onboardingTitle": "请告诉我们您的生日",
+  "onboardingSubtitle": "用于运势和四柱八字计算。\n之后可在设置中修改。",
+  "onboardingSolar": "阳历生日",
+  "onboardingLunar": "农历生日",
+  "onboardingSolarHint": "请输入阳历日期（例：1990年4月20日）",
+  "onboardingLunarHint": "请输入农历日期（例：农历3月15日）",
+  "onboardingYear": "年",
+  "onboardingMonth": "月",
+  "onboardingDay": "日",
+  "onboardingHour": "出生时辰（可选，0–23）",
+  "onboardingStart": "开始",
+  "onboardingSkip": "稍后输入",
+  "onboardingRequired": "必填",
+  "onboardingRange": "{min}–{max}",
+  "@onboardingRange": {
+    "placeholders": {
+      "min": { "type": "int" },
+      "max": { "type": "int" }
+    }
+  },
+
+  "loginTitle": "登录后开始",
+  "loginGoogle": "使用 Google 继续",
+
+  "languageSelect": "选择语言",
+  "languageEn": "English",
+  "languageKo": "한국어",
+  "languageJa": "日本語",
+  "languageZhHans": "简体中文",
+  "languageZhHant": "繁體中文"
+}

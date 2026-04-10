@@ -1,0 +1,127 @@
+{
+  "@@locale": "ja",
+
+  "appTitle": "旧暦カレンダー",
+
+  "navCalendar": "カレンダー",
+  "navFortune": "運勢",
+  "navFamily": "家族",
+  "navSettings": "設定",
+
+  "calendarTitle": "カレンダー",
+  "calendarNoEvents": "この日の予定はありません",
+  "calendarConnectRequired": "Google カレンダーの接続が必要です",
+  "calendarRetry": "再試行",
+  "calendarAddAnniversary": "記念日を追加",
+  "calendarAnniversaryList": "記念日リスト",
+
+  "anniversaryAdd": "記念日を追加",
+  "anniversaryName": "名前（例：祖母の法事）",
+  "anniversaryType_jesa": "法事",
+  "anniversaryType_birthday": "誕生日",
+  "anniversaryType_other": "その他",
+  "anniversaryLunarHint": "日付は旧暦で入力してください。\n例）旧暦誕生日が3月15日なら3月・15日を選択",
+  "anniversaryLunarMonth": "旧暦 月",
+  "anniversaryLunarDay": "旧暦 日",
+  "anniversaryLeapMonth": "閏月",
+  "anniversaryCancel": "キャンセル",
+  "anniversarySave": "保存",
+  "anniversaryDelete": "記念日を削除",
+  "anniversaryDeleteConfirm": "「{name}」を削除しますか？",
+  "@anniversaryDeleteConfirm": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryAdded": "{name} を追加しました",
+  "@anniversaryAdded": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryDeleted": "「{name}」を削除しました",
+  "@anniversaryDeleted": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryEmpty": "登録された記念日はありません",
+  "anniversaryListTitle": "記念日リスト",
+  "anniversaryClose": "閉じる",
+
+  "fortuneTitle": "今日の運勢",
+  "fortuneLoading": "運勢を読み込んでいます...",
+  "fortuneError": "運勢を読み込めません: {error}",
+  "@fortuneError": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "fortuneSaju": "四柱推命",
+  "fortuneSajuPrompt": "設定で生年月日を入力すると四柱推命が表示されます。",
+  "fortuneToday": "今日",
+  "fortuneSolarTerm": "節気: {term}",
+  "@fortuneSolarTerm": {
+    "placeholders": { "term": { "type": "String" } }
+  },
+
+  "familyTitle": "家族の記念日",
+  "familyEmpty": "登録された記念日はありません",
+  "familyAddButton": "記念日を追加",
+
+  "settingsTitle": "設定",
+  "settingsBirthDate": "生年月日",
+  "settingsRegisterBirthday": "誕生日を Google カレンダーに登録",
+  "settingsSignOut": "サインアウト",
+  "settingsBirthdayDialogTitle": "誕生日を登録",
+  "settingsBirthdayDialogBody": "旧暦誕生日（{month}月{day}日）を\nGoogle カレンダーに20年分登録しますか？",
+  "@settingsBirthdayDialogBody": {
+    "placeholders": {
+      "month": { "type": "int" },
+      "day": { "type": "int" }
+    }
+  },
+  "settingsBirthdayRegistered": "{count}件の誕生日を登録しました！",
+  "@settingsBirthdayRegistered": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "settingsBirthdayNone": "生年月日が登録されていません。オンボーディングで入力してください。",
+  "settingsLegalTitle": "情報・法的通知",
+  "settingsPrivacy": "プライバシーポリシー",
+  "settingsPrivacyBody": "本アプリはGoogleログインを通じて氏名・メールアドレスを取得し、入力された生年月日をFirestoreに保存します。収集した情報は運勢・四柱推命の計算にのみ使用し、第三者に提供しません。",
+  "settingsCalendarPermission": "Google カレンダー権限",
+  "settingsCalendarPermissionBody": "カレンダー連携機能の使用時に読み取り/書き込み権限を要求します。この権限は予定の閲覧と旧暦誕生日の登録にのみ使用されます。",
+  "settingsNotificationPermission": "通知権限",
+  "settingsNotificationPermissionBody": "記念日の事前通知（7日前・3日前・当日）のためにローカル通知を使用します。通知は端末内でのみ処理され、外部サーバーには送信されません。",
+  "settingsAI": "AI 運勢（Gemini）",
+  "settingsAIBody": "今日の運勢はGoogle Gemini APIで生成されます。生成時に四柱情報が送信される場合があります。1日1,200回超過時はローカル運勢に切り替わります。",
+  "settingsAdMob": "広告（AdMob）",
+  "settingsAdMobBody": "本アプリはGoogle AdMobを通じて広告を表示します。AdMobは広告最適化のためデバイス識別子等の情報を収集することがあります。詳細はGoogleのプライバシーポリシーをご参照ください。",
+  "settingsVersion": "Version {version}  ·  © 2026 Gridnflow",
+  "@settingsVersion": {
+    "placeholders": { "version": { "type": "String" } }
+  },
+
+  "onboardingTitle": "生年月日を教えてください",
+  "onboardingSubtitle": "運勢・四柱推命に活用されます。\n後で設定から変更できます。",
+  "onboardingSolar": "新暦（陽暦）",
+  "onboardingLunar": "旧暦（陰暦）",
+  "onboardingSolarHint": "新暦で入力してください（例：1990年4月20日）",
+  "onboardingLunarHint": "旧暦で入力してください（例：旧暦3月15日）",
+  "onboardingYear": "年",
+  "onboardingMonth": "月",
+  "onboardingDay": "日",
+  "onboardingHour": "生まれた時間（任意、0〜23）",
+  "onboardingStart": "始める",
+  "onboardingSkip": "後で入力する",
+  "onboardingRequired": "必須",
+  "onboardingRange": "{min}〜{max}",
+  "@onboardingRange": {
+    "placeholders": {
+      "min": { "type": "int" },
+      "max": { "type": "int" }
+    }
+  },
+
+  "loginTitle": "ログインして始めましょう",
+  "loginGoogle": "Googleで続ける",
+
+  "languageSelect": "言語を選択",
+  "languageEn": "English",
+  "languageKo": "한국어",
+  "languageJa": "日本語",
+  "languageZhHans": "简体中文",
+  "languageZhHant": "繁體中文"
+}

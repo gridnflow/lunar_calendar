@@ -1,0 +1,127 @@
+{
+  "@@locale": "ru",
+
+  "appTitle": "Лунный календарь",
+
+  "navCalendar": "Календарь",
+  "navFortune": "Гороскоп",
+  "navFamily": "Семья",
+  "navSettings": "Настройки",
+
+  "calendarTitle": "Календарь",
+  "calendarNoEvents": "Событий на этот день нет",
+  "calendarConnectRequired": "Требуется подключение Google Календаря",
+  "calendarRetry": "Повторить",
+  "calendarAddAnniversary": "Добавить дату",
+  "calendarAnniversaryList": "Список дат",
+
+  "anniversaryAdd": "Добавить дату",
+  "anniversaryName": "Название (например: Поминки бабушки)",
+  "anniversaryType_jesa": "Поминки",
+  "anniversaryType_birthday": "День рождения",
+  "anniversaryType_other": "Другое",
+  "anniversaryLunarHint": "Введите дату по лунному календарю.\nПример: Лунный ДР 15/3 → выберите месяц 3, день 15",
+  "anniversaryLunarMonth": "Лунный месяц",
+  "anniversaryLunarDay": "Лунный день",
+  "anniversaryLeapMonth": "Високосный месяц",
+  "anniversaryCancel": "Отмена",
+  "anniversarySave": "Сохранить",
+  "anniversaryDelete": "Удалить дату",
+  "anniversaryDeleteConfirm": "Удалить \"{name}\"?",
+  "@anniversaryDeleteConfirm": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryAdded": "{name} добавлен(а)",
+  "@anniversaryAdded": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryDeleted": "\"{name}\" удалён(а)",
+  "@anniversaryDeleted": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryEmpty": "Нет зарегистрированных дат",
+  "anniversaryListTitle": "Список дат",
+  "anniversaryClose": "Закрыть",
+
+  "fortuneTitle": "Гороскоп на сегодня",
+  "fortuneLoading": "Загрузка гороскопа...",
+  "fortuneError": "Не удалось загрузить гороскоп: {error}",
+  "@fortuneError": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "fortuneSaju": "Четыре столпа судьбы",
+  "fortuneSajuPrompt": "Введите дату рождения в Настройках, чтобы увидеть Четыре столпа.",
+  "fortuneToday": "Сегодня",
+  "fortuneSolarTerm": "Сезон: {term}",
+  "@fortuneSolarTerm": {
+    "placeholders": { "term": { "type": "String" } }
+  },
+
+  "familyTitle": "Семейные даты",
+  "familyEmpty": "Нет зарегистрированных дат",
+  "familyAddButton": "Добавить дату",
+
+  "settingsTitle": "Настройки",
+  "settingsBirthDate": "Дата рождения",
+  "settingsRegisterBirthday": "Добавить день рождения в Google Календарь",
+  "settingsSignOut": "Выйти",
+  "settingsBirthdayDialogTitle": "Зарегистрировать день рождения",
+  "settingsBirthdayDialogBody": "Добавить лунный день рождения ({month}/{day}) в Google Календарь на 20 лет?",
+  "@settingsBirthdayDialogBody": {
+    "placeholders": {
+      "month": { "type": "int" },
+      "day": { "type": "int" }
+    }
+  },
+  "settingsBirthdayRegistered": "Зарегистрировано {count} событий!",
+  "@settingsBirthdayRegistered": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "settingsBirthdayNone": "Дата рождения не найдена. Пожалуйста, введите её при первом запуске.",
+  "settingsLegalTitle": "Информация и правовые уведомления",
+  "settingsPrivacy": "Политика конфиденциальности",
+  "settingsPrivacyBody": "Приложение собирает имя и email через Google Sign-In и сохраняет дату рождения в Firestore. Данные используются только для расчёта гороскопа и четырёх столпов, третьим лицам не передаются.",
+  "settingsCalendarPermission": "Разрешение Google Календаря",
+  "settingsCalendarPermissionBody": "При синхронизации запрашивается доступ на чтение/запись Google Календаря. Разрешение используется только для просмотра событий и регистрации лунных дней рождения.",
+  "settingsNotificationPermission": "Разрешение на уведомления",
+  "settingsNotificationPermissionBody": "Локальные уведомления напоминают о датах (за 7 дней, 3 дня и в сам день). Уведомления обрабатываются только на устройстве и не отправляются на внешние серверы.",
+  "settingsAI": "ИИ-гороскоп (Gemini)",
+  "settingsAIBody": "Ежедневный гороскоп создаётся с помощью Google Gemini API. При генерации могут передаваться данные четырёх столпов. После 1200 запросов в день переключается на локальный гороскоп.",
+  "settingsAdMob": "Реклама (AdMob)",
+  "settingsAdMobBody": "Приложение показывает рекламу через Google AdMob. AdMob может собирать идентификаторы устройств для оптимизации рекламы. Подробнее — в Политике конфиденциальности Google.",
+  "settingsVersion": "Версия {version}  ·  © 2026 Gridnflow",
+  "@settingsVersion": {
+    "placeholders": { "version": { "type": "String" } }
+  },
+
+  "onboardingTitle": "Укажите дату рождения",
+  "onboardingSubtitle": "Используется для гороскопа и четырёх столпов.\nМожно изменить позже в Настройках.",
+  "onboardingSolar": "Григорианский календарь",
+  "onboardingLunar": "Лунный календарь",
+  "onboardingSolarHint": "Введите дату по григорианскому календарю (например: 20 апреля 1990)",
+  "onboardingLunarHint": "Введите дату по лунному календарю (например: лунный 15/3)",
+  "onboardingYear": "Год",
+  "onboardingMonth": "Месяц",
+  "onboardingDay": "День",
+  "onboardingHour": "Час рождения (необязательно, 0–23)",
+  "onboardingStart": "Начать",
+  "onboardingSkip": "Ввести позже",
+  "onboardingRequired": "Обязательно",
+  "onboardingRange": "{min}–{max}",
+  "@onboardingRange": {
+    "placeholders": {
+      "min": { "type": "int" },
+      "max": { "type": "int" }
+    }
+  },
+
+  "loginTitle": "Войдите, чтобы продолжить",
+  "loginGoogle": "Продолжить с Google",
+
+  "languageSelect": "Выберите язык",
+  "languageEn": "English",
+  "languageKo": "한국어",
+  "languageJa": "日本語",
+  "languageZhHans": "简体中文",
+  "languageZhHant": "繁體中文"
+}

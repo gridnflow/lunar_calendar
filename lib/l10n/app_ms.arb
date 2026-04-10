@@ -1,0 +1,127 @@
+{
+  "@@locale": "ms",
+
+  "appTitle": "Kalendar Lunar",
+
+  "navCalendar": "Kalendar",
+  "navFortune": "Ramalan",
+  "navFamily": "Keluarga",
+  "navSettings": "Tetapan",
+
+  "calendarTitle": "Kalendar",
+  "calendarNoEvents": "Tiada acara pada hari ini",
+  "calendarConnectRequired": "Sambungan Google Calendar diperlukan",
+  "calendarRetry": "Cuba lagi",
+  "calendarAddAnniversary": "Tambah Ulang Tahun",
+  "calendarAnniversaryList": "Senarai Ulang Tahun",
+
+  "anniversaryAdd": "Tambah Ulang Tahun",
+  "anniversaryName": "Nama (cth: Arwah nenek)",
+  "anniversaryType_jesa": "Arwah",
+  "anniversaryType_birthday": "Hari Lahir",
+  "anniversaryType_other": "Lain-lain",
+  "anniversaryLunarHint": "Sila masukkan tarikh mengikut kalendar lunar.\nCth: Hari lahir lunar 15/3 → pilih bulan 3, hari 15",
+  "anniversaryLunarMonth": "Bulan lunar",
+  "anniversaryLunarDay": "Hari lunar",
+  "anniversaryLeapMonth": "Bulan lompat",
+  "anniversaryCancel": "Batal",
+  "anniversarySave": "Simpan",
+  "anniversaryDelete": "Padam Ulang Tahun",
+  "anniversaryDeleteConfirm": "Padam \"{name}\"?",
+  "@anniversaryDeleteConfirm": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryAdded": "{name} telah ditambah",
+  "@anniversaryAdded": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryDeleted": "\"{name}\" dipadam",
+  "@anniversaryDeleted": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryEmpty": "Tiada ulang tahun didaftarkan",
+  "anniversaryListTitle": "Senarai Ulang Tahun",
+  "anniversaryClose": "Tutup",
+
+  "fortuneTitle": "Ramalan Hari Ini",
+  "fortuneLoading": "Memuatkan ramalan...",
+  "fortuneError": "Tidak dapat memuatkan ramalan: {error}",
+  "@fortuneError": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "fortuneSaju": "Empat Tiang",
+  "fortuneSajuPrompt": "Masukkan tarikh lahir dalam Tetapan untuk melihat Empat Tiang.",
+  "fortuneToday": "Hari ini",
+  "fortuneSolarTerm": "Musim: {term}",
+  "@fortuneSolarTerm": {
+    "placeholders": { "term": { "type": "String" } }
+  },
+
+  "familyTitle": "Ulang Tahun Keluarga",
+  "familyEmpty": "Tiada ulang tahun didaftarkan",
+  "familyAddButton": "Tambah Ulang Tahun",
+
+  "settingsTitle": "Tetapan",
+  "settingsBirthDate": "Tarikh Lahir",
+  "settingsRegisterBirthday": "Daftar Hari Lahir ke Google Calendar",
+  "settingsSignOut": "Log Keluar",
+  "settingsBirthdayDialogTitle": "Daftar Hari Lahir Saya",
+  "settingsBirthdayDialogBody": "Daftar hari lahir lunar ({month}/{day}) ke Google Calendar selama 20 tahun?",
+  "@settingsBirthdayDialogBody": {
+    "placeholders": {
+      "month": { "type": "int" },
+      "day": { "type": "int" }
+    }
+  },
+  "settingsBirthdayRegistered": "{count} acara hari lahir telah didaftarkan!",
+  "@settingsBirthdayRegistered": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "settingsBirthdayNone": "Tarikh lahir tidak ditemui. Sila masukkan semasa orientasi.",
+  "settingsLegalTitle": "Maklumat & Undang-undang",
+  "settingsPrivacy": "Dasar Privasi",
+  "settingsPrivacyBody": "Aplikasi ini mengumpul nama dan e-mel melalui Google Sign-In, dan menyimpan tarikh lahir di Firestore. Maklumat hanya digunakan untuk pengiraan ramalan dan tidak dikongsi dengan pihak ketiga.",
+  "settingsCalendarPermission": "Kebenaran Google Calendar",
+  "settingsCalendarPermissionBody": "Semasa menggunakan penyegerakan kalendar, kami meminta kebenaran baca/tulis Google Calendar. Kebenaran ini hanya digunakan untuk melihat acara dan mendaftar hari lahir lunar.",
+  "settingsNotificationPermission": "Kebenaran Pemberitahuan",
+  "settingsNotificationPermissionBody": "Pemberitahuan tempatan digunakan untuk mengingatkan ulang tahun (7 hari, 3 hari, dan pada hari tersebut). Pemberitahuan hanya diproses pada peranti dan tidak dihantar ke pelayan luar.",
+  "settingsAI": "Ramalan AI (Gemini)",
+  "settingsAIBody": "Ramalan harian dijana menggunakan Google Gemini API. Maklumat Empat Tiang mungkin dihantar semasa penjanaan. Digantikan dengan ramalan tempatan selepas 1,200 kali sehari.",
+  "settingsAdMob": "Iklan (AdMob)",
+  "settingsAdMobBody": "Aplikasi ini memaparkan iklan melalui Google AdMob. AdMob mungkin mengumpul pengecam peranti untuk pengoptimuman iklan. Lihat Dasar Privasi Google untuk maklumat lanjut.",
+  "settingsVersion": "Versi {version}  ·  © 2026 Gridnflow",
+  "@settingsVersion": {
+    "placeholders": { "version": { "type": "String" } }
+  },
+
+  "onboardingTitle": "Beritahu kami tarikh lahir anda",
+  "onboardingSubtitle": "Digunakan untuk ramalan dan Empat Tiang.\nAnda boleh menukarnya kemudian dalam Tetapan.",
+  "onboardingSolar": "Kalendar Masihi",
+  "onboardingLunar": "Kalendar Lunar",
+  "onboardingSolarHint": "Masukkan tarikh Masihi (cth: 20 April 1990)",
+  "onboardingLunarHint": "Masukkan tarikh lunar (cth: Lunar 15/3)",
+  "onboardingYear": "Tahun",
+  "onboardingMonth": "Bulan",
+  "onboardingDay": "Hari",
+  "onboardingHour": "Jam lahir (pilihan, 0–23)",
+  "onboardingStart": "Mulakan",
+  "onboardingSkip": "Isi kemudian",
+  "onboardingRequired": "Wajib",
+  "onboardingRange": "{min}–{max}",
+  "@onboardingRange": {
+    "placeholders": {
+      "min": { "type": "int" },
+      "max": { "type": "int" }
+    }
+  },
+
+  "loginTitle": "Log masuk untuk teruskan",
+  "loginGoogle": "Teruskan dengan Google",
+
+  "languageSelect": "Pilih Bahasa",
+  "languageEn": "English",
+  "languageKo": "한국어",
+  "languageJa": "日本語",
+  "languageZhHans": "简体中文",
+  "languageZhHant": "繁體中文"
+}

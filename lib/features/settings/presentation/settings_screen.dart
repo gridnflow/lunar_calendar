@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/providers/service_providers.dart';
 
@@ -156,6 +157,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             onPressed: () => _registerBirthday(context),
             icon: const Icon(Icons.cake),
             label: const Text('내 생일 Google Calendar에 등록'),
+            style: OutlinedButton.styleFrom(
+                minimumSize: const Size.fromHeight(48)),
+          ),
+          const SizedBox(height: 12),
+          OutlinedButton.icon(
+            onPressed: () => context.push('/language'),
+            icon: const Icon(Icons.language),
+            label: const Text('Language / 언어 설정'),
             style: OutlinedButton.styleFrom(
                 minimumSize: const Size.fromHeight(48)),
           ),

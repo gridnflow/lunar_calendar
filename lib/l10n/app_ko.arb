@@ -1,0 +1,141 @@
+{
+  "@@locale": "ko",
+
+  "appTitle": "음력 달력",
+
+  "navCalendar": "Calendar",
+  "navFortune": "Fortune",
+  "navFamily": "가족",
+  "navSettings": "Settings",
+
+  "calendarTitle": "Calendar",
+  "calendarNoEvents": "이 날의 일정이 없습니다",
+  "calendarConnectRequired": "Google Calendar 연결 필요",
+  "calendarRetry": "재시도",
+  "calendarAddAnniversary": "기념일 추가",
+  "calendarAnniversaryList": "기념일 목록",
+
+  "anniversaryAdd": "기념일 추가",
+  "anniversaryName": "이름 (예: 할아버지 제사)",
+  "anniversaryType_jesa": "제사",
+  "anniversaryType_birthday": "생일",
+  "anniversaryType_other": "기타",
+  "anniversaryLunarHint": "날짜는 음력으로 입력해주세요.\n예) 음력 생일이 3월 15일이면 3월, 15일 선택",
+  "anniversaryLunarMonth": "음력 월",
+  "anniversaryLunarDay": "음력 일",
+  "anniversaryLeapMonth": "윤달",
+  "anniversaryCancel": "취소",
+  "anniversarySave": "저장",
+  "anniversaryDelete": "기념일 삭제",
+  "anniversaryDeleteConfirm": "\"{name}\"을 삭제할까요?",
+  "@anniversaryDeleteConfirm": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "anniversaryAdded": "{name} 기념일이 추가됐습니다",
+  "@anniversaryAdded": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "anniversaryDeleted": "\"{name}\" 삭제됐습니다",
+  "@anniversaryDeleted": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "anniversaryEmpty": "등록된 기념일이 없습니다",
+  "anniversaryListTitle": "기념일 목록",
+  "anniversaryClose": "닫기",
+
+  "fortuneTitle": "오늘의 운세",
+  "fortuneLoading": "운세를 불러오는 중...",
+  "fortuneError": "운세를 불러올 수 없습니다: {error}",
+  "@fortuneError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "fortuneSaju": "사주 (四柱)",
+  "fortuneSajuPrompt": "Settings에서 생년월일을 입력하면 사주를 볼 수 있습니다.",
+  "fortuneToday": "오늘",
+  "fortuneSolarTerm": "절기: {term}",
+  "@fortuneSolarTerm": {
+    "placeholders": {
+      "term": { "type": "String" }
+    }
+  },
+
+  "familyTitle": "가족 기념일",
+  "familyEmpty": "등록된 기념일이 없습니다",
+  "familyAddButton": "기념일 추가",
+
+  "settingsTitle": "Settings",
+  "settingsBirthDate": "생년월일",
+  "settingsRegisterBirthday": "내 생일 Google Calendar에 등록",
+  "settingsSignOut": "Sign Out",
+  "settingsBirthdayDialogTitle": "내 생일 등록",
+  "settingsBirthdayDialogBody": "음력 생일 ({month}월 {day}일)을\nGoogle Calendar에 20년치 등록할까요?",
+  "@settingsBirthdayDialogBody": {
+    "placeholders": {
+      "month": { "type": "int" },
+      "day": { "type": "int" }
+    }
+  },
+  "settingsBirthdayRegistered": "{count}개 생일 일정이 등록됐습니다!",
+  "@settingsBirthdayRegistered": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "settingsBirthdayNone": "생일 정보가 없습니다. 온보딩에서 입력해주세요.",
+  "settingsLegalTitle": "정보 및 법적 고지",
+  "settingsPrivacy": "개인정보 처리방침",
+  "settingsPrivacyBody": "본 앱은 Google 로그인을 통해 이름, 이메일 주소를 수집하며, 사용자가 입력한 생년월일을 Firestore에 저장합니다. 수집된 정보는 오늘의 운세 및 사주 계산에만 활용되며, 제3자에게 제공되지 않습니다.",
+  "settingsCalendarPermission": "Google Calendar 권한",
+  "settingsCalendarPermissionBody": "캘린더 연동 기능 사용 시 Google Calendar 읽기/쓰기 권한을 요청합니다. 해당 권한은 일정 조회 및 음력 생일 등록에만 사용됩니다.",
+  "settingsNotificationPermission": "알림 권한",
+  "settingsNotificationPermissionBody": "기념일 사전 알림(7일 전, 3일 전, 당일)을 위해 로컬 알림 권한을 사용합니다. 알림은 기기 내에서만 처리되며 외부 서버로 전송되지 않습니다.",
+  "settingsAI": "AI 운세 (Gemini)",
+  "settingsAIBody": "오늘의 운세는 Google Gemini API를 통해 생성됩니다. 운세 생성 시 일주·월주·년주 및 사주 정보가 전송될 수 있습니다. 하루 1,200회 초과 시 로컬 운세로 대체됩니다.",
+  "settingsAdMob": "광고 (AdMob)",
+  "settingsAdMobBody": "본 앱은 Google AdMob을 통해 광고를 표시합니다. AdMob은 광고 최적화를 위해 기기 식별자 등의 정보를 수집할 수 있습니다. 자세한 내용은 Google 개인정보처리방침을 참조하세요.",
+  "settingsVersion": "Version {version}  ·  © 2026 Gridnflow",
+  "@settingsVersion": {
+    "placeholders": {
+      "version": { "type": "String" }
+    }
+  },
+
+  "onboardingTitle": "생년월일을 알려주세요",
+  "onboardingSubtitle": "사주와 오늘의 운세에 활용됩니다.\n나중에 Settings에서 변경할 수 있어요.",
+  "onboardingSolar": "양력 생일",
+  "onboardingLunar": "음력 생일",
+  "onboardingSolarHint": "양력 날짜를 입력하세요 (예: 1990년 4월 20일)",
+  "onboardingLunarHint": "음력 날짜를 입력하세요 (예: 음력 3월 15일)",
+  "onboardingYear": "년",
+  "onboardingMonth": "월",
+  "onboardingDay": "일",
+  "onboardingHour": "태어난 시간 (선택, 0–23)",
+  "onboardingStart": "시작하기",
+  "onboardingSkip": "나중에 입력할게요",
+  "onboardingRequired": "필수",
+  "onboardingRange": "{min}–{max}",
+  "@onboardingRange": {
+    "placeholders": {
+      "min": { "type": "int" },
+      "max": { "type": "int" }
+    }
+  },
+
+  "loginTitle": "로그인하여 시작하세요",
+  "loginGoogle": "Google로 계속하기",
+
+  "languageSelect": "언어 선택",
+  "languageEn": "English",
+  "languageKo": "한국어",
+  "languageJa": "日本語",
+  "languageZhHans": "简体中文",
+  "languageZhHant": "繁體中文"
+}

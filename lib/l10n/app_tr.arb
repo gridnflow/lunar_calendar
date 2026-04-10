@@ -1,0 +1,127 @@
+{
+  "@@locale": "tr",
+
+  "appTitle": "Ay Takvimi",
+
+  "navCalendar": "Takvim",
+  "navFortune": "Fal",
+  "navFamily": "Aile",
+  "navSettings": "Ayarlar",
+
+  "calendarTitle": "Takvim",
+  "calendarNoEvents": "Bu gün için etkinlik yok",
+  "calendarConnectRequired": "Google Takvim bağlantısı gerekli",
+  "calendarRetry": "Tekrar dene",
+  "calendarAddAnniversary": "Yıl Dönümü Ekle",
+  "calendarAnniversaryList": "Yıl Dönümleri",
+
+  "anniversaryAdd": "Yıl Dönümü Ekle",
+  "anniversaryName": "Ad (örn: Büyükannenin anma töreni)",
+  "anniversaryType_jesa": "Anma",
+  "anniversaryType_birthday": "Doğum Günü",
+  "anniversaryType_other": "Diğer",
+  "anniversaryLunarHint": "Tarihi ay takvimine göre girin.\nÖrn: Ay takvimi doğum günü 15/3 → ay 3, gün 15 seçin",
+  "anniversaryLunarMonth": "Ay (lunar)",
+  "anniversaryLunarDay": "Gün (lunar)",
+  "anniversaryLeapMonth": "Artık ay",
+  "anniversaryCancel": "İptal",
+  "anniversarySave": "Kaydet",
+  "anniversaryDelete": "Yıl Dönümünü Sil",
+  "anniversaryDeleteConfirm": "\"{name}\" silinsin mi?",
+  "@anniversaryDeleteConfirm": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryAdded": "{name} eklendi",
+  "@anniversaryAdded": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryDeleted": "\"{name}\" silindi",
+  "@anniversaryDeleted": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "anniversaryEmpty": "Kayıtlı yıl dönümü yok",
+  "anniversaryListTitle": "Yıl Dönümleri",
+  "anniversaryClose": "Kapat",
+
+  "fortuneTitle": "Bugünün Falı",
+  "fortuneLoading": "Fal yükleniyor...",
+  "fortuneError": "Fal yüklenemedi: {error}",
+  "@fortuneError": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "fortuneSaju": "Dört Direk",
+  "fortuneSajuPrompt": "Dört Direk'i görmek için Ayarlar'a doğum tarihinizi girin.",
+  "fortuneToday": "Bugün",
+  "fortuneSolarTerm": "Mevsim: {term}",
+  "@fortuneSolarTerm": {
+    "placeholders": { "term": { "type": "String" } }
+  },
+
+  "familyTitle": "Aile Yıl Dönümleri",
+  "familyEmpty": "Kayıtlı yıl dönümü yok",
+  "familyAddButton": "Yıl Dönümü Ekle",
+
+  "settingsTitle": "Ayarlar",
+  "settingsBirthDate": "Doğum Tarihi",
+  "settingsRegisterBirthday": "Doğum Gününü Google Takvim'e Ekle",
+  "settingsSignOut": "Çıkış Yap",
+  "settingsBirthdayDialogTitle": "Doğum Günümü Kaydet",
+  "settingsBirthdayDialogBody": "Ay takvimi doğum gününü ({month}/{day}) Google Takvim'e 20 yıl eklensin mi?",
+  "@settingsBirthdayDialogBody": {
+    "placeholders": {
+      "month": { "type": "int" },
+      "day": { "type": "int" }
+    }
+  },
+  "settingsBirthdayRegistered": "{count} doğum günü etkinliği kaydedildi!",
+  "@settingsBirthdayRegistered": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "settingsBirthdayNone": "Doğum tarihi bulunamadı. Lütfen giriş sırasında girin.",
+  "settingsLegalTitle": "Bilgi ve Yasal Uyarılar",
+  "settingsPrivacy": "Gizlilik Politikası",
+  "settingsPrivacyBody": "Bu uygulama Google Sign-In aracılığıyla adınızı ve e-postanızı toplar, doğum tarihinizi Firestore'da saklar. Bilgiler yalnızca fal ve Dört Direk hesaplamaları için kullanılır, üçüncü taraflarla paylaşılmaz.",
+  "settingsCalendarPermission": "Google Takvim İzni",
+  "settingsCalendarPermissionBody": "Takvim senkronizasyonu kullanılırken Google Takvim okuma/yazma izni istenir. Bu izin yalnızca etkinlikleri görüntülemek ve ay takvimi doğum günlerini kaydetmek için kullanılır.",
+  "settingsNotificationPermission": "Bildirim İzni",
+  "settingsNotificationPermissionBody": "Yıl dönümlerini hatırlatmak için yerel bildirimler kullanılır (7 gün, 3 gün önce ve günü). Bildirimler yalnızca cihazda işlenir, harici sunuculara gönderilmez.",
+  "settingsAI": "AI Fal (Gemini)",
+  "settingsAIBody": "Günlük fal Google Gemini API ile oluşturulur. Oluşturma sırasında Dört Direk bilgileri gönderilebilir. Günlük 1.200 aşımında yerel fala geçer.",
+  "settingsAdMob": "Reklamlar (AdMob)",
+  "settingsAdMobBody": "Bu uygulama Google AdMob aracılığıyla reklam gösterir. AdMob, reklam optimizasyonu için cihaz tanımlayıcıları toplayabilir. Ayrıntılar için Google Gizlilik Politikası'na bakın.",
+  "settingsVersion": "Sürüm {version}  ·  © 2026 Gridnflow",
+  "@settingsVersion": {
+    "placeholders": { "version": { "type": "String" } }
+  },
+
+  "onboardingTitle": "Doğum tarihinizi söyleyin",
+  "onboardingSubtitle": "Fal ve Dört Direk için kullanılır.\nDaha sonra Ayarlar'dan değiştirebilirsiniz.",
+  "onboardingSolar": "Miladi Takvim",
+  "onboardingLunar": "Ay Takvimi",
+  "onboardingSolarHint": "Miladi tarih girin (örn: 20 Nisan 1990)",
+  "onboardingLunarHint": "Ay takvimi tarihi girin (örn: Lunar 15/3)",
+  "onboardingYear": "Yıl",
+  "onboardingMonth": "Ay",
+  "onboardingDay": "Gün",
+  "onboardingHour": "Doğum saati (isteğe bağlı, 0–23)",
+  "onboardingStart": "Başla",
+  "onboardingSkip": "Sonra gireceğim",
+  "onboardingRequired": "Zorunlu",
+  "onboardingRange": "{min}–{max}",
+  "@onboardingRange": {
+    "placeholders": {
+      "min": { "type": "int" },
+      "max": { "type": "int" }
+    }
+  },
+
+  "loginTitle": "Devam etmek için giriş yapın",
+  "loginGoogle": "Google ile devam et",
+
+  "languageSelect": "Dil Seçin",
+  "languageEn": "English",
+  "languageKo": "한국어",
+  "languageJa": "日本語",
+  "languageZhHans": "简体中文",
+  "languageZhHant": "繁體中文"
+}

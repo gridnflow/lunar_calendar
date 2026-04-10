@@ -1,0 +1,141 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Lunar Calendar",
+
+  "navCalendar": "Calendar",
+  "navFortune": "Fortune",
+  "navFamily": "Family",
+  "navSettings": "Settings",
+
+  "calendarTitle": "Calendar",
+  "calendarNoEvents": "No events for this day",
+  "calendarConnectRequired": "Google Calendar connection required",
+  "calendarRetry": "Retry",
+  "calendarAddAnniversary": "Add Anniversary",
+  "calendarAnniversaryList": "Anniversary List",
+
+  "anniversaryAdd": "Add Anniversary",
+  "anniversaryName": "Name (e.g. Grandma's memorial)",
+  "anniversaryType_jesa": "Memorial",
+  "anniversaryType_birthday": "Birthday",
+  "anniversaryType_other": "Other",
+  "anniversaryLunarHint": "Enter the date in lunar calendar.\nEx) Lunar birthday Mar 15 → select month 3, day 15",
+  "anniversaryLunarMonth": "Lunar month",
+  "anniversaryLunarDay": "Lunar day",
+  "anniversaryLeapMonth": "Leap month",
+  "anniversaryCancel": "Cancel",
+  "anniversarySave": "Save",
+  "anniversaryDelete": "Delete Anniversary",
+  "anniversaryDeleteConfirm": "Delete \"{name}\"?",
+  "@anniversaryDeleteConfirm": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "anniversaryAdded": "{name} has been added",
+  "@anniversaryAdded": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "anniversaryDeleted": "\"{name}\" deleted",
+  "@anniversaryDeleted": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "anniversaryEmpty": "No anniversaries registered",
+  "anniversaryListTitle": "Anniversary List",
+  "anniversaryClose": "Close",
+
+  "fortuneTitle": "Today's Fortune",
+  "fortuneLoading": "Loading fortune...",
+  "fortuneError": "Cannot load fortune: {error}",
+  "@fortuneError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "fortuneSaju": "Four Pillars (四柱)",
+  "fortuneSajuPrompt": "Enter your birth date in Settings to see your Four Pillars.",
+  "fortuneToday": "Today",
+  "fortuneSolarTerm": "Solar term: {term}",
+  "@fortuneSolarTerm": {
+    "placeholders": {
+      "term": { "type": "String" }
+    }
+  },
+
+  "familyTitle": "Family Anniversaries",
+  "familyEmpty": "No anniversaries registered",
+  "familyAddButton": "Add Anniversary",
+
+  "settingsTitle": "Settings",
+  "settingsBirthDate": "Birth Date",
+  "settingsRegisterBirthday": "Register Birthday in Google Calendar",
+  "settingsSignOut": "Sign Out",
+  "settingsBirthdayDialogTitle": "Register My Birthday",
+  "settingsBirthdayDialogBody": "Register lunar birthday ({month}/{day}) to Google Calendar for 20 years?",
+  "@settingsBirthdayDialogBody": {
+    "placeholders": {
+      "month": { "type": "int" },
+      "day": { "type": "int" }
+    }
+  },
+  "settingsBirthdayRegistered": "{count} birthday events registered!",
+  "@settingsBirthdayRegistered": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "settingsBirthdayNone": "No birth date found. Please enter it during onboarding.",
+  "settingsLegalTitle": "Information & Legal",
+  "settingsPrivacy": "Privacy Policy",
+  "settingsPrivacyBody": "This app collects your name and email via Google Sign-In, and stores your birth date in Firestore. This information is used solely for fortune and Four Pillars calculations, and is not shared with third parties.",
+  "settingsCalendarPermission": "Google Calendar Permission",
+  "settingsCalendarPermissionBody": "When using calendar sync, we request read/write access to Google Calendar. This permission is used only for viewing events and registering lunar birthdays.",
+  "settingsNotificationPermission": "Notification Permission",
+  "settingsNotificationPermissionBody": "Local notifications are used to remind you of anniversaries (7 days, 3 days, and on the day). Notifications are processed on-device only and are not sent to external servers.",
+  "settingsAI": "AI Fortune (Gemini)",
+  "settingsAIBody": "Daily fortune is generated via the Google Gemini API. Your Four Pillars info may be sent during generation. Replaced by local fortune after 1,200 daily uses.",
+  "settingsAdMob": "Ads (AdMob)",
+  "settingsAdMobBody": "This app displays ads via Google AdMob. AdMob may collect device identifiers for ad optimization. See Google's Privacy Policy for details.",
+  "settingsVersion": "Version {version}  ·  © 2026 Gridnflow",
+  "@settingsVersion": {
+    "placeholders": {
+      "version": { "type": "String" }
+    }
+  },
+
+  "onboardingTitle": "Tell us your birth date",
+  "onboardingSubtitle": "Used for fortune and Four Pillars.\nYou can change this later in Settings.",
+  "onboardingSolar": "Solar calendar",
+  "onboardingLunar": "Lunar calendar",
+  "onboardingSolarHint": "Enter solar date (e.g. April 20, 1990)",
+  "onboardingLunarHint": "Enter lunar date (e.g. Lunar Mar 15)",
+  "onboardingYear": "Year",
+  "onboardingMonth": "Month",
+  "onboardingDay": "Day",
+  "onboardingHour": "Birth hour (optional, 0–23)",
+  "onboardingStart": "Get Started",
+  "onboardingSkip": "I'll enter it later",
+  "onboardingRequired": "Required",
+  "onboardingRange": "{min}–{max}",
+  "@onboardingRange": {
+    "placeholders": {
+      "min": { "type": "int" },
+      "max": { "type": "int" }
+    }
+  },
+
+  "loginTitle": "Sign in to continue",
+  "loginGoogle": "Continue with Google",
+
+  "languageSelect": "Select Language",
+  "languageEn": "English",
+  "languageKo": "한국어",
+  "languageJa": "日本語",
+  "languageZhHans": "简体中文",
+  "languageZhHant": "繁體中文"
+}
