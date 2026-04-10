@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../../core/providers/service_providers.dart';
-import '../../../core/services/ad_service.dart';
 
 class FortuneScreen extends ConsumerStatefulWidget {
   const FortuneScreen({super.key});
@@ -13,13 +11,9 @@ class FortuneScreen extends ConsumerStatefulWidget {
 }
 
 class _FortuneScreenState extends ConsumerState<FortuneScreen> {
-  BannerAd? _bannerAd;
-  bool _bannerLoaded = false;
-
   @override
   void initState() {
     super.initState();
-    _loadBanner();
     _loadAndShowRewarded();
   }
 
@@ -29,27 +23,6 @@ class _FortuneScreenState extends ConsumerState<FortuneScreen> {
     if (mounted) {
       adService.showRewarded(onRewarded: () {});
     }
-  }
-
-  void _loadBanner() {
-    _bannerAd = BannerAd(
-      adUnitId: AdIds.banner,
-      size: AdSize.banner,
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (_) => setState(() => _bannerLoaded = true),
-        onAdFailedToLoad: (ad, _) {
-          ad.dispose();
-          _bannerAd = null;
-        },
-      ),
-    )..load();
-  }
-
-  @override
-  void dispose() {
-    _bannerAd?.dispose();
-    super.dispose();
   }
 
   @override
@@ -160,11 +133,6 @@ class _FortuneScreenState extends ConsumerState<FortuneScreen> {
               ],
             ),
           ),
-          if (_bannerLoaded && _bannerAd != null)
-            SizedBox(
-              height: _bannerAd!.size.height.toDouble(),
-              child: AdWidget(ad: _bannerAd!),
-            ),
         ],
       ),
     );

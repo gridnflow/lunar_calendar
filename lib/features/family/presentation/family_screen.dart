@@ -131,6 +131,32 @@ class FamilyScreen extends ConsumerWidget {
                   onSelectionChanged: (v) => setState(() => type = v.first),
                 ),
                 const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Theme.of(ctx).colorScheme.secondaryContainer,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.nightlight_outlined,
+                          size: 16,
+                          color: Theme.of(ctx).colorScheme.onSecondaryContainer),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          '날짜는 음력으로 입력해주세요.\n예) 음력 생일이 3월 15일이면 3월, 15일 선택',
+                          style: TextStyle(
+                            fontSize: 12,
+                            height: 1.5,
+                            color: Theme.of(ctx).colorScheme.onSecondaryContainer,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 12),
                 Row(children: [
                   Expanded(
                     child: _PickerField(
