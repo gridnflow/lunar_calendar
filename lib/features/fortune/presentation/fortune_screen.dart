@@ -20,8 +20,15 @@ class _FortuneScreenState extends ConsumerState<FortuneScreen> {
   void initState() {
     super.initState();
     _loadBanner();
-    // 보상형 광고 미리 로드
-    ref.read(adServiceProvider).loadRewarded();
+    _loadAndShowRewarded();
+  }
+
+  Future<void> _loadAndShowRewarded() async {
+    final adService = ref.read(adServiceProvider);
+    await adService.loadRewarded();
+    if (mounted) {
+      adService.showRewarded(onRewarded: () {});
+    }
   }
 
   void _loadBanner() {
@@ -45,15 +52,6 @@ class _FortuneScreenState extends ConsumerState<FortuneScreen> {
     super.dispose();
   }
 
-  void _refreshWithRewardedAd() {
-    final adService = ref.read(adServiceProvider);
-    adService.showRewarded(onRewarded: () {
-      ref.invalidate(todayFortuneProvider);
-      // 다음 광고 미리 로드
-      adService.loadRewarded();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final lunar = ref.read(lunarServiceProvider);
@@ -69,13 +67,6 @@ class _FortuneScreenState extends ConsumerState<FortuneScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('오늘의 운세'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.videocam_outlined),
-            tooltip: '광고 보고 운세 다시 보기',
-            onPressed: _refreshWithRewardedAd,
-          ),
-        ],
       ),
       body: Column(
         children: [
