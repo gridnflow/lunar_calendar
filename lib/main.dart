@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'core/providers/service_providers.dart';
 import 'core/router/app_router.dart';
+import 'core/services/ad_service.dart';
 import 'core/services/notification_service.dart';
 import 'core/theme/app_theme.dart';
 
@@ -13,6 +14,7 @@ void main() async {
   await dotenv.load(fileName: '.env');
   await Firebase.initializeApp();
   await NotificationService().initialize();
+  await AdService().initialize();
   runApp(const ProviderScope(child: App()));
 }
 

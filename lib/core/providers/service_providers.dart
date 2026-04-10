@@ -10,6 +10,7 @@ import '../services/auth_service.dart';
 import '../services/calendar_service.dart';
 import '../services/fortune_service.dart';
 import '../services/lunar_service.dart';
+import '../services/ad_service.dart';
 import '../services/notification_service.dart';
 import '../services/user_service.dart';
 import '../services/widget_service.dart';
@@ -77,6 +78,9 @@ final anniversaryNotificationSchedulerProvider = Provider<void>((ref) {
 
 final widgetServiceProvider =
     Provider<WidgetService>((ref) => WidgetService());
+
+final adServiceProvider =
+    Provider<AdService>((ref) => AdService());
 
 /// Today's fortune text (cached per session).
 final todayFortuneProvider = FutureProvider<String>((ref) async {

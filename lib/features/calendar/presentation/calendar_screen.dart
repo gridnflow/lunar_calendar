@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:googleapis/calendar/v3.dart' as gcal;
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../core/models/family_anniversary.dart';
 import '../../../core/providers/service_providers.dart';
+import '../../../core/services/ad_service.dart';
 import '../../../core/services/lunar_service.dart';
 import '../../../core/theme/app_theme.dart';
 
@@ -18,11 +20,31 @@ class CalendarScreen extends ConsumerStatefulWidget {
 class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+  BannerAd? _bannerAd;
+  bool _bannerLoaded = false;
 
   @override
   void initState() {
     super.initState();
     _selectedDay = DateTime.now();
+    _bannerAd = BannerAd(
+      adUnitId: AdIds.banner,
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (_) => setState(() => _bannerLoaded = true),
+        onAdFailedToLoad: (ad, _) {
+          ad.dispose();
+          _bannerAd = null;
+        },
+      ),
+    )..load();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
   }
 
   List<gcal.Event> _eventsForDay(DateTime day, List<gcal.Event> allEvents) {
@@ -57,6 +79,12 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     final anniversariesAsync = ref.watch(anniversariesProvider);
 
     return Scaffold(
+      bottomNavigationBar: _bannerLoaded && _bannerAd != null
+          ? SizedBox(
+              height: _bannerAd!.size.height.toDouble(),
+              child: AdWidget(ad: _bannerAd!),
+            )
+          : null,
       appBar: AppBar(
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
