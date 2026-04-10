@@ -6,9 +6,10 @@ import 'lunar_service.dart';
 class WidgetService {
   static const _appGroupId = 'com.gridnflow.lunar.calendar';
 
-  static const _smallProvider = 'LunarWidgetSmall';
-  static const _mediumProvider = 'LunarWidgetMedium';
-  static const _largeProvider = 'LunarWidgetLarge';
+  static const _pkg = 'com.gridnflow.lunar.calendar';
+  static const _smallProvider = '$_pkg.LunarWidgetSmall';
+  static const _mediumProvider = '$_pkg.LunarWidgetMedium';
+  static const _largeProvider = '$_pkg.LunarWidgetLarge';
 
   Future<void> updateWidgets({
     required LunarService lunar,
@@ -67,12 +68,18 @@ class WidgetService {
           summary.length > 200 ? '${summary.substring(0, 200)}…' : summary);
     }
 
-    // 위젯 갱신 트리거
-    await HomeWidget.updateWidget(
-        androidName: _smallProvider, qualifiedAndroidName: _smallProvider);
-    await HomeWidget.updateWidget(
-        androidName: _mediumProvider, qualifiedAndroidName: _mediumProvider);
-    await HomeWidget.updateWidget(
-        androidName: _largeProvider, qualifiedAndroidName: _largeProvider);
+    // 위젯 갱신 트리거 (홈 화면에 위젯이 없으면 예외 무시)
+    try {
+      await HomeWidget.updateWidget(
+          androidName: _smallProvider, qualifiedAndroidName: _smallProvider);
+    } catch (_) {}
+    try {
+      await HomeWidget.updateWidget(
+          androidName: _mediumProvider, qualifiedAndroidName: _mediumProvider);
+    } catch (_) {}
+    try {
+      await HomeWidget.updateWidget(
+          androidName: _largeProvider, qualifiedAndroidName: _largeProvider);
+    } catch (_) {}
   }
 }
