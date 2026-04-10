@@ -6,6 +6,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/calendar/presentation/calendar_screen.dart';
+import '../../features/family/presentation/family_screen.dart';
 import '../../features/fortune/presentation/fortune_screen.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
@@ -64,6 +65,10 @@ final routerProvider = Provider<GoRouter>((ref) {
             builder: (context, state) => const FortuneScreen(),
           ),
           GoRoute(
+            path: '/family',
+            builder: (context, state) => const FamilyScreen(),
+          ),
+          GoRoute(
             path: '/settings',
             builder: (context, state) => const SettingsScreen(),
           ),
@@ -86,7 +91,7 @@ class _MainShellState extends ConsumerState<MainShell> {
   BannerAd? _bannerAd;
   bool _bannerLoaded = false;
 
-  static const _routes = ['/calendar', '/fortune', '/settings'];
+  static const _routes = ['/calendar', '/fortune', '/family', '/settings'];
 
   @override
   void initState() {
@@ -146,6 +151,8 @@ class _MainShellState extends ConsumerState<MainShell> {
                   icon: Icon(Icons.calendar_month), label: 'Calendar'),
               NavigationDestination(
                   icon: Icon(Icons.auto_awesome), label: 'Fortune'),
+              NavigationDestination(
+                  icon: Icon(Icons.people_outline), label: '가족'),
               NavigationDestination(
                   icon: Icon(Icons.settings), label: 'Settings'),
             ],
