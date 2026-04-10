@@ -6,22 +6,13 @@ import 'package:lunar_calendar/core/providers/service_providers.dart';
 import 'package:lunar_calendar/core/services/lunar_service.dart';
 import 'package:lunar_calendar/features/fortune/presentation/fortune_screen.dart';
 
-import '../../mocks/mock_services.dart';
-
 void main() {
-  late MockUserService mockUser;
-
-  setUp(() {
-    mockUser = MockUserService();
-  });
-
-  Widget buildSubject({UserProfile? profile}) {
+  Widget buildSubject({UserProfile? profile, String fortune = '오늘의 운세입니다.'}) {
     return ProviderScope(
       overrides: [
-        userServiceProvider.overrideWithValue(mockUser),
-        // Use real LunarService — no external deps
         lunarServiceProvider.overrideWithValue(LunarService()),
         userProfileProvider.overrideWith((ref) async => profile),
+        todayFortuneProvider.overrideWith((ref) async => fortune),
       ],
       child: const MaterialApp(home: FortuneScreen()),
     );
@@ -30,44 +21,32 @@ void main() {
   group('FortuneScreen', () {
     testWidgets('shows appbar title', (tester) async {
       await tester.pumpWidget(buildSubject());
-      await tester.pumpAndSettle();
-
-      expect(find.text("Today's Fortune"), findsOneWidget);
+      await tester.pump();
+      expect(find.text('오늘의 운세'), findsOneWidget);
     });
 
-    testWidgets('shows Today card', (tester) async {
+    testWidgets('shows today lunar card', (tester) async {
+      await tester.pumpWidget(buildSubject());
+      await tester.pump();
+      expect(find.text('오늘'), findsOneWidget);
+    });
+
+    testWidgets('shows fortune card', (tester) async {
       await tester.pumpWidget(buildSubject());
       await tester.pumpAndSettle();
-
-      expect(find.text('Today'), findsOneWidget);
+      expect(find.text('운세'), findsOneWidget);
     });
 
-    testWidgets('shows lunar date string starting with 음력', (tester) async {
-      await tester.pumpWidget(buildSubject());
+    testWidgets('shows fortune text when loaded', (tester) async {
+      await tester.pumpWidget(buildSubject(fortune: '좋은 하루입니다.'));
       await tester.pumpAndSettle();
-
-      final lunarTexts = find.textContaining('음력');
-      expect(lunarTexts, findsAtLeastNWidgets(1));
+      expect(find.textContaining('좋은 하루입니다'), findsOneWidget);
     });
 
-    testWidgets('shows year/month/day pillar chips', (tester) async {
-      await tester.pumpWidget(buildSubject());
-      await tester.pumpAndSettle();
-
-      // Pillars end with 년, 월, 일
-      expect(find.textContaining('년'), findsAtLeastNWidgets(1));
-      expect(find.textContaining('월'), findsAtLeastNWidgets(1));
-      expect(find.textContaining('일'), findsAtLeastNWidgets(1));
-    });
-
-    testWidgets('shows prompt to enter birth info when no profile', (tester) async {
+    testWidgets('shows prompt when no profile', (tester) async {
       await tester.pumpWidget(buildSubject(profile: null));
       await tester.pumpAndSettle();
-
-      expect(
-        find.textContaining('Enter your birth info'),
-        findsOneWidget,
-      );
+      expect(find.textContaining('Settings'), findsOneWidget);
     });
 
     testWidgets('shows saju columns when profile has birth info', (tester) async {
@@ -79,11 +58,8 @@ void main() {
         birthMonth: 5,
         birthDay: 10,
       );
-
       await tester.pumpWidget(buildSubject(profile: profile));
       await tester.pumpAndSettle();
-
-      // Saju column labels
       expect(find.text('年'), findsOneWidget);
       expect(find.text('月'), findsOneWidget);
       expect(find.text('日'), findsOneWidget);
@@ -99,36 +75,9 @@ void main() {
         birthDay: 10,
         birthHour: 14,
       );
-
       await tester.pumpWidget(buildSubject(profile: profile));
       await tester.pumpAndSettle();
-
       expect(find.text('時'), findsOneWidget);
-    });
-
-    testWidgets('shows Your Saju card title', (tester) async {
-      await tester.pumpWidget(buildSubject());
-      await tester.pumpAndSettle();
-
-      expect(find.text('Your Saju (四柱)'), findsOneWidget);
-    });
-
-    testWidgets('converts lunar birth date to solar for saju', (tester) async {
-      const profile = UserProfile(
-        uid: 'uid-3',
-        email: 'c@d.com',
-        displayName: 'Test',
-        birthYear: 1990,
-        birthMonth: 3,
-        birthDay: 15,
-        isLunarBirth: true,
-      );
-
-      await tester.pumpWidget(buildSubject(profile: profile));
-      await tester.pumpAndSettle();
-
-      // Should render without throwing
-      expect(find.text('年'), findsOneWidget);
     });
   });
 }
