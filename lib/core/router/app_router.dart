@@ -11,7 +11,7 @@ import '../../features/fortune/presentation/fortune_screen.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../providers/service_providers.dart';
-import '../services/ad_service.dart';
+import '../services/ad_service.dart'; // AdIds.banner
 
 final _authStreamProvider = StreamProvider<User?>(
   (ref) => FirebaseAuth.instance.authStateChanges(),
@@ -97,7 +97,6 @@ class _MainShellState extends ConsumerState<MainShell> {
   void initState() {
     super.initState();
     _loadBanner();
-    _showInterstitialOnEntry();
   }
 
   void _loadBanner() {
@@ -113,13 +112,6 @@ class _MainShellState extends ConsumerState<MainShell> {
         },
       ),
     )..load();
-  }
-
-  void _showInterstitialOnEntry() async {
-    final adService = ref.read(adServiceProvider);
-    await adService.loadInterstitial();
-    await Future.delayed(const Duration(seconds: 2));
-    if (mounted) adService.showInterstitial();
   }
 
   @override
