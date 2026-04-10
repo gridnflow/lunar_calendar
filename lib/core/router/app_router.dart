@@ -11,7 +11,6 @@ import '../../features/fortune/presentation/fortune_screen.dart';
 import '../../features/onboarding/presentation/language_screen.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
-import '../providers/locale_provider.dart';
 import '../providers/service_providers.dart';
 import '../services/ad_service.dart'; // AdIds.banner
 
