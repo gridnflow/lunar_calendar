@@ -265,21 +265,25 @@ class _AnniversaryCard extends StatelessWidget {
     final color = AppTheme.anniversaryColor(ann.type);
     final icon = AppTheme.anniversaryIcon(ann.type);
 
-    // 올해 양력 날짜 계산
+    // 음력 오늘 기준으로 D-day 계산 (양력 변환 후 비교)
     String solarStr = '';
     final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
     for (final year in [now.year, now.year + 1]) {
       try {
-        final solar =
-            lunar.lunarToSolar(year, ann.lunarMonth, ann.lunarDay,
-                isLeap: ann.isLeap);
-        final diff = solar.difference(DateTime(now.year, now.month, now.day)).inDays;
+        final solar = lunar.lunarToSolar(year, ann.lunarMonth, ann.lunarDay,
+            isLeap: ann.isLeap);
+        final solarDay = DateTime(solar.year, solar.month, solar.day);
+        final diff = solarDay.difference(today).inDays;
         if (diff >= 0) {
+          // 음력 날짜로 표시
+          final lunarAnn = lunar.solarToLunar(solarDay);
+          final lunarAnnStr = '${lunarAnn.getMonth()}/${lunarAnn.getDay()}';
           solarStr = diff == 0
               ? '오늘 🎉'
               : diff <= 7
-                  ? 'D-$diff'
-                  : '${solar.month}월 ${solar.day}일 (D-$diff)';
+                  ? 'D-$diff  음력$lunarAnnStr'
+                  : '음력$lunarAnnStr (D-$diff)';
           break;
         }
       } catch (_) {}
