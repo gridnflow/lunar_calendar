@@ -7,6 +7,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/calendar/presentation/calendar_screen.dart';
 import '../../features/fortune/presentation/fortune_screen.dart';
+import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../providers/service_providers.dart';
 import '../services/ad_service.dart';
@@ -17,21 +18,39 @@ final _authStreamProvider = StreamProvider<User?>(
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(_authStreamProvider);
+  final profileAsync = ref.watch(userProfileProvider);
 
   return GoRouter(
     initialLocation: '/login',
     redirect: (context, state) {
       final isLoggedIn = authState.valueOrNull != null;
-      final isOnLogin = state.matchedLocation == '/login';
+      final loc = state.matchedLocation;
 
-      if (!isLoggedIn && !isOnLogin) return '/login';
-      if (isLoggedIn && isOnLogin) return '/calendar';
+      if (!isLoggedIn) {
+        return loc == '/login' ? null : '/login';
+      }
+
+      // 로그인됐지만 프로필 아직 로딩 중 → 대기
+      if (profileAsync.isLoading) return null;
+
+      final profile = profileAsync.valueOrNull;
+      final needsOnboarding = profile == null;
+      final onOnboarding = loc == '/onboarding';
+
+      if (needsOnboarding && !onOnboarding) return '/onboarding';
+      if (!needsOnboarding && (loc == '/login' || onOnboarding)) {
+        return '/calendar';
+      }
       return null;
     },
     routes: [
       GoRoute(
         path: '/login',
         builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: '/onboarding',
+        builder: (context, state) => const OnboardingScreen(),
       ),
       ShellRoute(
         builder: (context, state, child) => MainShell(child: child),
@@ -94,7 +113,6 @@ class _MainShellState extends ConsumerState<MainShell> {
   void _showInterstitialOnEntry() async {
     final adService = ref.read(adServiceProvider);
     await adService.loadInterstitial();
-    // 광고 로딩 완료 후 잠시 후 표시 (UX: 앱 첫 화면 렌더 후)
     await Future.delayed(const Duration(seconds: 2));
     if (mounted) adService.showInterstitial();
   }

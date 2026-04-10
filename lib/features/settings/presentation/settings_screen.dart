@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import '../../../core/models/user_profile.dart';
 import '../../../core/providers/service_providers.dart';
 import '../../../core/services/ad_service.dart';
 
@@ -14,13 +13,6 @@ class SettingsScreen extends ConsumerStatefulWidget {
 }
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final _yearCtrl = TextEditingController();
-  final _monthCtrl = TextEditingController();
-  final _dayCtrl = TextEditingController();
-  final _hourCtrl = TextEditingController();
-  bool _isLunar = false;
-  bool _saving = false;
   BannerAd? _bannerAd;
   bool _bannerLoaded = false;
 
@@ -44,19 +36,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   @override
   void dispose() {
     _bannerAd?.dispose();
-    _yearCtrl.dispose();
-    _monthCtrl.dispose();
-    _dayCtrl.dispose();
-    _hourCtrl.dispose();
     super.dispose();
-  }
-
-  void _prefillFromProfile(UserProfile profile) {
-    _yearCtrl.text = profile.birthYear.toString();
-    _monthCtrl.text = profile.birthMonth.toString();
-    _dayCtrl.text = profile.birthDay.toString();
-    _hourCtrl.text = profile.birthHour?.toString() ?? '';
-    _isLunar = profile.isLunarBirth;
   }
 
   Future<void> _registerBirthday(BuildContext context) async {
@@ -64,10 +44,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     if (user == null) return;
 
     final profile = await ref.read(userServiceProvider).getProfile(user.uid);
-    if (profile == null) {
+    if (profile == null || profile.birthYear == 0) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('생일 정보를 먼저 저장해주세요')),
+          const SnackBar(content: Text('생일 정보가 없습니다. 온보딩에서 입력해주세요.')),
         );
       }
       return;
@@ -114,36 +94,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     }
   }
 
-  Future<void> _save() async {
-    if (!_formKey.currentState!.validate()) return;
-    setState(() => _saving = true);
-
-    final user = ref.read(currentUserProvider)!;
-    final profile = UserProfile(
-      uid: user.uid,
-      email: user.email ?? '',
-      displayName: user.displayName ?? '',
-      birthYear: int.parse(_yearCtrl.text),
-      birthMonth: int.parse(_monthCtrl.text),
-      birthDay: int.parse(_dayCtrl.text),
-      birthHour: _hourCtrl.text.isEmpty ? null : int.parse(_hourCtrl.text),
-      isLunarBirth: _isLunar,
-    );
-
-    await ref.read(userServiceProvider).saveProfile(profile);
-    setState(() => _saving = false);
-
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Saved')),
-      );
-      ref.invalidate(userProfileProvider);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final profileAsync = ref.watch(userProfileProvider);
+    final user = ref.read(currentUserProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Settings')),
@@ -153,103 +107,215 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               child: AdWidget(ad: _bannerAd!),
             )
           : null,
-      body: profileAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text('Error: $e')),
-        data: (profile) {
-          if (profile != null && _yearCtrl.text.isEmpty) {
-            _prefillFromProfile(profile);
-          }
-          return SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+        padding: const EdgeInsets.all(24),
+        children: [
+          // 계정 정보 카드
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
                 children: [
-                  Text('Birth Info', style: Theme.of(context).textTheme.titleLarge),
-                  const SizedBox(height: 16),
-                  Row(children: [
-                    Expanded(child: _NumberField(controller: _yearCtrl, label: 'Year', min: 1900, max: 2100)),
-                    const SizedBox(width: 12),
-                    Expanded(child: _NumberField(controller: _monthCtrl, label: 'Month', min: 1, max: 12)),
-                    const SizedBox(width: 12),
-                    Expanded(child: _NumberField(controller: _dayCtrl, label: 'Day', min: 1, max: 31)),
-                  ]),
-                  const SizedBox(height: 12),
-                  _NumberField(
-                    controller: _hourCtrl,
-                    label: 'Hour (optional, 0–23)',
-                    min: 0,
-                    max: 23,
-                    required: false,
+                  CircleAvatar(
+                    backgroundColor:
+                        Theme.of(context).colorScheme.primaryContainer,
+                    child: Text(
+                      (user?.displayName ?? '?').isNotEmpty
+                          ? user!.displayName![0].toUpperCase()
+                          : '?',
+                      style: TextStyle(
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  const SizedBox(height: 12),
-                  SwitchListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: const Text('Lunar calendar birth date'),
-                    value: _isLunar,
-                    onChanged: (v) => setState(() => _isLunar = v),
-                  ),
-                  const SizedBox(height: 24),
-                  FilledButton(
-                    onPressed: _saving ? null : _save,
-                    style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(48)),
-                    child: _saving
-                        ? const CircularProgressIndicator()
-                        : const Text('Save'),
-                  ),
-                  const Divider(height: 48),
-                  OutlinedButton.icon(
-                    onPressed: _saving ? null : () => _registerBirthday(context),
-                    icon: const Icon(Icons.cake),
-                    label: const Text('내 생일 등록'),
-                    style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(48)),
-                  ),
-                  const SizedBox(height: 12),
-                  OutlinedButton(
-                    onPressed: () => ref.read(authServiceProvider).signOut(),
-                    style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(48)),
-                    child: const Text('Sign Out'),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(user?.displayName ?? '',
+                            style: const TextStyle(fontWeight: FontWeight.bold)),
+                        Text(user?.email ?? '',
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurfaceVariant)),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-          );
-        },
+          ),
+          const SizedBox(height: 16),
+
+          // 생년월일 정보 (읽기 전용)
+          profileAsync.when(
+            loading: () => const SizedBox.shrink(),
+            error: (err, st) => const SizedBox.shrink(),
+            data: (profile) {
+              if (profile == null || profile.birthYear == 0) {
+                return const SizedBox.shrink();
+              }
+              return Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('생년월일',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 8),
+                      Text(
+                        '${profile.birthYear}년 ${profile.birthMonth}월 ${profile.birthDay}일'
+                        '${profile.birthHour != null ? '  ${profile.birthHour}시' : ''}'
+                        '  (${profile.isLunarBirth ? '음력' : '양력'})',
+                        style: const TextStyle(fontSize: 15),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 16),
+
+          OutlinedButton.icon(
+            onPressed: () => _registerBirthday(context),
+            icon: const Icon(Icons.cake),
+            label: const Text('내 생일 Google Calendar에 등록'),
+            style: OutlinedButton.styleFrom(
+                minimumSize: const Size.fromHeight(48)),
+          ),
+          const SizedBox(height: 12),
+          OutlinedButton(
+            onPressed: () => ref.read(authServiceProvider).signOut(),
+            style: OutlinedButton.styleFrom(
+                minimumSize: const Size.fromHeight(48)),
+            child: const Text('Sign Out'),
+          ),
+
+          const SizedBox(height: 32),
+          const Divider(),
+          const SizedBox(height: 8),
+
+          // 데이터 보호 & 법적 고지
+          Text('정보 및 법적 고지',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall
+                  ?.copyWith(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8),
+          _LegalTile(
+            icon: Icons.shield_outlined,
+            title: '개인정보 처리방침',
+            body: '본 앱은 Google 로그인을 통해 이름, 이메일 주소를 수집하며, '
+                '사용자가 입력한 생년월일을 Firestore에 저장합니다. '
+                '수집된 정보는 오늘의 운세 및 사주 계산에만 활용되며, '
+                '제3자에게 제공되지 않습니다.',
+          ),
+          _LegalTile(
+            icon: Icons.calendar_today_outlined,
+            title: 'Google Calendar 권한',
+            body: '캘린더 연동 기능 사용 시 Google Calendar 읽기/쓰기 권한을 요청합니다. '
+                '해당 권한은 일정 조회 및 음력 생일 등록에만 사용됩니다.',
+          ),
+          _LegalTile(
+            icon: Icons.notifications_outlined,
+            title: '알림 권한',
+            body: '기념일 사전 알림(7일 전, 3일 전, 당일)을 위해 로컬 알림 권한을 사용합니다. '
+                '알림은 기기 내에서만 처리되며 외부 서버로 전송되지 않습니다.',
+          ),
+          _LegalTile(
+            icon: Icons.auto_awesome_outlined,
+            title: 'AI 운세 (Gemini)',
+            body: '오늘의 운세는 Google Gemini API를 통해 생성됩니다. '
+                '운세 생성 시 일주·월주·년주 및 사주 정보가 전송될 수 있습니다. '
+                '하루 1,200회 초과 시 로컬 운세로 대체됩니다.',
+          ),
+          _LegalTile(
+            icon: Icons.ad_units_outlined,
+            title: '광고 (AdMob)',
+            body: '본 앱은 Google AdMob을 통해 광고를 표시합니다. '
+                'AdMob은 광고 최적화를 위해 기기 식별자 등의 정보를 수집할 수 있습니다. '
+                '자세한 내용은 Google 개인정보처리방침을 참조하세요.',
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Version 1.0.0  ·  © 2026 Gridnflow',
+            style: TextStyle(
+                fontSize: 11,
+                color: Theme.of(context).colorScheme.onSurfaceVariant),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+        ],
       ),
     );
   }
 }
 
-class _NumberField extends StatelessWidget {
-  final TextEditingController controller;
-  final String label;
-  final int min;
-  final int max;
-  final bool required;
+class _LegalTile extends StatefulWidget {
+  final IconData icon;
+  final String title;
+  final String body;
+  const _LegalTile(
+      {required this.icon, required this.title, required this.body});
 
-  const _NumberField({
-    required this.controller,
-    required this.label,
-    required this.min,
-    required this.max,
-    this.required = true,
-  });
+  @override
+  State<_LegalTile> createState() => _LegalTileState();
+}
+
+class _LegalTileState extends State<_LegalTile> {
+  bool _expanded = false;
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(labelText: label, border: const OutlineInputBorder()),
-      keyboardType: TextInputType.number,
-      validator: (v) {
-        if (!required && (v == null || v.isEmpty)) return null;
-        if (required && (v == null || v.isEmpty)) return 'Required';
-        final n = int.tryParse(v!);
-        if (n == null || n < min || n > max) return '$min–$max';
-        return null;
-      },
+    return Card(
+      margin: const EdgeInsets.only(bottom: 8),
+      child: InkWell(
+        onTap: () => setState(() => _expanded = !_expanded),
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(widget.icon,
+                      size: 18,
+                      color: Theme.of(context).colorScheme.primary),
+                  const SizedBox(width: 10),
+                  Expanded(
+                      child: Text(widget.title,
+                          style: const TextStyle(fontWeight: FontWeight.w600))),
+                  Icon(
+                      _expanded
+                          ? Icons.expand_less
+                          : Icons.expand_more,
+                      size: 18,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant),
+                ],
+              ),
+              if (_expanded) ...[
+                const SizedBox(height: 8),
+                Text(widget.body,
+                    style: TextStyle(
+                        fontSize: 13,
+                        height: 1.5,
+                        color:
+                            Theme.of(context).colorScheme.onSurfaceVariant)),
+              ],
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
