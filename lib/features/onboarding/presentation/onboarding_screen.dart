@@ -96,7 +96,38 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   style: TextStyle(
                       color: cs.onSurfaceVariant, height: 1.5),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 32),
+                // 음력 / 양력 선택
+                SegmentedButton<bool>(
+                  segments: const [
+                    ButtonSegment(
+                      value: false,
+                      label: Text('양력 생일'),
+                      icon: Icon(Icons.wb_sunny_outlined),
+                    ),
+                    ButtonSegment(
+                      value: true,
+                      label: Text('음력 생일'),
+                      icon: Icon(Icons.nightlight_outlined),
+                    ),
+                  ],
+                  selected: {_isLunar},
+                  onSelectionChanged: (v) =>
+                      setState(() => _isLunar = v.first),
+                  style: ButtonStyle(
+                    minimumSize: WidgetStateProperty.all(
+                        const Size.fromHeight(48)),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  _isLunar
+                      ? '음력 날짜를 입력하세요 (예: 음력 3월 15일)'
+                      : '양력 날짜를 입력하세요 (예: 1990년 4월 20일)',
+                  style: TextStyle(
+                      fontSize: 12, color: cs.onSurfaceVariant),
+                ),
+                const SizedBox(height: 16),
                 Row(children: [
                   Expanded(
                       child: _Field(
@@ -126,13 +157,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   min: 0,
                   max: 23,
                   required: false,
-                ),
-                const SizedBox(height: 16),
-                SwitchListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('음력 생일'),
-                  value: _isLunar,
-                  onChanged: (v) => setState(() => _isLunar = v),
                 ),
                 const SizedBox(height: 40),
                 FilledButton(
