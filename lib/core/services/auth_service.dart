@@ -5,15 +5,13 @@ class AuthService {
   final FirebaseAuth _auth;
   final GoogleSignIn _googleSignIn;
 
-  // Sign-in uses only basic scopes; calendar scope is requested lazily.
   static const List<String> _basicScopes = ['email', 'profile'];
   static const String _calendarScope =
       'https://www.googleapis.com/auth/calendar';
 
   AuthService({FirebaseAuth? auth, GoogleSignIn? googleSignIn})
       : _auth = auth ?? FirebaseAuth.instance,
-        _googleSignIn =
-            googleSignIn ?? GoogleSignIn(scopes: _basicScopes);
+        _googleSignIn = googleSignIn ?? GoogleSignIn(scopes: _basicScopes);
 
   Stream<User?> get authStateChanges => _auth.authStateChanges();
   User? get currentUser => _auth.currentUser;
@@ -30,18 +28,14 @@ class AuthService {
     return _auth.signInWithCredential(credential);
   }
 
-  /// Returns the OAuth access token needed for Google Calendar API calls.
-  /// Requests the calendar scope on first use if not already granted.
   Future<String?> getGoogleAccessToken() async {
     var account =
         _googleSignIn.currentUser ?? await _googleSignIn.signInSilently();
     if (account == null) return null;
 
-    // Request calendar scope if not yet granted.
     final hasCalendar = await _googleSignIn.requestScopes([_calendarScope]);
     if (!hasCalendar) return null;
 
-    // Re-authenticate silently so the new token includes the calendar scope.
     account = await _googleSignIn.signInSilently() ?? account;
     final auth = await account.authentication;
     return auth.accessToken;

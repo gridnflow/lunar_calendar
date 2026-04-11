@@ -45,26 +45,6 @@ class LunarService {
     return term.isEmpty ? null : term;
   }
 
-  /// Generate solar dates for a lunar birthday over the next [years] years.
-  List<DateTime> getLunarBirthdayDates({
-    required int birthMonth,
-    required int birthDay,
-    int years = 20,
-  }) {
-    final now = DateTime.now();
-    final result = <DateTime>[];
-
-    for (int y = now.year; y <= now.year + years; y++) {
-      try {
-        final solar = lunarToSolar(y, birthMonth, birthDay);
-        result.add(solar);
-      } catch (_) {
-        // Skip years where the lunar date doesn't exist (e.g. leap month edge cases)
-      }
-    }
-    return result;
-  }
-
   /// Get 사주 (four pillars) for a given birth datetime.
   Map<String, String> getSaju({
     required int year,

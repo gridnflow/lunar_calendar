@@ -81,41 +81,6 @@ void main() {
     });
   });
 
-  group('getLunarBirthdayDates', () {
-    test('returns 21 dates for valid birth month/day (current year through +20)', () {
-      final dates = service.getLunarBirthdayDates(birthMonth: 1, birthDay: 15);
-      expect(dates.length, greaterThanOrEqualTo(20));
-    });
-
-    test('all returned dates are in the future or present year', () {
-      final now = DateTime.now();
-      final dates = service.getLunarBirthdayDates(birthMonth: 3, birthDay: 10);
-      for (final d in dates) {
-        expect(d.year, greaterThanOrEqualTo(now.year));
-      }
-    });
-
-    test('returned dates span up to 20 years ahead', () {
-      final now = DateTime.now();
-      final dates = service.getLunarBirthdayDates(birthMonth: 6, birthDay: 1);
-      expect(dates.last.year, greaterThanOrEqualTo(now.year + 18));
-    });
-
-    test('accepts custom years parameter', () {
-      final dates = service.getLunarBirthdayDates(
-        birthMonth: 2, birthDay: 10, years: 5,
-      );
-      expect(dates.length, greaterThanOrEqualTo(4));
-      expect(dates.length, lessThanOrEqualTo(6));
-    });
-
-    test('returns empty list for impossible lunar date (month 13)', () {
-      // Month 13 doesn't exist, every year should throw and be skipped
-      final dates = service.getLunarBirthdayDates(birthMonth: 13, birthDay: 1);
-      expect(dates, isEmpty);
-    });
-  });
-
   group('getSaju', () {
     test('returns map with year, month, day, hour keys', () {
       final saju = service.getSaju(year: 1990, month: 5, day: 10);

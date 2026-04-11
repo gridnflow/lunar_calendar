@@ -13,59 +13,6 @@ class SettingsScreen extends ConsumerStatefulWidget {
 }
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
-  Future<void> _registerBirthday(BuildContext context, AppLocalizations l) async {
-    final user = ref.read(currentUserProvider);
-    if (user == null) return;
-
-    final profile = await ref.read(userServiceProvider).getProfile(user.uid);
-    if (profile == null || profile.birthYear == 0) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l.settingsBirthdayNone)),
-        );
-      }
-      return;
-    }
-
-    if (!context.mounted) return;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(l.settingsBirthdayDialogTitle),
-        content: Text(l.settingsBirthdayDialogBody(
-            profile.birthMonth, profile.birthDay)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, false),
-            child: Text(l.anniversaryCancel),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(ctx, true),
-            child: Text(l.anniversarySave),
-          ),
-        ],
-      ),
-    );
-
-    if (confirmed != true) return;
-
-    final dates = ref.read(lunarServiceProvider).getLunarBirthdayDates(
-          birthMonth: profile.birthMonth,
-          birthDay: profile.birthDay,
-        );
-
-    await ref.read(calendarServiceProvider).registerLunarBirthdays(
-          name: profile.displayName,
-          dates: dates,
-        );
-
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l.settingsBirthdayRegistered(dates.length))),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
@@ -154,14 +101,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           ),
           const SizedBox(height: 16),
 
-          OutlinedButton.icon(
-            onPressed: () => _registerBirthday(context, l),
-            icon: const Icon(Icons.cake),
-            label: Text(l.settingsRegisterBirthday),
-            style: OutlinedButton.styleFrom(
-                minimumSize: const Size.fromHeight(48)),
-          ),
-          const SizedBox(height: 12),
           OutlinedButton.icon(
             onPressed: () => context.push('/language'),
             icon: const Icon(Icons.language),
