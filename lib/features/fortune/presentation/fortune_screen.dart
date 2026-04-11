@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/providers/service_providers.dart';
+import '../../../l10n/app_localizations.dart';
 
 class FortuneScreen extends ConsumerStatefulWidget {
   const FortuneScreen({super.key});
@@ -27,6 +28,7 @@ class _FortuneScreenState extends ConsumerState<FortuneScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final lunar = ref.read(lunarServiceProvider);
     final profileAsync = ref.watch(userProfileProvider);
     final fortuneAsync = ref.watch(todayFortuneProvider);
@@ -39,99 +41,92 @@ class _FortuneScreenState extends ConsumerState<FortuneScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('오늘의 운세'),
+        title: Text(l.fortuneTitle),
       ),
-      body: Column(
+      body: ListView(
+        padding: const EdgeInsets.all(20),
         children: [
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(20),
+          _InfoCard(
+            title: l.fortuneToday,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _InfoCard(
-                  title: '오늘',
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(todayLunar,
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
-                      const SizedBox(height: 8),
-                      Row(children: [
-                        _PillarChip(label: yearPillar),
-                        const SizedBox(width: 8),
-                        _PillarChip(label: monthPillar),
-                        const SizedBox(width: 8),
-                        _PillarChip(label: dayPillar),
-                      ]),
-                      if (solarTerm != null) ...[
-                        const SizedBox(height: 8),
-                        Chip(
-                          label: Text('절기: $solarTerm'),
-                          backgroundColor:
-                              Theme.of(context).colorScheme.tertiaryContainer,
-                        ),
-                      ],
-                    ],
+                Text(todayLunar,
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                Row(children: [
+                  _PillarChip(label: yearPillar),
+                  const SizedBox(width: 8),
+                  _PillarChip(label: monthPillar),
+                  const SizedBox(width: 8),
+                  _PillarChip(label: dayPillar),
+                ]),
+                if (solarTerm != null) ...[
+                  const SizedBox(height: 8),
+                  Chip(
+                    label: Text(l.fortuneSolarTerm(solarTerm)),
+                    backgroundColor:
+                        Theme.of(context).colorScheme.tertiaryContainer,
                   ),
-                ),
-                const SizedBox(height: 16),
-                _InfoCard(
-                  title: '운세',
-                  child: fortuneAsync.when(
-                    loading: () => const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 24),
-                      child: Center(child: CircularProgressIndicator()),
-                    ),
-                    error: (e, _) => Text('운세를 불러올 수 없습니다: $e',
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.error)),
-                    data: (text) => _FortuneText(text: text),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                profileAsync.when(
-                  loading: () =>
-                      const Center(child: CircularProgressIndicator()),
-                  error: (e, _) => const SizedBox.shrink(),
-                  data: (profile) {
-                    if (profile == null || profile.birthYear == 0) {
-                      return const _InfoCard(
-                        title: '사주 (四柱)',
-                        child: Text(
-                            'Settings에서 생년월일을 입력하면 사주를 볼 수 있습니다.'),
-                      );
-                    }
-
-                    final birthDate = profile.isLunarBirth
-                        ? lunar.lunarToSolar(profile.birthYear,
-                            profile.birthMonth, profile.birthDay)
-                        : DateTime(profile.birthYear, profile.birthMonth,
-                            profile.birthDay);
-
-                    final saju = lunar.getSaju(
-                      year: birthDate.year,
-                      month: birthDate.month,
-                      day: birthDate.day,
-                      hour: profile.birthHour,
-                    );
-
-                    return _InfoCard(
-                      title: '사주 (四柱)',
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          _SajuColumn(label: '年', value: saju['year'] ?? ''),
-                          _SajuColumn(label: '月', value: saju['month'] ?? ''),
-                          _SajuColumn(label: '日', value: saju['day'] ?? ''),
-                          if ((saju['hour'] ?? '').isNotEmpty)
-                            _SajuColumn(label: '時', value: saju['hour']!),
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                ],
               ],
             ),
+          ),
+          const SizedBox(height: 16),
+          _InfoCard(
+            title: l.fortuneTitle,
+            child: fortuneAsync.when(
+              loading: () => const Padding(
+                padding: EdgeInsets.symmetric(vertical: 24),
+                child: Center(child: CircularProgressIndicator()),
+              ),
+              error: (e, _) => Text(
+                  l.fortuneError(e.toString()),
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.error)),
+              data: (text) => _FortuneText(text: text),
+            ),
+          ),
+          const SizedBox(height: 16),
+          profileAsync.when(
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (e, _) => const SizedBox.shrink(),
+            data: (profile) {
+              if (profile == null || profile.birthYear == 0) {
+                return _InfoCard(
+                  title: l.fortuneSaju,
+                  child: Text(l.fortuneSajuPrompt),
+                );
+              }
+
+              final birthDate = profile.isLunarBirth
+                  ? lunar.lunarToSolar(profile.birthYear,
+                      profile.birthMonth, profile.birthDay)
+                  : DateTime(profile.birthYear, profile.birthMonth,
+                      profile.birthDay);
+
+              final saju = lunar.getSaju(
+                year: birthDate.year,
+                month: birthDate.month,
+                day: birthDate.day,
+                hour: profile.birthHour,
+              );
+
+              return _InfoCard(
+                title: l.fortuneSaju,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _SajuColumn(label: '年', value: saju['year'] ?? ''),
+                    _SajuColumn(label: '月', value: saju['month'] ?? ''),
+                    _SajuColumn(label: '日', value: saju['day'] ?? ''),
+                    if ((saju['hour'] ?? '').isNotEmpty)
+                      _SajuColumn(label: '時', value: saju['hour']!),
+                  ],
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -252,8 +247,7 @@ class _SajuColumn extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onSurfaceVariant)),
         const SizedBox(height: 4),
         Text(value,
-            style:
-                const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
       ],
     );
   }

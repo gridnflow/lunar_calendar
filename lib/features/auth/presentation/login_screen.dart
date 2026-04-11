@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/providers/service_providers.dart';
+import '../../../l10n/app_localizations.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
@@ -10,6 +11,7 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
+    final l = AppLocalizations.of(context)!;
 
     return Scaffold(
       body: Container(
@@ -41,7 +43,7 @@ class LoginScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 28),
                   Text(
-                    'Lunar Calendar',
+                    l.appTitle,
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -49,16 +51,11 @@ class LoginScreen extends ConsumerWidget {
                       letterSpacing: -0.5,
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '음력 달력 · 오늘의 운세 · 일정 관리',
-                    style: TextStyle(fontSize: 14, color: colorScheme.onSurfaceVariant),
-                  ),
                   const SizedBox(height: 48),
                   FilledButton.icon(
                     onPressed: () => _signIn(context, ref),
                     icon: const Icon(Icons.login),
-                    label: const Text('Sign in with Google'),
+                    label: Text(l.loginGoogle),
                     style: FilledButton.styleFrom(
                       minimumSize: const Size.fromHeight(52),
                     ),

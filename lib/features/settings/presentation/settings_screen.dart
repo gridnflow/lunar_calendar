@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/providers/service_providers.dart';
+import '../../../l10n/app_localizations.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -12,8 +13,7 @@ class SettingsScreen extends ConsumerStatefulWidget {
 }
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
-
-  Future<void> _registerBirthday(BuildContext context) async {
+  Future<void> _registerBirthday(BuildContext context, AppLocalizations l) async {
     final user = ref.read(currentUserProvider);
     if (user == null) return;
 
@@ -21,7 +21,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     if (profile == null || profile.birthYear == 0) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('생일 정보가 없습니다. 온보딩에서 입력해주세요.')),
+          SnackBar(content: Text(l.settingsBirthdayNone)),
         );
       }
       return;
@@ -31,19 +31,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('내 생일 등록'),
-        content: Text(
-          '음력 생일 (${profile.birthMonth}월 ${profile.birthDay}일)을\n'
-          'Google Calendar에 20년치 등록할까요?',
-        ),
+        title: Text(l.settingsBirthdayDialogTitle),
+        content: Text(l.settingsBirthdayDialogBody(
+            profile.birthMonth, profile.birthDay)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('취소'),
+            child: Text(l.anniversaryCancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('등록'),
+            child: Text(l.anniversarySave),
           ),
         ],
       ),
@@ -63,18 +61,19 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('${dates.length}개 생일 일정이 등록됐습니다!')),
+        SnackBar(content: Text(l.settingsBirthdayRegistered(dates.length))),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final profileAsync = ref.watch(userProfileProvider);
     final user = ref.read(currentUserProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: AppBar(title: Text(l.settingsTitle)),
       body: ListView(
         padding: const EdgeInsets.all(24),
         children: [
@@ -92,8 +91,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           ? user!.displayName![0].toUpperCase()
                           : '?',
                       style: TextStyle(
-                          color:
-                              Theme.of(context).colorScheme.onPrimaryContainer,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onPrimaryContainer,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -103,7 +103,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(user?.displayName ?? '',
-                            style: const TextStyle(fontWeight: FontWeight.bold)),
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
                         Text(user?.email ?? '',
                             style: TextStyle(
                                 fontSize: 12,
@@ -119,7 +120,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           ),
           const SizedBox(height: 16),
 
-          // 생년월일 정보 (읽기 전용)
+          // 생년월일 읽기 전용
           profileAsync.when(
             loading: () => const SizedBox.shrink(),
             error: (err, st) => const SizedBox.shrink(),
@@ -133,7 +134,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('생년월일',
+                      Text(l.settingsBirthDate,
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall
@@ -142,7 +143,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       Text(
                         '${profile.birthYear}년 ${profile.birthMonth}월 ${profile.birthDay}일'
                         '${profile.birthHour != null ? '  ${profile.birthHour}시' : ''}'
-                        '  (${profile.isLunarBirth ? '음력' : '양력'})',
+                        '  (${profile.isLunarBirth ? l.onboardingLunar : l.onboardingSolar})',
                         style: const TextStyle(fontSize: 15),
                       ),
                     ],
@@ -154,9 +155,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           const SizedBox(height: 16),
 
           OutlinedButton.icon(
-            onPressed: () => _registerBirthday(context),
+            onPressed: () => _registerBirthday(context, l),
             icon: const Icon(Icons.cake),
-            label: const Text('내 생일 Google Calendar에 등록'),
+            label: Text(l.settingsRegisterBirthday),
             style: OutlinedButton.styleFrom(
                 minimumSize: const Size.fromHeight(48)),
           ),
@@ -164,7 +165,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           OutlinedButton.icon(
             onPressed: () => context.push('/language'),
             icon: const Icon(Icons.language),
-            label: const Text('Language / 언어 설정'),
+            label: Text(l.languageSelect),
             style: OutlinedButton.styleFrom(
                 minimumSize: const Size.fromHeight(48)),
           ),
@@ -173,15 +174,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             onPressed: () => ref.read(authServiceProvider).signOut(),
             style: OutlinedButton.styleFrom(
                 minimumSize: const Size.fromHeight(48)),
-            child: const Text('Sign Out'),
+            child: Text(l.settingsSignOut),
           ),
 
           const SizedBox(height: 32),
           const Divider(),
           const SizedBox(height: 8),
 
-          // 데이터 보호 & 법적 고지
-          Text('정보 및 법적 고지',
+          Text(l.settingsLegalTitle,
               style: Theme.of(context)
                   .textTheme
                   .titleSmall
@@ -189,41 +189,32 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           const SizedBox(height: 8),
           _LegalTile(
             icon: Icons.shield_outlined,
-            title: '개인정보 처리방침',
-            body: '본 앱은 Google 로그인을 통해 이름, 이메일 주소를 수집하며, '
-                '사용자가 입력한 생년월일을 Firestore에 저장합니다. '
-                '수집된 정보는 오늘의 운세 및 사주 계산에만 활용되며, '
-                '제3자에게 제공되지 않습니다.',
+            title: l.settingsPrivacy,
+            body: l.settingsPrivacyBody,
           ),
           _LegalTile(
             icon: Icons.calendar_today_outlined,
-            title: 'Google Calendar 권한',
-            body: '캘린더 연동 기능 사용 시 Google Calendar 읽기/쓰기 권한을 요청합니다. '
-                '해당 권한은 일정 조회 및 음력 생일 등록에만 사용됩니다.',
+            title: l.settingsCalendarPermission,
+            body: l.settingsCalendarPermissionBody,
           ),
           _LegalTile(
             icon: Icons.notifications_outlined,
-            title: '알림 권한',
-            body: '기념일 사전 알림(7일 전, 3일 전, 당일)을 위해 로컬 알림 권한을 사용합니다. '
-                '알림은 기기 내에서만 처리되며 외부 서버로 전송되지 않습니다.',
+            title: l.settingsNotificationPermission,
+            body: l.settingsNotificationPermissionBody,
           ),
           _LegalTile(
             icon: Icons.auto_awesome_outlined,
-            title: 'AI 운세 (Gemini)',
-            body: '오늘의 운세는 Google Gemini API를 통해 생성됩니다. '
-                '운세 생성 시 일주·월주·년주 및 사주 정보가 전송될 수 있습니다. '
-                '하루 1,200회 초과 시 로컬 운세로 대체됩니다.',
+            title: l.settingsAI,
+            body: l.settingsAIBody,
           ),
           _LegalTile(
             icon: Icons.ad_units_outlined,
-            title: '광고 (AdMob)',
-            body: '본 앱은 Google AdMob을 통해 광고를 표시합니다. '
-                'AdMob은 광고 최적화를 위해 기기 식별자 등의 정보를 수집할 수 있습니다. '
-                '자세한 내용은 Google 개인정보처리방침을 참조하세요.',
+            title: l.settingsAdMob,
+            body: l.settingsAdMobBody,
           ),
           const SizedBox(height: 8),
           Text(
-            'Version 1.0.0  ·  © 2026 Gridnflow',
+            l.settingsVersion('1.0.0'),
             style: TextStyle(
                 fontSize: 11,
                 color: Theme.of(context).colorScheme.onSurfaceVariant),
@@ -270,11 +261,10 @@ class _LegalTileState extends State<_LegalTile> {
                   const SizedBox(width: 10),
                   Expanded(
                       child: Text(widget.title,
-                          style: const TextStyle(fontWeight: FontWeight.w600))),
+                          style:
+                              const TextStyle(fontWeight: FontWeight.w600))),
                   Icon(
-                      _expanded
-                          ? Icons.expand_less
-                          : Icons.expand_more,
+                      _expanded ? Icons.expand_less : Icons.expand_more,
                       size: 18,
                       color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ],
@@ -285,8 +275,9 @@ class _LegalTileState extends State<_LegalTile> {
                     style: TextStyle(
                         fontSize: 13,
                         height: 1.5,
-                        color:
-                            Theme.of(context).colorScheme.onSurfaceVariant)),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurfaceVariant)),
               ],
             ],
           ),

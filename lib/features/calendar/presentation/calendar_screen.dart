@@ -7,6 +7,7 @@ import '../../../core/models/family_anniversary.dart';
 import '../../../core/providers/service_providers.dart';
 import '../../../core/services/lunar_service.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class CalendarScreen extends ConsumerStatefulWidget {
   const CalendarScreen({super.key});
@@ -52,6 +53,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final lunar = ref.read(lunarServiceProvider);
     final eventsAsync = ref.watch(upcomingEventsProvider);
     final anniversariesAsync = ref.watch(anniversariesProvider);
@@ -61,7 +63,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Calendar'),
+            Text(l.calendarTitle),
             Text(
               lunar.todayLunarString(),
               style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
@@ -71,12 +73,12 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            tooltip: '기념일 추가',
+            tooltip: l.calendarAddAnniversary,
             onPressed: () => _showAddAnniversaryDialog(context),
           ),
           IconButton(
             icon: const Icon(Icons.list_alt),
-            tooltip: '기념일 목록',
+            tooltip: l.calendarAnniversaryList,
             onPressed: () => _showAnniversaryListSheet(context),
           ),
           IconButton(
@@ -95,8 +97,8 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
               children: [
                 Icon(Icons.calendar_today, size: 48, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 const SizedBox(height: 16),
-                const Text('Google Calendar 연결 필요',
-                    style: TextStyle(fontSize: 16)),
+                Text(l.calendarConnectRequired,
+                    style: const TextStyle(fontSize: 16)),
                 const SizedBox(height: 8),
                 Text('$e',
                     style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant),
@@ -105,7 +107,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                 FilledButton.icon(
                   onPressed: () => ref.invalidate(upcomingEventsProvider),
                   icon: const Icon(Icons.refresh),
-                  label: const Text('재시도'),
+                  label: Text(l.calendarRetry),
                 ),
               ],
             ),
@@ -138,8 +140,9 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     final uid = ref.read(currentUserIdProvider);
     if (uid == null) return;
 
+    final l = AppLocalizations.of(context)!;
     final nameCtrl = TextEditingController();
-    String type = '기타';
+    String type = l.anniversaryType_other;
     int lunarMonth = 1;
     int lunarDay = 1;
     bool isLeap = false;
@@ -148,24 +151,24 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       context: context,
       builder: (ctx) => StatefulBuilder(
         builder: (ctx, setState) => AlertDialog(
-          title: const Text('기념일 추가'),
+          title: Text(l.anniversaryAdd),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
                   controller: nameCtrl,
-                  decoration: const InputDecoration(
-                    labelText: '이름 (예: 할아버지 제사)',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: l.anniversaryName,
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(height: 12),
                 SegmentedButton<String>(
-                  segments: const [
-                    ButtonSegment(value: '제사', label: Text('제사'), icon: Icon(Icons.local_fire_department)),
-                    ButtonSegment(value: '생일', label: Text('생일'), icon: Icon(Icons.cake)),
-                    ButtonSegment(value: '기타', label: Text('기타'), icon: Icon(Icons.star)),
+                  segments: [
+                    ButtonSegment(value: l.anniversaryType_jesa, label: Text(l.anniversaryType_jesa), icon: const Icon(Icons.local_fire_department)),
+                    ButtonSegment(value: l.anniversaryType_birthday, label: Text(l.anniversaryType_birthday), icon: const Icon(Icons.cake)),
+                    ButtonSegment(value: l.anniversaryType_other, label: Text(l.anniversaryType_other), icon: const Icon(Icons.star)),
                   ],
                   selected: {type},
                   onSelectionChanged: (v) => setState(() => type = v.first),
@@ -185,7 +188,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          '날짜는 음력으로 입력해주세요.\n예) 음력 생일이 3월 15일이면 3월, 15일 선택',
+                          l.anniversaryLunarHint,
                           style: TextStyle(
                             fontSize: 12,
                             height: 1.5,
@@ -201,7 +204,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   children: [
                     Expanded(
                       child: _PickerField(
-                        label: '음력 월',
+                        label: l.anniversaryLunarMonth,
                         value: lunarMonth,
                         min: 1,
                         max: 12,
@@ -211,7 +214,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                     const SizedBox(width: 12),
                     Expanded(
                       child: _PickerField(
-                        label: '음력 일',
+                        label: l.anniversaryLunarDay,
                         value: lunarDay,
                         min: 1,
                         max: 30,
@@ -223,7 +226,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                 const SizedBox(height: 8),
                 CheckboxListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: const Text('윤달'),
+                  title: Text(l.anniversaryLeapMonth),
                   value: isLeap,
                   onChanged: (v) => setState(() => isLeap = v ?? false),
                 ),
@@ -233,11 +236,11 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx, false),
-              child: const Text('취소'),
+              child: Text(l.anniversaryCancel),
             ),
             FilledButton(
               onPressed: () => Navigator.pop(ctx, true),
-              child: const Text('저장'),
+              child: Text(l.anniversarySave),
             ),
           ],
         ),
@@ -260,7 +263,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
 
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('${nameCtrl.text.trim()} 기념일이 추가됐습니다')),
+        SnackBar(content: Text(l.anniversaryAdded(nameCtrl.text.trim()))),
       );
     }
   }
@@ -376,7 +379,7 @@ class _CalendarBody extends StatelessWidget {
         Expanded(
           child: selectedEvents.isEmpty
               ? Center(
-                  child: Text('이 날의 일정이 없습니다',
+                  child: Text(AppLocalizations.of(context)!.calendarNoEvents,
                       style: TextStyle(color: colorScheme.onSurfaceVariant)))
               : ListView.separated(
                   padding: const EdgeInsets.symmetric(vertical: 8),
@@ -389,14 +392,14 @@ class _CalendarBody extends StatelessWidget {
                         event.start?.dateTime ?? event.start?.date;
                     final timeStr = event.start?.dateTime != null
                         ? '${start!.hour.toString().padLeft(2, '0')}:${start.minute.toString().padLeft(2, '0')}'
-                        : '종일';
+                        : 'All day';
                     return ListTile(
                       leading: CircleAvatar(
                         backgroundColor: colorScheme.primaryContainer,
                         child: Icon(Icons.event,
                             color: colorScheme.primary, size: 18),
                       ),
-                      title: Text(event.summary ?? '(제목 없음)'),
+                      title: Text(event.summary ?? '(No title)'),
                       subtitle: Text(timeStr),
                     );
                   },
@@ -548,8 +551,8 @@ class _AnniversaryListSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context)!;
     final anniversariesAsync = ref.watch(anniversariesProvider);
-
     final colorScheme = Theme.of(context).colorScheme;
 
     return DraggableScrollableSheet(
@@ -571,14 +574,16 @@ class _AnniversaryListSheet extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Row(
               children: [
-                Text('기념일 목록',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: colorScheme.onSurface)),
+                Text(l.anniversaryListTitle,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: colorScheme.onSurface)),
                 const Spacer(),
                 FilledButton.icon(
                   onPressed: () => Navigator.pop(context),
                   icon: const Icon(Icons.close, size: 16),
-                  label: const Text('닫기'),
+                  label: Text(l.anniversaryClose),
                   style: FilledButton.styleFrom(
                       backgroundColor: colorScheme.surfaceContainerHighest,
                       foregroundColor: colorScheme.onSurface),
@@ -589,14 +594,14 @@ class _AnniversaryListSheet extends ConsumerWidget {
           const Divider(height: 1),
           Expanded(
             child: anniversariesAsync.when(
-              loading: () =>
-                  const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(child: Text('오류: $e')),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (e, _) => Center(child: Text('Error: $e')),
               data: (list) {
                 if (list.isEmpty) {
                   return Center(
-                    child: Text('등록된 기념일이 없습니다',
-                        style: TextStyle(color: colorScheme.onSurfaceVariant)),
+                    child: Text(l.anniversaryEmpty,
+                        style:
+                            TextStyle(color: colorScheme.onSurfaceVariant)),
                   );
                 }
                 return ListView.separated(
@@ -615,7 +620,8 @@ class _AnniversaryListSheet extends ConsumerWidget {
                       ),
                       title: Text(ann.name),
                       subtitle: Text(
-                          '음력 ${ann.lunarMonth}월 ${ann.lunarDay}일${ann.isLeap ? ' (윤달)' : ''}  ·  ${ann.type}'),
+                          '${l.anniversaryLunarMonth} ${ann.lunarMonth} ${l.anniversaryLunarDay} ${ann.lunarDay}'
+                          '${ann.isLeap ? ' (${l.anniversaryLeapMonth})' : ''}  ·  ${ann.type}'),
                       trailing: IconButton(
                         icon: Icon(Icons.delete_outline,
                             color: colorScheme.error),
@@ -623,20 +629,20 @@ class _AnniversaryListSheet extends ConsumerWidget {
                           final ok = await showDialog<bool>(
                             context: context,
                             builder: (ctx) => AlertDialog(
-                              title: const Text('기념일 삭제'),
-                              content:
-                                  Text('"${ann.name}"을 삭제할까요?'),
+                              title: Text(l.anniversaryDelete),
+                              content: Text(
+                                  l.anniversaryDeleteConfirm(ann.name)),
                               actions: [
                                 TextButton(
                                     onPressed: () =>
                                         Navigator.pop(ctx, false),
-                                    child: const Text('취소')),
+                                    child: Text(l.anniversaryCancel)),
                                 FilledButton(
                                     onPressed: () =>
                                         Navigator.pop(ctx, true),
                                     style: FilledButton.styleFrom(
                                         backgroundColor: colorScheme.error),
-                                    child: const Text('삭제')),
+                                    child: Text(l.anniversaryDelete)),
                               ],
                             ),
                           );
@@ -647,8 +653,8 @@ class _AnniversaryListSheet extends ConsumerWidget {
                             if (context.mounted) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                    content:
-                                        Text('"${ann.name}" 삭제됐습니다')),
+                                    content: Text(
+                                        l.anniversaryDeleted(ann.name))),
                               );
                             }
                           }

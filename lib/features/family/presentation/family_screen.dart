@@ -5,26 +5,28 @@ import '../../../core/models/family_anniversary.dart';
 import '../../../core/providers/service_providers.dart';
 import '../../../core/services/lunar_service.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class FamilyScreen extends ConsumerWidget {
   const FamilyScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context)!;
     final anniversariesAsync = ref.watch(anniversariesProvider);
     final lunar = ref.read(lunarServiceProvider);
     final uid = ref.read(currentUserIdProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('가족 기념일'),
+        title: Text(l.familyTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            tooltip: '기념일 추가',
+            tooltip: l.anniversaryAdd,
             onPressed: uid == null
                 ? null
-                : () => _showAddDialog(context, ref, uid),
+                : () => _showAddDialog(context, ref, uid, l),
           ),
         ],
       ),
@@ -41,29 +43,31 @@ class FamilyScreen extends ConsumerWidget {
                       size: 64,
                       color: Theme.of(context).colorScheme.onSurfaceVariant),
                   const SizedBox(height: 16),
-                  Text('등록된 기념일이 없습니다',
+                  Text(l.familyEmpty,
                       style: TextStyle(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant)),
+                          color: Theme.of(context).colorScheme.onSurfaceVariant)),
                   const SizedBox(height: 8),
                   FilledButton.icon(
                     onPressed: uid == null
                         ? null
-                        : () => _showAddDialog(context, ref, uid),
+                        : () => _showAddDialog(context, ref, uid, l),
                     icon: const Icon(Icons.add),
-                    label: const Text('기념일 추가'),
+                    label: Text(l.familyAddButton),
                   ),
                 ],
               ),
             );
           }
 
-          // 타입별 그룹
           final byType = <String, List<FamilyAnniversary>>{};
           for (final ann in list) {
             byType.putIfAbsent(ann.type, () => []).add(ann);
           }
-          final order = ['제사', '생일', '기타'];
+          final order = [
+            l.anniversaryType_jesa,
+            l.anniversaryType_birthday,
+            l.anniversaryType_other,
+          ];
           final sortedTypes = order.where(byType.containsKey).toList();
 
           return ListView(
@@ -75,9 +79,10 @@ class FamilyScreen extends ConsumerWidget {
                   _AnniversaryCard(
                     ann: ann,
                     lunar: lunar,
+                    l: l,
                     onDelete: uid == null
                         ? null
-                        : () => _confirmDelete(context, ref, uid, ann),
+                        : () => _confirmDelete(context, ref, uid, ann, l),
                   ),
               ],
             ],
@@ -88,9 +93,9 @@ class FamilyScreen extends ConsumerWidget {
   }
 
   Future<void> _showAddDialog(
-      BuildContext context, WidgetRef ref, String uid) async {
+      BuildContext context, WidgetRef ref, String uid, AppLocalizations l) async {
     final nameCtrl = TextEditingController();
-    String type = '기타';
+    String type = l.anniversaryType_other;
     int lunarMonth = 1;
     int lunarDay = 1;
     bool isLeap = false;
@@ -99,33 +104,33 @@ class FamilyScreen extends ConsumerWidget {
       context: context,
       builder: (ctx) => StatefulBuilder(
         builder: (ctx, setState) => AlertDialog(
-          title: const Text('기념일 추가'),
+          title: Text(l.anniversaryAdd),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
                   controller: nameCtrl,
-                  decoration: const InputDecoration(
-                    labelText: '이름 (예: 할머니 제사)',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: l.anniversaryName,
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(height: 12),
                 SegmentedButton<String>(
-                  segments: const [
+                  segments: [
                     ButtonSegment(
-                        value: '제사',
-                        label: Text('제사'),
-                        icon: Icon(Icons.local_fire_department)),
+                        value: l.anniversaryType_jesa,
+                        label: Text(l.anniversaryType_jesa),
+                        icon: const Icon(Icons.local_fire_department)),
                     ButtonSegment(
-                        value: '생일',
-                        label: Text('생일'),
-                        icon: Icon(Icons.cake)),
+                        value: l.anniversaryType_birthday,
+                        label: Text(l.anniversaryType_birthday),
+                        icon: const Icon(Icons.cake)),
                     ButtonSegment(
-                        value: '기타',
-                        label: Text('기타'),
-                        icon: Icon(Icons.star)),
+                        value: l.anniversaryType_other,
+                        label: Text(l.anniversaryType_other),
+                        icon: const Icon(Icons.star)),
                   ],
                   selected: {type},
                   onSelectionChanged: (v) => setState(() => type = v.first),
@@ -145,7 +150,7 @@ class FamilyScreen extends ConsumerWidget {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          '날짜는 음력으로 입력해주세요.\n예) 음력 생일이 3월 15일이면 3월, 15일 선택',
+                          l.anniversaryLunarHint,
                           style: TextStyle(
                             fontSize: 12,
                             height: 1.5,
@@ -160,7 +165,7 @@ class FamilyScreen extends ConsumerWidget {
                 Row(children: [
                   Expanded(
                     child: _PickerField(
-                      label: '음력 월',
+                      label: l.anniversaryLunarMonth,
                       value: lunarMonth,
                       min: 1,
                       max: 12,
@@ -170,7 +175,7 @@ class FamilyScreen extends ConsumerWidget {
                   const SizedBox(width: 12),
                   Expanded(
                     child: _PickerField(
-                      label: '음력 일',
+                      label: l.anniversaryLunarDay,
                       value: lunarDay,
                       min: 1,
                       max: 30,
@@ -181,7 +186,7 @@ class FamilyScreen extends ConsumerWidget {
                 const SizedBox(height: 8),
                 CheckboxListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: const Text('윤달'),
+                  title: Text(l.anniversaryLeapMonth),
                   value: isLeap,
                   onChanged: (v) => setState(() => isLeap = v ?? false),
                 ),
@@ -191,10 +196,10 @@ class FamilyScreen extends ConsumerWidget {
           actions: [
             TextButton(
                 onPressed: () => Navigator.pop(ctx, false),
-                child: const Text('취소')),
+                child: Text(l.anniversaryCancel)),
             FilledButton(
                 onPressed: () => Navigator.pop(ctx, true),
-                child: const Text('저장')),
+                child: Text(l.anniversarySave)),
           ],
         ),
       ),
@@ -216,27 +221,27 @@ class FamilyScreen extends ConsumerWidget {
 
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('${nameCtrl.text.trim()} 기념일이 추가됐습니다')),
+        SnackBar(content: Text(l.anniversaryAdded(nameCtrl.text.trim()))),
       );
     }
   }
 
   Future<void> _confirmDelete(BuildContext context, WidgetRef ref, String uid,
-      FamilyAnniversary ann) async {
+      FamilyAnniversary ann, AppLocalizations l) async {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('기념일 삭제'),
-        content: Text('"${ann.name}"을 삭제할까요?'),
+        title: Text(l.anniversaryDelete),
+        content: Text(l.anniversaryDeleteConfirm(ann.name)),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(ctx, false),
-              child: const Text('취소')),
+              child: Text(l.anniversaryCancel)),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
             style: FilledButton.styleFrom(
                 backgroundColor: Theme.of(ctx).colorScheme.error),
-            child: const Text('삭제'),
+            child: Text(l.anniversaryDelete),
           ),
         ],
       ),
@@ -246,7 +251,7 @@ class FamilyScreen extends ConsumerWidget {
       await ref.read(anniversaryServiceProvider).delete(uid, ann.id);
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('"${ann.name}" 삭제됐습니다')),
+          SnackBar(content: Text(l.anniversaryDeleted(ann.name))),
         );
       }
     }
@@ -281,17 +286,17 @@ class _TypeHeader extends StatelessWidget {
 class _AnniversaryCard extends StatelessWidget {
   final FamilyAnniversary ann;
   final LunarService lunar;
+  final AppLocalizations l;
   final VoidCallback? onDelete;
 
   const _AnniversaryCard(
-      {required this.ann, required this.lunar, this.onDelete});
+      {required this.ann, required this.lunar, required this.l, this.onDelete});
 
   @override
   Widget build(BuildContext context) {
     final color = AppTheme.anniversaryColor(ann.type);
     final icon = AppTheme.anniversaryIcon(ann.type);
 
-    // 음력 오늘 기준으로 D-day 계산 (양력 변환 후 비교)
     String solarStr = '';
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
@@ -302,7 +307,6 @@ class _AnniversaryCard extends StatelessWidget {
         final solarDay = DateTime(solar.year, solar.month, solar.day);
         final diff = solarDay.difference(today).inDays;
         if (diff >= 0) {
-          // 음력 날짜로 표시
           final lunarAnn = lunar.solarToLunar(solarDay);
           final lunarAnnStr = '${lunarAnn.getMonth()}/${lunarAnn.getDay()}';
           solarStr = diff == 0
@@ -324,8 +328,8 @@ class _AnniversaryCard extends StatelessWidget {
         title: Text(ann.name,
             style: const TextStyle(fontWeight: FontWeight.w600)),
         subtitle: Text(
-          '음력 ${ann.lunarMonth}월 ${ann.lunarDay}일'
-          '${ann.isLeap ? ' (윤달)' : ''}',
+          '${l.anniversaryLunarMonth} ${ann.lunarMonth} ${l.anniversaryLunarDay} ${ann.lunarDay}'
+          '${ann.isLeap ? ' (${l.anniversaryLeapMonth})' : ''}',
           style: const TextStyle(fontSize: 13),
         ),
         trailing: Row(
@@ -333,13 +337,11 @@ class _AnniversaryCard extends StatelessWidget {
           children: [
             if (solarStr.isNotEmpty)
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: color.withValues(alpha: 0.3)),
+                  border: Border.all(color: color.withValues(alpha: 0.3)),
                 ),
                 child: Text(solarStr,
                     style: TextStyle(
@@ -381,8 +383,7 @@ class _PickerField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         border: const OutlineInputBorder(),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       ),
       items: List.generate(
         max - min + 1,

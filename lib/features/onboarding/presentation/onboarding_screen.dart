@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/models/user_profile.dart';
 import '../../../core/providers/service_providers.dart';
+import '../../../l10n/app_localizations.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -53,7 +54,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Future<void> _skip() async {
-    // 생년월일 없이 진행 — birthYear=0으로 빈 프로필 저장
     final user = ref.read(currentUserProvider)!;
     await ref.read(userServiceProvider).saveProfile(UserProfile(
       uid: user.uid,
@@ -70,6 +70,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final l = AppLocalizations.of(context)!;
 
     return Scaffold(
       body: SafeArea(
@@ -84,7 +85,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 Icon(Icons.auto_awesome, size: 48, color: cs.primary),
                 const SizedBox(height: 16),
                 Text(
-                  '생년월일을 알려주세요',
+                  l.onboardingTitle,
                   style: Theme.of(context)
                       .textTheme
                       .headlineSmall
@@ -92,71 +93,72 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  '사주와 오늘의 운세에 활용됩니다.\n나중에 Settings에서 변경할 수 있어요.',
-                  style: TextStyle(
-                      color: cs.onSurfaceVariant, height: 1.5),
+                  l.onboardingSubtitle,
+                  style: TextStyle(color: cs.onSurfaceVariant, height: 1.5),
                 ),
                 const SizedBox(height: 32),
-                // 음력 / 양력 선택
                 SegmentedButton<bool>(
-                  segments: const [
+                  segments: [
                     ButtonSegment(
                       value: false,
-                      label: Text('양력 생일'),
-                      icon: Icon(Icons.wb_sunny_outlined),
+                      label: Text(l.onboardingSolar),
+                      icon: const Icon(Icons.wb_sunny_outlined),
                     ),
                     ButtonSegment(
                       value: true,
-                      label: Text('음력 생일'),
-                      icon: Icon(Icons.nightlight_outlined),
+                      label: Text(l.onboardingLunar),
+                      icon: const Icon(Icons.nightlight_outlined),
                     ),
                   ],
                   selected: {_isLunar},
-                  onSelectionChanged: (v) =>
-                      setState(() => _isLunar = v.first),
+                  onSelectionChanged: (v) => setState(() => _isLunar = v.first),
                   style: ButtonStyle(
-                    minimumSize: WidgetStateProperty.all(
-                        const Size.fromHeight(48)),
+                    minimumSize: WidgetStateProperty.all(const Size.fromHeight(48)),
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  _isLunar
-                      ? '음력 날짜를 입력하세요 (예: 음력 3월 15일)'
-                      : '양력 날짜를 입력하세요 (예: 1990년 4월 20일)',
-                  style: TextStyle(
-                      fontSize: 12, color: cs.onSurfaceVariant),
+                  _isLunar ? l.onboardingLunarHint : l.onboardingSolarHint,
+                  style: TextStyle(fontSize: 12, color: cs.onSurfaceVariant),
                 ),
                 const SizedBox(height: 16),
                 Row(children: [
                   Expanded(
                       child: _Field(
                           controller: _yearCtrl,
-                          label: '년',
+                          label: l.onboardingYear,
                           min: 1900,
-                          max: 2100)),
+                          max: 2100,
+                          requiredMsg: l.onboardingRequired,
+                          rangeMsg: '1900–2100')),
                   const SizedBox(width: 12),
                   Expanded(
                       child: _Field(
                           controller: _monthCtrl,
-                          label: '월',
+                          label: l.onboardingMonth,
                           min: 1,
-                          max: 12)),
+                          max: 12,
+                          requiredMsg: l.onboardingRequired,
+                          rangeMsg: '1–12')),
                   const SizedBox(width: 12),
                   Expanded(
                       child: _Field(
                           controller: _dayCtrl,
-                          label: '일',
+                          label: l.onboardingDay,
                           min: 1,
-                          max: 31)),
+                          max: 31,
+                          requiredMsg: l.onboardingRequired,
+                          rangeMsg: '1–31')),
                 ]),
                 const SizedBox(height: 16),
                 _Field(
                   controller: _hourCtrl,
-                  label: '태어난 시간 (선택, 0–23)',
+                  label: l.onboardingHour,
                   min: 0,
                   max: 23,
                   required: false,
+                  requiredMsg: l.onboardingRequired,
+                  rangeMsg: '0–23',
                 ),
                 const SizedBox(height: 40),
                 FilledButton(
@@ -168,14 +170,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           height: 20,
                           width: 20,
                           child: CircularProgressIndicator(strokeWidth: 2))
-                      : const Text('시작하기', style: TextStyle(fontSize: 16)),
+                      : Text(l.onboardingStart,
+                          style: const TextStyle(fontSize: 16)),
                 ),
                 const SizedBox(height: 12),
                 TextButton(
                   onPressed: _saving ? null : _skip,
                   style: TextButton.styleFrom(
                       minimumSize: const Size.fromHeight(48)),
-                  child: Text('나중에 입력할게요',
+                  child: Text(l.onboardingSkip,
                       style: TextStyle(color: cs.onSurfaceVariant)),
                 ),
               ],
@@ -193,12 +196,16 @@ class _Field extends StatelessWidget {
   final int min;
   final int max;
   final bool required;
+  final String requiredMsg;
+  final String rangeMsg;
 
   const _Field({
     required this.controller,
     required this.label,
     required this.min,
     required this.max,
+    required this.requiredMsg,
+    required this.rangeMsg,
     this.required = true,
   });
 
@@ -211,9 +218,9 @@ class _Field extends StatelessWidget {
       keyboardType: TextInputType.number,
       validator: (v) {
         if (!required && (v == null || v.isEmpty)) return null;
-        if (required && (v == null || v.isEmpty)) return '필수';
+        if (required && (v == null || v.isEmpty)) return requiredMsg;
         final n = int.tryParse(v!);
-        if (n == null || n < min || n > max) return '$min–$max';
+        if (n == null || n < min || n > max) return rangeMsg;
         return null;
       },
     );

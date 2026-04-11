@@ -13,6 +13,7 @@ import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../providers/service_providers.dart';
 import '../services/ad_service.dart'; // AdIds.banner
+import '../../l10n/app_localizations.dart';
 
 final _authStreamProvider = StreamProvider<User?>(
   (ref) => FirebaseAuth.instance.authStateChanges(),
@@ -144,15 +145,19 @@ class _MainShellState extends ConsumerState<MainShell> {
               setState(() => _selectedIndex = index);
               context.go(_routes[index]);
             },
-            destinations: const [
+            destinations: [
               NavigationDestination(
-                  icon: Icon(Icons.calendar_month), label: 'Calendar'),
+                  icon: const Icon(Icons.calendar_month),
+                  label: AppLocalizations.of(context)!.navCalendar),
               NavigationDestination(
-                  icon: Icon(Icons.auto_awesome), label: 'Fortune'),
+                  icon: const Icon(Icons.auto_awesome),
+                  label: AppLocalizations.of(context)!.navFortune),
               NavigationDestination(
-                  icon: Icon(Icons.people_outline), label: '가족'),
+                  icon: const Icon(Icons.people_outline),
+                  label: AppLocalizations.of(context)!.navFamily),
               NavigationDestination(
-                  icon: Icon(Icons.settings), label: 'Settings'),
+                  icon: const Icon(Icons.settings),
+                  label: AppLocalizations.of(context)!.navSettings),
             ],
           ),
         ],
