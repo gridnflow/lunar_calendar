@@ -152,6 +152,19 @@ class AppLocalizationsTr extends AppLocalizations {
   String get familyAddButton => 'Yıl Dönümü Ekle';
 
   @override
+  String get familyToday => 'Bugün 🎉';
+
+  @override
+  String familyDDaySoon(int diff, String lunarDate) {
+    return 'D-$diff  $lunarDate';
+  }
+
+  @override
+  String familyDDay(int diff, String lunarDate) {
+    return '$lunarDate (D-$diff)';
+  }
+
+  @override
   String get settingsTitle => 'Ayarlar';
 
   @override

@@ -88,6 +88,29 @@
   "familyTitle": "Aile Yıl Dönümleri",
   "familyEmpty": "Kayıtlı yıl dönümü yok",
   "familyAddButton": "Yıl Dönümü Ekle",
+  "familyToday": "Bugün 🎉",
+  "familyDDaySoon": "D-{diff}  {lunarDate}",
+  "@familyDDaySoon": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "lunarDate": {
+        "type": "String"
+      }
+    }
+  },
+  "familyDDay": "{lunarDate} (D-{diff})",
+  "@familyDDay": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "lunarDate": {
+        "type": "String"
+      }
+    }
+  },
   "settingsTitle": "Ayarlar",
   "settingsBirthDate": "Doğum Tarihi",
   "settingsRegisterBirthday": "Doğum Gününü Google Takvim'e Ekle",

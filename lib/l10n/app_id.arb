@@ -88,6 +88,29 @@
   "familyTitle": "Peringatan Keluarga",
   "familyEmpty": "Belum ada peringatan terdaftar",
   "familyAddButton": "Tambah Peringatan",
+  "familyToday": "Hari ini 🎉",
+  "familyDDaySoon": "D-{diff}  {lunarDate}",
+  "@familyDDaySoon": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "lunarDate": {
+        "type": "String"
+      }
+    }
+  },
+  "familyDDay": "{lunarDate} (D-{diff})",
+  "@familyDDay": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "lunarDate": {
+        "type": "String"
+      }
+    }
+  },
   "settingsTitle": "Pengaturan",
   "settingsBirthDate": "Tanggal Lahir",
   "settingsRegisterBirthday": "Daftarkan Ulang Tahun ke Google Calendar",

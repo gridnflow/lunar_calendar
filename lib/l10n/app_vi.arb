@@ -88,6 +88,29 @@
   "familyTitle": "Kỷ niệm gia đình",
   "familyEmpty": "Chưa có ngày kỷ niệm nào",
   "familyAddButton": "Thêm kỷ niệm",
+  "familyToday": "Hôm nay 🎉",
+  "familyDDaySoon": "D-{diff}  {lunarDate}",
+  "@familyDDaySoon": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "lunarDate": {
+        "type": "String"
+      }
+    }
+  },
+  "familyDDay": "{lunarDate} (D-{diff})",
+  "@familyDDay": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "lunarDate": {
+        "type": "String"
+      }
+    }
+  },
   "settingsTitle": "Cài đặt",
   "settingsBirthDate": "Ngày sinh",
   "settingsRegisterBirthday": "Đăng ký sinh nhật vào Google Calendar",

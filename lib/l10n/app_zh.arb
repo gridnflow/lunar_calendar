@@ -88,6 +88,29 @@
   "familyTitle": "家人纪念日",
   "familyEmpty": "暂无纪念日",
   "familyAddButton": "添加纪念日",
+  "familyToday": "今天 🎉",
+  "familyDDaySoon": "D-{diff}  {lunarDate}",
+  "@familyDDaySoon": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "lunarDate": {
+        "type": "String"
+      }
+    }
+  },
+  "familyDDay": "{lunarDate} (D-{diff})",
+  "@familyDDay": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "lunarDate": {
+        "type": "String"
+      }
+    }
+  },
   "settingsTitle": "设置",
   "settingsBirthDate": "生日",
   "settingsRegisterBirthday": "将生日注册到 Google 日历",

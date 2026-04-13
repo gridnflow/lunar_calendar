@@ -88,6 +88,29 @@
   "familyTitle": "家族の記念日",
   "familyEmpty": "登録された記念日はありません",
   "familyAddButton": "記念日を追加",
+  "familyToday": "今日 🎉",
+  "familyDDaySoon": "D-{diff}  {lunarDate}",
+  "@familyDDaySoon": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "lunarDate": {
+        "type": "String"
+      }
+    }
+  },
+  "familyDDay": "{lunarDate} (D-{diff})",
+  "@familyDDay": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "lunarDate": {
+        "type": "String"
+      }
+    }
+  },
   "settingsTitle": "設定",
   "settingsBirthDate": "生年月日",
   "settingsRegisterBirthday": "誕生日を Google カレンダーに登録",

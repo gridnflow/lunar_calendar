@@ -150,6 +150,19 @@ class AppLocalizationsZh extends AppLocalizations {
   String get familyAddButton => '添加纪念日';
 
   @override
+  String get familyToday => '今天 🎉';
+
+  @override
+  String familyDDaySoon(int diff, String lunarDate) {
+    return 'D-$diff  $lunarDate';
+  }
+
+  @override
+  String familyDDay(int diff, String lunarDate) {
+    return '$lunarDate (D-$diff)';
+  }
+
+  @override
   String get settingsTitle => '设置';
 
   @override
@@ -433,6 +446,19 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get familyAddButton => '新增紀念日';
+
+  @override
+  String get familyToday => '今天 🎉';
+
+  @override
+  String familyDDaySoon(int diff, String lunarDate) {
+    return 'D-$diff  $lunarDate';
+  }
+
+  @override
+  String familyDDay(int diff, String lunarDate) {
+    return '$lunarDate (D-$diff)';
+  }
 
   @override
   String get settingsTitle => '設定';

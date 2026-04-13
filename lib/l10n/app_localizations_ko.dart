@@ -151,6 +151,19 @@ class AppLocalizationsKo extends AppLocalizations {
   String get familyAddButton => '기념일 추가';
 
   @override
+  String get familyToday => '오늘 🎉';
+
+  @override
+  String familyDDaySoon(int diff, String lunarDate) {
+    return 'D-$diff  $lunarDate';
+  }
+
+  @override
+  String familyDDay(int diff, String lunarDate) {
+    return '$lunarDate (D-$diff)';
+  }
+
+  @override
   String get settingsTitle => 'Settings';
 
   @override

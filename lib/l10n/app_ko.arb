@@ -88,6 +88,29 @@
   "familyTitle": "가족 기념일",
   "familyEmpty": "등록된 기념일이 없습니다",
   "familyAddButton": "기념일 추가",
+  "familyToday": "오늘 🎉",
+  "familyDDaySoon": "D-{diff}  {lunarDate}",
+  "@familyDDaySoon": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "lunarDate": {
+        "type": "String"
+      }
+    }
+  },
+  "familyDDay": "{lunarDate} (D-{diff})",
+  "@familyDDay": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "lunarDate": {
+        "type": "String"
+      }
+    }
+  },
   "settingsTitle": "Settings",
   "settingsBirthDate": "생년월일",
   "settingsRegisterBirthday": "내 생일 Google Calendar에 등록",

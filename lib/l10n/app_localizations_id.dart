@@ -152,6 +152,19 @@ class AppLocalizationsId extends AppLocalizations {
   String get familyAddButton => 'Tambah Peringatan';
 
   @override
+  String get familyToday => 'Hari ini 🎉';
+
+  @override
+  String familyDDaySoon(int diff, String lunarDate) {
+    return 'D-$diff  $lunarDate';
+  }
+
+  @override
+  String familyDDay(int diff, String lunarDate) {
+    return '$lunarDate (D-$diff)';
+  }
+
+  @override
   String get settingsTitle => 'Pengaturan';
 
   @override

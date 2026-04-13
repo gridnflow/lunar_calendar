@@ -153,6 +153,19 @@ class AppLocalizationsRu extends AppLocalizations {
   String get familyAddButton => 'Добавить дату';
 
   @override
+  String get familyToday => 'Сегодня 🎉';
+
+  @override
+  String familyDDaySoon(int diff, String lunarDate) {
+    return 'D-$diff  $lunarDate';
+  }
+
+  @override
+  String familyDDay(int diff, String lunarDate) {
+    return '$lunarDate (D-$diff)';
+  }
+
+  @override
   String get settingsTitle => 'Настройки';
 
   @override

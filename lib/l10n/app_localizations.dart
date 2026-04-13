@@ -371,6 +371,24 @@ abstract class AppLocalizations {
   /// **'Add Anniversary'**
   String get familyAddButton;
 
+  /// No description provided for @familyToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today 🎉'**
+  String get familyToday;
+
+  /// No description provided for @familyDDaySoon.
+  ///
+  /// In en, this message translates to:
+  /// **'D-{diff}  {lunarDate}'**
+  String familyDDaySoon(int diff, String lunarDate);
+
+  /// No description provided for @familyDDay.
+  ///
+  /// In en, this message translates to:
+  /// **'{lunarDate} (D-{diff})'**
+  String familyDDay(int diff, String lunarDate);
+
   /// No description provided for @settingsTitle.
   ///
   /// In en, this message translates to:

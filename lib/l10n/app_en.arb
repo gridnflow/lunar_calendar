@@ -1,20 +1,16 @@
 {
   "@@locale": "en",
-
   "appTitle": "Lunar Calendar",
-
   "navCalendar": "Calendar",
   "navFortune": "Fortune",
   "navFamily": "Family",
   "navSettings": "Settings",
-
   "calendarTitle": "Calendar",
   "calendarNoEvents": "No events for this day",
   "calendarConnectRequired": "Google Calendar connection required",
   "calendarRetry": "Retry",
   "calendarAddAnniversary": "Add Anniversary",
   "calendarAnniversaryList": "Anniversary List",
-
   "anniversaryAdd": "Add Anniversary",
   "anniversaryName": "Name (e.g. Grandma's memorial)",
   "anniversaryType_jesa": "Memorial",
@@ -30,31 +26,38 @@
   "anniversaryDeleteConfirm": "Delete \"{name}\"?",
   "@anniversaryDeleteConfirm": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "anniversaryAdded": "{name} has been added",
   "@anniversaryAdded": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "anniversaryDeleted": "\"{name}\" deleted",
   "@anniversaryDeleted": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "anniversaryEmpty": "No anniversaries registered",
   "anniversaryListTitle": "Anniversary List",
   "anniversaryClose": "Close",
-
   "fortuneTitle": "Today's Fortune",
   "fortuneLoading": "Loading fortune...",
   "fortuneError": "Cannot load fortune: {error}",
   "@fortuneError": {
     "placeholders": {
-      "error": { "type": "String" }
+      "error": {
+        "type": "String"
+      }
     }
   },
   "fortuneSaju": "Four Pillars (四柱)",
@@ -63,8 +66,12 @@
   "fortuneLunarDate": "Lunar {month}/{day}",
   "@fortuneLunarDate": {
     "placeholders": {
-      "month": { "type": "int" },
-      "day": { "type": "int" }
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
     }
   },
   "fortuneYearSuffix": "Year",
@@ -73,14 +80,37 @@
   "fortuneSolarTerm": "Solar term: {term}",
   "@fortuneSolarTerm": {
     "placeholders": {
-      "term": { "type": "String" }
+      "term": {
+        "type": "String"
+      }
     }
   },
-
   "familyTitle": "Family Anniversaries",
   "familyEmpty": "No anniversaries registered",
   "familyAddButton": "Add Anniversary",
-
+  "familyToday": "Today 🎉",
+  "familyDDaySoon": "D-{diff}  {lunarDate}",
+  "@familyDDaySoon": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "lunarDate": {
+        "type": "String"
+      }
+    }
+  },
+  "familyDDay": "{lunarDate} (D-{diff})",
+  "@familyDDay": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "lunarDate": {
+        "type": "String"
+      }
+    }
+  },
   "settingsTitle": "Settings",
   "settingsBirthDate": "Birth Date",
   "settingsRegisterBirthday": "Register Birthday in Google Calendar",
@@ -89,14 +119,20 @@
   "settingsBirthdayDialogBody": "Register lunar birthday ({month}/{day}) to Google Calendar for 20 years?",
   "@settingsBirthdayDialogBody": {
     "placeholders": {
-      "month": { "type": "int" },
-      "day": { "type": "int" }
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
     }
   },
   "settingsBirthdayRegistered": "{count} birthday events registered!",
   "@settingsBirthdayRegistered": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "settingsBirthdayNone": "No birth date found. Please enter it during onboarding.",
@@ -114,10 +150,11 @@
   "settingsVersion": "Version {version}  ·  © 2026 Gridnflow",
   "@settingsVersion": {
     "placeholders": {
-      "version": { "type": "String" }
+      "version": {
+        "type": "String"
+      }
     }
   },
-
   "onboardingTitle": "Tell us your birth date",
   "onboardingSubtitle": "Used for fortune and Four Pillars.\nYou can change this later in Settings.",
   "onboardingSolar": "Solar calendar",
@@ -134,14 +171,16 @@
   "onboardingRange": "{min}–{max}",
   "@onboardingRange": {
     "placeholders": {
-      "min": { "type": "int" },
-      "max": { "type": "int" }
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
-
   "loginTitle": "Sign in to continue",
   "loginGoogle": "Continue with Google",
-
   "languageSelect": "Select Language",
   "languageEn": "English",
   "languageKo": "한국어",

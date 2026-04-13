@@ -316,12 +316,12 @@ class _AnniversaryCard extends StatelessWidget {
         final diff = solarDay.difference(today).inDays;
         if (diff >= 0) {
           final lunarAnn = lunar.solarToLunar(solarDay);
-          final lunarAnnStr = '${lunarAnn.getMonth()}/${lunarAnn.getDay()}';
+          final lunarDateStr = l.fortuneLunarDate(lunarAnn.getMonth(), lunarAnn.getDay());
           solarStr = diff == 0
-              ? '오늘 🎉'
+              ? l.familyToday
               : diff <= 7
-                  ? 'D-$diff  음력$lunarAnnStr'
-                  : '음력$lunarAnnStr (D-$diff)';
+                  ? l.familyDDaySoon(diff, lunarDateStr)
+                  : l.familyDDay(diff, lunarDateStr);
           break;
         }
       } catch (_) {}

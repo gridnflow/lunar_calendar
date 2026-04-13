@@ -88,6 +88,29 @@
   "familyTitle": "Семейные даты",
   "familyEmpty": "Нет зарегистрированных дат",
   "familyAddButton": "Добавить дату",
+  "familyToday": "Сегодня 🎉",
+  "familyDDaySoon": "D-{diff}  {lunarDate}",
+  "@familyDDaySoon": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "lunarDate": {
+        "type": "String"
+      }
+    }
+  },
+  "familyDDay": "{lunarDate} (D-{diff})",
+  "@familyDDay": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "lunarDate": {
+        "type": "String"
+      }
+    }
+  },
   "settingsTitle": "Настройки",
   "settingsBirthDate": "Дата рождения",
   "settingsRegisterBirthday": "Добавить день рождения в Google Календарь",
