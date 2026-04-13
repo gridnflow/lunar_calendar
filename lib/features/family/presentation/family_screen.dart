@@ -328,8 +328,8 @@ class _AnniversaryCard extends StatelessWidget {
         title: Text(ann.name,
             style: const TextStyle(fontWeight: FontWeight.w600)),
         subtitle: Text(
-          '${l.anniversaryLunarMonth} ${ann.lunarMonth} ${l.anniversaryLunarDay} ${ann.lunarDay}'
-          '${ann.isLeap ? ' (${l.anniversaryLeapMonth})' : ''}',
+          l.fortuneLunarDate(ann.lunarMonth, ann.lunarDay) +
+          (ann.isLeap ? ' (${l.anniversaryLeapMonth})' : ''),
           style: const TextStyle(fontSize: 13),
         ),
         trailing: Row(
