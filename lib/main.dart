@@ -27,8 +27,6 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(anniversaryNotificationSchedulerProvider);
-    // Load saved locale on first build
-    ref.read(localeProvider.notifier).load();
     final locale = ref.watch(localeProvider);
     final router = ref.watch(routerProvider);
 

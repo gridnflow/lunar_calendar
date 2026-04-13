@@ -107,7 +107,9 @@ Use a warm, positive tone with practical advice.
 Respond entirely in $langName.
 ''';
 
-    final response = await model.generateContent([Content.text(prompt)]);
+    final response = await model
+        .generateContent([Content.text(prompt)])
+        .timeout(const Duration(seconds: 15));
     return response.text ?? _getLocalFortune(dayPillar: dayPillar, monthPillar: monthPillar);
   }
 

@@ -6,9 +6,12 @@ const _kLocaleKey = 'selected_locale';
 
 class LocaleNotifier extends Notifier<Locale> {
   @override
-  Locale build() => const Locale('en');
+  Locale build() {
+    _loadSaved();
+    return const Locale('en');
+  }
 
-  Future<void> load() async {
+  Future<void> _loadSaved() async {
     final prefs = await SharedPreferences.getInstance();
     final code = prefs.getString(_kLocaleKey);
     if (code != null) {
