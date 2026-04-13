@@ -50,3 +50,6 @@ ios/Runner/GoogleService-Info.plist
 
 # Environment variables (contain API keys — do not commit)
 .env
+
+# Android signing (contains passwords — do not commit)
+android/key.properties
