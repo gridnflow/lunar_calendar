@@ -7,6 +7,14 @@ import '../../../core/services/lunar_service.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../l10n/app_localizations.dart';
 
+String _typeLabel(String type, AppLocalizations l) {
+  switch (type) {
+    case AnniversaryType.jesa: return l.anniversaryType_jesa;
+    case AnniversaryType.birthday: return l.anniversaryType_birthday;
+    default: return l.anniversaryType_other;
+  }
+}
+
 class FamilyScreen extends ConsumerWidget {
   const FamilyScreen({super.key});
 
@@ -63,10 +71,10 @@ class FamilyScreen extends ConsumerWidget {
           for (final ann in list) {
             byType.putIfAbsent(ann.type, () => []).add(ann);
           }
-          final order = [
-            l.anniversaryType_jesa,
-            l.anniversaryType_birthday,
-            l.anniversaryType_other,
+          const order = [
+            AnniversaryType.jesa,
+            AnniversaryType.birthday,
+            AnniversaryType.other,
           ];
           final sortedTypes = order.where(byType.containsKey).toList();
 
@@ -74,7 +82,7 @@ class FamilyScreen extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             children: [
               for (final type in sortedTypes) ...[
-                _TypeHeader(type: type),
+                _TypeHeader(type: _typeLabel(type, l)),
                 for (final ann in byType[type]!)
                   _AnniversaryCard(
                     ann: ann,
@@ -95,7 +103,7 @@ class FamilyScreen extends ConsumerWidget {
   Future<void> _showAddDialog(
       BuildContext context, WidgetRef ref, String uid, AppLocalizations l) async {
     final nameCtrl = TextEditingController();
-    String type = l.anniversaryType_other;
+    String type = AnniversaryType.other;
     int lunarMonth = 1;
     int lunarDay = 1;
     bool isLeap = false;
@@ -120,15 +128,15 @@ class FamilyScreen extends ConsumerWidget {
                 SegmentedButton<String>(
                   segments: [
                     ButtonSegment(
-                        value: l.anniversaryType_jesa,
+                        value: AnniversaryType.jesa,
                         label: Text(l.anniversaryType_jesa),
                         icon: const Icon(Icons.local_fire_department)),
                     ButtonSegment(
-                        value: l.anniversaryType_birthday,
+                        value: AnniversaryType.birthday,
                         label: Text(l.anniversaryType_birthday),
                         icon: const Icon(Icons.cake)),
                     ButtonSegment(
-                        value: l.anniversaryType_other,
+                        value: AnniversaryType.other,
                         label: Text(l.anniversaryType_other),
                         icon: const Icon(Icons.star)),
                   ],

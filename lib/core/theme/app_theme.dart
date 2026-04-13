@@ -414,9 +414,9 @@ class AppTheme {
   /// Returns the semantic color for an anniversary type.
   static Color anniversaryColor(String type) {
     switch (type) {
-      case '제사':
+      case 'jesa': case '제사':
         return jesaColor;
-      case '생일':
+      case 'birthday': case '생일':
         return birthdayColor;
       default:
         return etcColor;
@@ -426,9 +426,9 @@ class AppTheme {
   /// Returns the icon for an anniversary type.
   static IconData anniversaryIcon(String type) {
     switch (type) {
-      case '제사':
+      case 'jesa': case '제사':
         return Icons.local_fire_department;
-      case '생일':
+      case 'birthday': case '생일':
         return Icons.cake;
       default:
         return Icons.star;

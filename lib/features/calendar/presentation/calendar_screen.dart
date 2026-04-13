@@ -142,7 +142,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
 
     final l = AppLocalizations.of(context)!;
     final nameCtrl = TextEditingController();
-    String type = l.anniversaryType_other;
+    String type = AnniversaryType.other;
     int lunarMonth = 1;
     int lunarDay = 1;
     bool isLeap = false;
@@ -166,9 +166,9 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                 const SizedBox(height: 12),
                 SegmentedButton<String>(
                   segments: [
-                    ButtonSegment(value: l.anniversaryType_jesa, label: Text(l.anniversaryType_jesa), icon: const Icon(Icons.local_fire_department)),
-                    ButtonSegment(value: l.anniversaryType_birthday, label: Text(l.anniversaryType_birthday), icon: const Icon(Icons.cake)),
-                    ButtonSegment(value: l.anniversaryType_other, label: Text(l.anniversaryType_other), icon: const Icon(Icons.star)),
+                    ButtonSegment(value: AnniversaryType.jesa, label: Text(l.anniversaryType_jesa), icon: const Icon(Icons.local_fire_department)),
+                    ButtonSegment(value: AnniversaryType.birthday, label: Text(l.anniversaryType_birthday), icon: const Icon(Icons.cake)),
+                    ButtonSegment(value: AnniversaryType.other, label: Text(l.anniversaryType_other), icon: const Icon(Icons.star)),
                   ],
                   selected: {type},
                   onSelectionChanged: (v) => setState(() => type = v.first),
@@ -545,6 +545,14 @@ class _PickerField extends StatelessWidget {
   }
 }
 
+String _annTypeLabel(String type, AppLocalizations l) {
+  switch (type) {
+    case AnniversaryType.jesa: return l.anniversaryType_jesa;
+    case AnniversaryType.birthday: return l.anniversaryType_birthday;
+    default: return l.anniversaryType_other;
+  }
+}
+
 class _AnniversaryListSheet extends ConsumerWidget {
   final String uid;
   const _AnniversaryListSheet({required this.uid});
@@ -620,7 +628,7 @@ class _AnniversaryListSheet extends ConsumerWidget {
                       ),
                       title: Text(ann.name),
                       subtitle: Text(
-                          '${l.fortuneLunarDate(ann.lunarMonth, ann.lunarDay)}${ann.isLeap ? ' (${l.anniversaryLeapMonth})' : ''}  ·  ${ann.type}'),
+                          '${l.fortuneLunarDate(ann.lunarMonth, ann.lunarDay)}${ann.isLeap ? ' (${l.anniversaryLeapMonth})' : ''}  ·  ${_annTypeLabel(ann.type, l)}'),
                       trailing: IconButton(
                         icon: Icon(Icons.delete_outline,
                             color: colorScheme.error),
