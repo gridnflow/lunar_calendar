@@ -323,6 +323,30 @@ abstract class AppLocalizations {
   /// **'Today'**
   String get fortuneToday;
 
+  /// No description provided for @fortuneLunarDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Lunar {month}/{day}'**
+  String fortuneLunarDate(int month, int day);
+
+  /// No description provided for @fortuneYearSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'Year'**
+  String get fortuneYearSuffix;
+
+  /// No description provided for @fortuneMonthSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get fortuneMonthSuffix;
+
+  /// No description provided for @fortuneDaySuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get fortuneDaySuffix;
+
   /// No description provided for @fortuneSolarTerm.
   ///
   /// In en, this message translates to:

@@ -123,6 +123,20 @@ class AppLocalizationsJa extends AppLocalizations {
   String get fortuneToday => '今日';
 
   @override
+  String fortuneLunarDate(int month, int day) {
+    return '旧暦$month月$day日';
+  }
+
+  @override
+  String get fortuneYearSuffix => '年';
+
+  @override
+  String get fortuneMonthSuffix => '月';
+
+  @override
+  String get fortuneDaySuffix => '日';
+
+  @override
   String fortuneSolarTerm(String term) {
     return '節気: $term';
   }

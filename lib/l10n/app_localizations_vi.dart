@@ -123,6 +123,20 @@ class AppLocalizationsVi extends AppLocalizations {
   String get fortuneToday => 'Hôm nay';
 
   @override
+  String fortuneLunarDate(int month, int day) {
+    return 'Âm lịch $month/$day';
+  }
+
+  @override
+  String get fortuneYearSuffix => 'Năm';
+
+  @override
+  String get fortuneMonthSuffix => 'Tháng';
+
+  @override
+  String get fortuneDaySuffix => 'Ngày';
+
+  @override
   String fortuneSolarTerm(String term) {
     return 'Tiết khí: $term';
   }

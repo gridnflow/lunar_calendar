@@ -1,20 +1,16 @@
 {
   "@@locale": "tr",
-
   "appTitle": "Ay Takvimi",
-
   "navCalendar": "Takvim",
   "navFortune": "Fal",
   "navFamily": "Aile",
   "navSettings": "Ayarlar",
-
   "calendarTitle": "Takvim",
   "calendarNoEvents": "Bu gün için etkinlik yok",
   "calendarConnectRequired": "Google Takvim bağlantısı gerekli",
   "calendarRetry": "Tekrar dene",
   "calendarAddAnniversary": "Yıl Dönümü Ekle",
   "calendarAnniversaryList": "Yıl Dönümleri",
-
   "anniversaryAdd": "Yıl Dönümü Ekle",
   "anniversaryName": "Ad (örn: Büyükannenin anma töreni)",
   "anniversaryType_jesa": "Anma",
@@ -29,38 +25,69 @@
   "anniversaryDelete": "Yıl Dönümünü Sil",
   "anniversaryDeleteConfirm": "\"{name}\" silinsin mi?",
   "@anniversaryDeleteConfirm": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "anniversaryAdded": "{name} eklendi",
   "@anniversaryAdded": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "anniversaryDeleted": "\"{name}\" silindi",
   "@anniversaryDeleted": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "anniversaryEmpty": "Kayıtlı yıl dönümü yok",
   "anniversaryListTitle": "Yıl Dönümleri",
   "anniversaryClose": "Kapat",
-
   "fortuneTitle": "Bugünün Falı",
   "fortuneLoading": "Fal yükleniyor...",
   "fortuneError": "Fal yüklenemedi: {error}",
   "@fortuneError": {
-    "placeholders": { "error": { "type": "String" } }
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   },
   "fortuneSaju": "Dört Direk",
   "fortuneSajuPrompt": "Dört Direk'i görmek için Ayarlar'a doğum tarihinizi girin.",
   "fortuneToday": "Bugün",
+  "fortuneLunarDate": "Ay takvimi {month}/{day}",
+  "@fortuneLunarDate": {
+    "placeholders": {
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "fortuneYearSuffix": "Yıl",
+  "fortuneMonthSuffix": "Ay",
+  "fortuneDaySuffix": "Gün",
   "fortuneSolarTerm": "Mevsim: {term}",
   "@fortuneSolarTerm": {
-    "placeholders": { "term": { "type": "String" } }
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
   },
-
   "familyTitle": "Aile Yıl Dönümleri",
   "familyEmpty": "Kayıtlı yıl dönümü yok",
   "familyAddButton": "Yıl Dönümü Ekle",
-
   "settingsTitle": "Ayarlar",
   "settingsBirthDate": "Doğum Tarihi",
   "settingsRegisterBirthday": "Doğum Gününü Google Takvim'e Ekle",
@@ -69,13 +96,21 @@
   "settingsBirthdayDialogBody": "Ay takvimi doğum gününü ({month}/{day}) Google Takvim'e 20 yıl eklensin mi?",
   "@settingsBirthdayDialogBody": {
     "placeholders": {
-      "month": { "type": "int" },
-      "day": { "type": "int" }
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
     }
   },
   "settingsBirthdayRegistered": "{count} doğum günü etkinliği kaydedildi!",
   "@settingsBirthdayRegistered": {
-    "placeholders": { "count": { "type": "int" } }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "settingsBirthdayNone": "Doğum tarihi bulunamadı. Lütfen giriş sırasında girin.",
   "settingsLegalTitle": "Bilgi ve Yasal Uyarılar",
@@ -91,9 +126,12 @@
   "settingsAdMobBody": "Bu uygulama Google AdMob aracılığıyla reklam gösterir. AdMob, reklam optimizasyonu için cihaz tanımlayıcıları toplayabilir. Ayrıntılar için Google Gizlilik Politikası'na bakın.",
   "settingsVersion": "Sürüm {version}  ·  © 2026 Gridnflow",
   "@settingsVersion": {
-    "placeholders": { "version": { "type": "String" } }
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
   },
-
   "onboardingTitle": "Doğum tarihinizi söyleyin",
   "onboardingSubtitle": "Fal ve Dört Direk için kullanılır.\nDaha sonra Ayarlar'dan değiştirebilirsiniz.",
   "onboardingSolar": "Miladi Takvim",
@@ -110,14 +148,16 @@
   "onboardingRange": "{min}–{max}",
   "@onboardingRange": {
     "placeholders": {
-      "min": { "type": "int" },
-      "max": { "type": "int" }
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
-
   "loginTitle": "Devam etmek için giriş yapın",
   "loginGoogle": "Google ile devam et",
-
   "languageSelect": "Dil Seçin",
   "languageEn": "English",
   "languageKo": "한국어",

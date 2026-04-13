@@ -60,6 +60,16 @@
   "fortuneSaju": "Four Pillars (四柱)",
   "fortuneSajuPrompt": "Enter your birth date in Settings to see your Four Pillars.",
   "fortuneToday": "Today",
+  "fortuneLunarDate": "Lunar {month}/{day}",
+  "@fortuneLunarDate": {
+    "placeholders": {
+      "month": { "type": "int" },
+      "day": { "type": "int" }
+    }
+  },
+  "fortuneYearSuffix": "Year",
+  "fortuneMonthSuffix": "Month",
+  "fortuneDaySuffix": "Day",
   "fortuneSolarTerm": "Solar term: {term}",
   "@fortuneSolarTerm": {
     "placeholders": {

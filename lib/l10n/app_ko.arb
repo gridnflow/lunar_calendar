@@ -1,20 +1,16 @@
 {
   "@@locale": "ko",
-
   "appTitle": "음력 달력",
-
   "navCalendar": "Calendar",
   "navFortune": "Fortune",
   "navFamily": "가족",
   "navSettings": "Settings",
-
   "calendarTitle": "Calendar",
   "calendarNoEvents": "이 날의 일정이 없습니다",
   "calendarConnectRequired": "Google Calendar 연결 필요",
   "calendarRetry": "재시도",
   "calendarAddAnniversary": "기념일 추가",
   "calendarAnniversaryList": "기념일 목록",
-
   "anniversaryAdd": "기념일 추가",
   "anniversaryName": "이름 (예: 할아버지 제사)",
   "anniversaryType_jesa": "제사",
@@ -30,47 +26,68 @@
   "anniversaryDeleteConfirm": "\"{name}\"을 삭제할까요?",
   "@anniversaryDeleteConfirm": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "anniversaryAdded": "{name} 기념일이 추가됐습니다",
   "@anniversaryAdded": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "anniversaryDeleted": "\"{name}\" 삭제됐습니다",
   "@anniversaryDeleted": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "anniversaryEmpty": "등록된 기념일이 없습니다",
   "anniversaryListTitle": "기념일 목록",
   "anniversaryClose": "닫기",
-
   "fortuneTitle": "오늘의 운세",
   "fortuneLoading": "운세를 불러오는 중...",
   "fortuneError": "운세를 불러올 수 없습니다: {error}",
   "@fortuneError": {
     "placeholders": {
-      "error": { "type": "String" }
+      "error": {
+        "type": "String"
+      }
     }
   },
   "fortuneSaju": "사주 (四柱)",
   "fortuneSajuPrompt": "Settings에서 생년월일을 입력하면 사주를 볼 수 있습니다.",
   "fortuneToday": "오늘",
+  "fortuneLunarDate": "음력 {month}월 {day}일",
+  "@fortuneLunarDate": {
+    "placeholders": {
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "fortuneYearSuffix": "년",
+  "fortuneMonthSuffix": "월",
+  "fortuneDaySuffix": "일",
   "fortuneSolarTerm": "절기: {term}",
   "@fortuneSolarTerm": {
     "placeholders": {
-      "term": { "type": "String" }
+      "term": {
+        "type": "String"
+      }
     }
   },
-
   "familyTitle": "가족 기념일",
   "familyEmpty": "등록된 기념일이 없습니다",
   "familyAddButton": "기념일 추가",
-
   "settingsTitle": "Settings",
   "settingsBirthDate": "생년월일",
   "settingsRegisterBirthday": "내 생일 Google Calendar에 등록",
@@ -79,14 +96,20 @@
   "settingsBirthdayDialogBody": "음력 생일 ({month}월 {day}일)을\nGoogle Calendar에 20년치 등록할까요?",
   "@settingsBirthdayDialogBody": {
     "placeholders": {
-      "month": { "type": "int" },
-      "day": { "type": "int" }
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
     }
   },
   "settingsBirthdayRegistered": "{count}개 생일 일정이 등록됐습니다!",
   "@settingsBirthdayRegistered": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "settingsBirthdayNone": "생일 정보가 없습니다. 온보딩에서 입력해주세요.",
@@ -104,10 +127,11 @@
   "settingsVersion": "Version {version}  ·  © 2026 Gridnflow",
   "@settingsVersion": {
     "placeholders": {
-      "version": { "type": "String" }
+      "version": {
+        "type": "String"
+      }
     }
   },
-
   "onboardingTitle": "생년월일을 알려주세요",
   "onboardingSubtitle": "사주와 오늘의 운세에 활용됩니다.\n나중에 Settings에서 변경할 수 있어요.",
   "onboardingSolar": "양력 생일",
@@ -124,14 +148,16 @@
   "onboardingRange": "{min}–{max}",
   "@onboardingRange": {
     "placeholders": {
-      "min": { "type": "int" },
-      "max": { "type": "int" }
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
-
   "loginTitle": "로그인하여 시작하세요",
   "loginGoogle": "Google로 계속하기",
-
   "languageSelect": "언어 선택",
   "languageEn": "English",
   "languageKo": "한국어",

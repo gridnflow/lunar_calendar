@@ -124,6 +124,20 @@ class AppLocalizationsTr extends AppLocalizations {
   String get fortuneToday => 'Bugün';
 
   @override
+  String fortuneLunarDate(int month, int day) {
+    return 'Ay takvimi $month/$day';
+  }
+
+  @override
+  String get fortuneYearSuffix => 'Yıl';
+
+  @override
+  String get fortuneMonthSuffix => 'Ay';
+
+  @override
+  String get fortuneDaySuffix => 'Gün';
+
+  @override
   String fortuneSolarTerm(String term) {
     return 'Mevsim: $term';
   }

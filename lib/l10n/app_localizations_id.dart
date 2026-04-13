@@ -124,6 +124,20 @@ class AppLocalizationsId extends AppLocalizations {
   String get fortuneToday => 'Hari ini';
 
   @override
+  String fortuneLunarDate(int month, int day) {
+    return 'Kalender lunar $month/$day';
+  }
+
+  @override
+  String get fortuneYearSuffix => 'Tahun';
+
+  @override
+  String get fortuneMonthSuffix => 'Bulan';
+
+  @override
+  String get fortuneDaySuffix => 'Hari';
+
+  @override
   String fortuneSolarTerm(String term) {
     return 'Musim: $term';
   }

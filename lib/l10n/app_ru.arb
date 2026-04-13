@@ -1,20 +1,16 @@
 {
   "@@locale": "ru",
-
   "appTitle": "Лунный календарь",
-
   "navCalendar": "Календарь",
   "navFortune": "Гороскоп",
   "navFamily": "Семья",
   "navSettings": "Настройки",
-
   "calendarTitle": "Календарь",
   "calendarNoEvents": "Событий на этот день нет",
   "calendarConnectRequired": "Требуется подключение Google Календаря",
   "calendarRetry": "Повторить",
   "calendarAddAnniversary": "Добавить дату",
   "calendarAnniversaryList": "Список дат",
-
   "anniversaryAdd": "Добавить дату",
   "anniversaryName": "Название (например: Поминки бабушки)",
   "anniversaryType_jesa": "Поминки",
@@ -29,38 +25,69 @@
   "anniversaryDelete": "Удалить дату",
   "anniversaryDeleteConfirm": "Удалить \"{name}\"?",
   "@anniversaryDeleteConfirm": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "anniversaryAdded": "{name} добавлен(а)",
   "@anniversaryAdded": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "anniversaryDeleted": "\"{name}\" удалён(а)",
   "@anniversaryDeleted": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "anniversaryEmpty": "Нет зарегистрированных дат",
   "anniversaryListTitle": "Список дат",
   "anniversaryClose": "Закрыть",
-
   "fortuneTitle": "Гороскоп на сегодня",
   "fortuneLoading": "Загрузка гороскопа...",
   "fortuneError": "Не удалось загрузить гороскоп: {error}",
   "@fortuneError": {
-    "placeholders": { "error": { "type": "String" } }
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   },
   "fortuneSaju": "Четыре столпа судьбы",
   "fortuneSajuPrompt": "Введите дату рождения в Настройках, чтобы увидеть Четыре столпа.",
   "fortuneToday": "Сегодня",
+  "fortuneLunarDate": "Лун. кал. {month}/{day}",
+  "@fortuneLunarDate": {
+    "placeholders": {
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "fortuneYearSuffix": "Год",
+  "fortuneMonthSuffix": "Мес.",
+  "fortuneDaySuffix": "День",
   "fortuneSolarTerm": "Сезон: {term}",
   "@fortuneSolarTerm": {
-    "placeholders": { "term": { "type": "String" } }
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
   },
-
   "familyTitle": "Семейные даты",
   "familyEmpty": "Нет зарегистрированных дат",
   "familyAddButton": "Добавить дату",
-
   "settingsTitle": "Настройки",
   "settingsBirthDate": "Дата рождения",
   "settingsRegisterBirthday": "Добавить день рождения в Google Календарь",
@@ -69,13 +96,21 @@
   "settingsBirthdayDialogBody": "Добавить лунный день рождения ({month}/{day}) в Google Календарь на 20 лет?",
   "@settingsBirthdayDialogBody": {
     "placeholders": {
-      "month": { "type": "int" },
-      "day": { "type": "int" }
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
     }
   },
   "settingsBirthdayRegistered": "Зарегистрировано {count} событий!",
   "@settingsBirthdayRegistered": {
-    "placeholders": { "count": { "type": "int" } }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "settingsBirthdayNone": "Дата рождения не найдена. Пожалуйста, введите её при первом запуске.",
   "settingsLegalTitle": "Информация и правовые уведомления",
@@ -91,9 +126,12 @@
   "settingsAdMobBody": "Приложение показывает рекламу через Google AdMob. AdMob может собирать идентификаторы устройств для оптимизации рекламы. Подробнее — в Политике конфиденциальности Google.",
   "settingsVersion": "Версия {version}  ·  © 2026 Gridnflow",
   "@settingsVersion": {
-    "placeholders": { "version": { "type": "String" } }
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
   },
-
   "onboardingTitle": "Укажите дату рождения",
   "onboardingSubtitle": "Используется для гороскопа и четырёх столпов.\nМожно изменить позже в Настройках.",
   "onboardingSolar": "Григорианский календарь",
@@ -110,14 +148,16 @@
   "onboardingRange": "{min}–{max}",
   "@onboardingRange": {
     "placeholders": {
-      "min": { "type": "int" },
-      "max": { "type": "int" }
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
-
   "loginTitle": "Войдите, чтобы продолжить",
   "loginGoogle": "Продолжить с Google",
-
   "languageSelect": "Выберите язык",
   "languageEn": "English",
   "languageKo": "한국어",

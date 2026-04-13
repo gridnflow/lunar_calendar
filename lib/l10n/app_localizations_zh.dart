@@ -122,6 +122,20 @@ class AppLocalizationsZh extends AppLocalizations {
   String get fortuneToday => '今天';
 
   @override
+  String fortuneLunarDate(int month, int day) {
+    return '农历$month月$day日';
+  }
+
+  @override
+  String get fortuneYearSuffix => '年';
+
+  @override
+  String get fortuneMonthSuffix => '月';
+
+  @override
+  String get fortuneDaySuffix => '日';
+
+  @override
   String fortuneSolarTerm(String term) {
     return '节气: $term';
   }
@@ -391,6 +405,20 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get fortuneToday => '今天';
+
+  @override
+  String fortuneLunarDate(int month, int day) {
+    return '農曆$month月$day日';
+  }
+
+  @override
+  String get fortuneYearSuffix => '年';
+
+  @override
+  String get fortuneMonthSuffix => '月';
+
+  @override
+  String get fortuneDaySuffix => '日';
 
   @override
   String fortuneSolarTerm(String term) {

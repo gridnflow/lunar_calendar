@@ -1,20 +1,16 @@
 {
   "@@locale": "ja",
-
   "appTitle": "旧暦カレンダー",
-
   "navCalendar": "カレンダー",
   "navFortune": "運勢",
   "navFamily": "家族",
   "navSettings": "設定",
-
   "calendarTitle": "カレンダー",
   "calendarNoEvents": "この日の予定はありません",
   "calendarConnectRequired": "Google カレンダーの接続が必要です",
   "calendarRetry": "再試行",
   "calendarAddAnniversary": "記念日を追加",
   "calendarAnniversaryList": "記念日リスト",
-
   "anniversaryAdd": "記念日を追加",
   "anniversaryName": "名前（例：祖母の法事）",
   "anniversaryType_jesa": "法事",
@@ -29,38 +25,69 @@
   "anniversaryDelete": "記念日を削除",
   "anniversaryDeleteConfirm": "「{name}」を削除しますか？",
   "@anniversaryDeleteConfirm": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "anniversaryAdded": "{name} を追加しました",
   "@anniversaryAdded": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "anniversaryDeleted": "「{name}」を削除しました",
   "@anniversaryDeleted": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "anniversaryEmpty": "登録された記念日はありません",
   "anniversaryListTitle": "記念日リスト",
   "anniversaryClose": "閉じる",
-
   "fortuneTitle": "今日の運勢",
   "fortuneLoading": "運勢を読み込んでいます...",
   "fortuneError": "運勢を読み込めません: {error}",
   "@fortuneError": {
-    "placeholders": { "error": { "type": "String" } }
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   },
   "fortuneSaju": "四柱推命",
   "fortuneSajuPrompt": "設定で生年月日を入力すると四柱推命が表示されます。",
   "fortuneToday": "今日",
+  "fortuneLunarDate": "旧暦{month}月{day}日",
+  "@fortuneLunarDate": {
+    "placeholders": {
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "fortuneYearSuffix": "年",
+  "fortuneMonthSuffix": "月",
+  "fortuneDaySuffix": "日",
   "fortuneSolarTerm": "節気: {term}",
   "@fortuneSolarTerm": {
-    "placeholders": { "term": { "type": "String" } }
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
   },
-
   "familyTitle": "家族の記念日",
   "familyEmpty": "登録された記念日はありません",
   "familyAddButton": "記念日を追加",
-
   "settingsTitle": "設定",
   "settingsBirthDate": "生年月日",
   "settingsRegisterBirthday": "誕生日を Google カレンダーに登録",
@@ -69,13 +96,21 @@
   "settingsBirthdayDialogBody": "旧暦誕生日（{month}月{day}日）を\nGoogle カレンダーに20年分登録しますか？",
   "@settingsBirthdayDialogBody": {
     "placeholders": {
-      "month": { "type": "int" },
-      "day": { "type": "int" }
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
     }
   },
   "settingsBirthdayRegistered": "{count}件の誕生日を登録しました！",
   "@settingsBirthdayRegistered": {
-    "placeholders": { "count": { "type": "int" } }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "settingsBirthdayNone": "生年月日が登録されていません。オンボーディングで入力してください。",
   "settingsLegalTitle": "情報・法的通知",
@@ -91,9 +126,12 @@
   "settingsAdMobBody": "本アプリはGoogle AdMobを通じて広告を表示します。AdMobは広告最適化のためデバイス識別子等の情報を収集することがあります。詳細はGoogleのプライバシーポリシーをご参照ください。",
   "settingsVersion": "Version {version}  ·  © 2026 Gridnflow",
   "@settingsVersion": {
-    "placeholders": { "version": { "type": "String" } }
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
   },
-
   "onboardingTitle": "生年月日を教えてください",
   "onboardingSubtitle": "運勢・四柱推命に活用されます。\n後で設定から変更できます。",
   "onboardingSolar": "新暦（陽暦）",
@@ -110,14 +148,16 @@
   "onboardingRange": "{min}〜{max}",
   "@onboardingRange": {
     "placeholders": {
-      "min": { "type": "int" },
-      "max": { "type": "int" }
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
-
   "loginTitle": "ログインして始めましょう",
   "loginGoogle": "Googleで続ける",
-
   "languageSelect": "言語を選択",
   "languageEn": "English",
   "languageKo": "한국어",

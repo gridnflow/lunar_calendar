@@ -123,6 +123,20 @@ class AppLocalizationsKo extends AppLocalizations {
   String get fortuneToday => '오늘';
 
   @override
+  String fortuneLunarDate(int month, int day) {
+    return '음력 $month월 $day일';
+  }
+
+  @override
+  String get fortuneYearSuffix => '년';
+
+  @override
+  String get fortuneMonthSuffix => '월';
+
+  @override
+  String get fortuneDaySuffix => '일';
+
+  @override
   String fortuneSolarTerm(String term) {
     return '절기: $term';
   }

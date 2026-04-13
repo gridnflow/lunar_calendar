@@ -1,20 +1,16 @@
 {
   "@@locale": "vi",
-
   "appTitle": "Lịch Âm",
-
   "navCalendar": "Lịch",
   "navFortune": "Tử vi",
   "navFamily": "Gia đình",
   "navSettings": "Cài đặt",
-
   "calendarTitle": "Lịch",
   "calendarNoEvents": "Không có sự kiện trong ngày này",
   "calendarConnectRequired": "Cần kết nối Google Calendar",
   "calendarRetry": "Thử lại",
   "calendarAddAnniversary": "Thêm ngày kỷ niệm",
   "calendarAnniversaryList": "Danh sách kỷ niệm",
-
   "anniversaryAdd": "Thêm ngày kỷ niệm",
   "anniversaryName": "Tên (ví dụ: Giỗ bà nội)",
   "anniversaryType_jesa": "Giỗ",
@@ -29,38 +25,69 @@
   "anniversaryDelete": "Xóa kỷ niệm",
   "anniversaryDeleteConfirm": "Xóa \"{name}\"?",
   "@anniversaryDeleteConfirm": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "anniversaryAdded": "Đã thêm {name}",
   "@anniversaryAdded": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "anniversaryDeleted": "Đã xóa \"{name}\"",
   "@anniversaryDeleted": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "anniversaryEmpty": "Chưa có ngày kỷ niệm nào",
   "anniversaryListTitle": "Danh sách kỷ niệm",
   "anniversaryClose": "Đóng",
-
   "fortuneTitle": "Tử vi hôm nay",
   "fortuneLoading": "Đang tải tử vi...",
   "fortuneError": "Không thể tải tử vi: {error}",
   "@fortuneError": {
-    "placeholders": { "error": { "type": "String" } }
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   },
   "fortuneSaju": "Tứ trụ",
   "fortuneSajuPrompt": "Nhập ngày sinh trong Cài đặt để xem Tứ trụ.",
   "fortuneToday": "Hôm nay",
+  "fortuneLunarDate": "Âm lịch {month}/{day}",
+  "@fortuneLunarDate": {
+    "placeholders": {
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "fortuneYearSuffix": "Năm",
+  "fortuneMonthSuffix": "Tháng",
+  "fortuneDaySuffix": "Ngày",
   "fortuneSolarTerm": "Tiết khí: {term}",
   "@fortuneSolarTerm": {
-    "placeholders": { "term": { "type": "String" } }
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
   },
-
   "familyTitle": "Kỷ niệm gia đình",
   "familyEmpty": "Chưa có ngày kỷ niệm nào",
   "familyAddButton": "Thêm kỷ niệm",
-
   "settingsTitle": "Cài đặt",
   "settingsBirthDate": "Ngày sinh",
   "settingsRegisterBirthday": "Đăng ký sinh nhật vào Google Calendar",
@@ -69,13 +96,21 @@
   "settingsBirthdayDialogBody": "Đăng ký sinh nhật âm lịch ({month}/{day}) vào Google Calendar cho 20 năm?",
   "@settingsBirthdayDialogBody": {
     "placeholders": {
-      "month": { "type": "int" },
-      "day": { "type": "int" }
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
     }
   },
   "settingsBirthdayRegistered": "Đã đăng ký {count} sự kiện sinh nhật!",
   "@settingsBirthdayRegistered": {
-    "placeholders": { "count": { "type": "int" } }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "settingsBirthdayNone": "Không tìm thấy ngày sinh. Vui lòng nhập trong quá trình giới thiệu.",
   "settingsLegalTitle": "Thông tin & Pháp lý",
@@ -91,9 +126,12 @@
   "settingsAdMobBody": "Ứng dụng hiển thị quảng cáo qua Google AdMob. AdMob có thể thu thập mã định danh thiết bị để tối ưu hóa quảng cáo. Xem Chính sách bảo mật của Google để biết thêm.",
   "settingsVersion": "Phiên bản {version}  ·  © 2026 Gridnflow",
   "@settingsVersion": {
-    "placeholders": { "version": { "type": "String" } }
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
   },
-
   "onboardingTitle": "Cho chúng tôi biết ngày sinh của bạn",
   "onboardingSubtitle": "Dùng để tính tử vi và tứ trụ.\nBạn có thể thay đổi sau trong Cài đặt.",
   "onboardingSolar": "Dương lịch",
@@ -110,14 +148,16 @@
   "onboardingRange": "{min}–{max}",
   "@onboardingRange": {
     "placeholders": {
-      "min": { "type": "int" },
-      "max": { "type": "int" }
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
-
   "loginTitle": "Đăng nhập để tiếp tục",
   "loginGoogle": "Tiếp tục bằng Google",
-
   "languageSelect": "Chọn ngôn ngữ",
   "languageEn": "English",
   "languageKo": "한국어",

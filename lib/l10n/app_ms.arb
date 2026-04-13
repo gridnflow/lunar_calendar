@@ -1,20 +1,16 @@
 {
   "@@locale": "ms",
-
   "appTitle": "Kalendar Lunar",
-
   "navCalendar": "Kalendar",
   "navFortune": "Ramalan",
   "navFamily": "Keluarga",
   "navSettings": "Tetapan",
-
   "calendarTitle": "Kalendar",
   "calendarNoEvents": "Tiada acara pada hari ini",
   "calendarConnectRequired": "Sambungan Google Calendar diperlukan",
   "calendarRetry": "Cuba lagi",
   "calendarAddAnniversary": "Tambah Ulang Tahun",
   "calendarAnniversaryList": "Senarai Ulang Tahun",
-
   "anniversaryAdd": "Tambah Ulang Tahun",
   "anniversaryName": "Nama (cth: Arwah nenek)",
   "anniversaryType_jesa": "Arwah",
@@ -29,38 +25,69 @@
   "anniversaryDelete": "Padam Ulang Tahun",
   "anniversaryDeleteConfirm": "Padam \"{name}\"?",
   "@anniversaryDeleteConfirm": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "anniversaryAdded": "{name} telah ditambah",
   "@anniversaryAdded": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "anniversaryDeleted": "\"{name}\" dipadam",
   "@anniversaryDeleted": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "anniversaryEmpty": "Tiada ulang tahun didaftarkan",
   "anniversaryListTitle": "Senarai Ulang Tahun",
   "anniversaryClose": "Tutup",
-
   "fortuneTitle": "Ramalan Hari Ini",
   "fortuneLoading": "Memuatkan ramalan...",
   "fortuneError": "Tidak dapat memuatkan ramalan: {error}",
   "@fortuneError": {
-    "placeholders": { "error": { "type": "String" } }
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   },
   "fortuneSaju": "Empat Tiang",
   "fortuneSajuPrompt": "Masukkan tarikh lahir dalam Tetapan untuk melihat Empat Tiang.",
   "fortuneToday": "Hari ini",
+  "fortuneLunarDate": "Kalendar lunar {month}/{day}",
+  "@fortuneLunarDate": {
+    "placeholders": {
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "fortuneYearSuffix": "Tahun",
+  "fortuneMonthSuffix": "Bulan",
+  "fortuneDaySuffix": "Hari",
   "fortuneSolarTerm": "Musim: {term}",
   "@fortuneSolarTerm": {
-    "placeholders": { "term": { "type": "String" } }
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
   },
-
   "familyTitle": "Ulang Tahun Keluarga",
   "familyEmpty": "Tiada ulang tahun didaftarkan",
   "familyAddButton": "Tambah Ulang Tahun",
-
   "settingsTitle": "Tetapan",
   "settingsBirthDate": "Tarikh Lahir",
   "settingsRegisterBirthday": "Daftar Hari Lahir ke Google Calendar",
@@ -69,13 +96,21 @@
   "settingsBirthdayDialogBody": "Daftar hari lahir lunar ({month}/{day}) ke Google Calendar selama 20 tahun?",
   "@settingsBirthdayDialogBody": {
     "placeholders": {
-      "month": { "type": "int" },
-      "day": { "type": "int" }
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
     }
   },
   "settingsBirthdayRegistered": "{count} acara hari lahir telah didaftarkan!",
   "@settingsBirthdayRegistered": {
-    "placeholders": { "count": { "type": "int" } }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "settingsBirthdayNone": "Tarikh lahir tidak ditemui. Sila masukkan semasa orientasi.",
   "settingsLegalTitle": "Maklumat & Undang-undang",
@@ -91,9 +126,12 @@
   "settingsAdMobBody": "Aplikasi ini memaparkan iklan melalui Google AdMob. AdMob mungkin mengumpul pengecam peranti untuk pengoptimuman iklan. Lihat Dasar Privasi Google untuk maklumat lanjut.",
   "settingsVersion": "Versi {version}  ·  © 2026 Gridnflow",
   "@settingsVersion": {
-    "placeholders": { "version": { "type": "String" } }
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
   },
-
   "onboardingTitle": "Beritahu kami tarikh lahir anda",
   "onboardingSubtitle": "Digunakan untuk ramalan dan Empat Tiang.\nAnda boleh menukarnya kemudian dalam Tetapan.",
   "onboardingSolar": "Kalendar Masihi",
@@ -110,14 +148,16 @@
   "onboardingRange": "{min}–{max}",
   "@onboardingRange": {
     "placeholders": {
-      "min": { "type": "int" },
-      "max": { "type": "int" }
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
-
   "loginTitle": "Log masuk untuk teruskan",
   "loginGoogle": "Teruskan dengan Google",
-
   "languageSelect": "Pilih Bahasa",
   "languageEn": "English",
   "languageKo": "한국어",

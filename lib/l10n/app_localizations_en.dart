@@ -124,6 +124,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get fortuneToday => 'Today';
 
   @override
+  String fortuneLunarDate(int month, int day) {
+    return 'Lunar $month/$day';
+  }
+
+  @override
+  String get fortuneYearSuffix => 'Year';
+
+  @override
+  String get fortuneMonthSuffix => 'Month';
+
+  @override
+  String get fortuneDaySuffix => 'Day';
+
+  @override
   String fortuneSolarTerm(String term) {
     return 'Solar term: $term';
   }

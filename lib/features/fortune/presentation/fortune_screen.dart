@@ -33,10 +33,10 @@ class _FortuneScreenState extends ConsumerState<FortuneScreen> {
     final profileAsync = ref.watch(userProfileProvider);
     final fortuneAsync = ref.watch(todayFortuneProvider);
 
-    final todayLunar = lunar.todayLunarString();
-    final dayPillar = lunar.todayDayPillar();
-    final monthPillar = lunar.todayMonthPillar();
-    final yearPillar = lunar.todayYearPillar();
+    final todayLunar = l.fortuneLunarDate(lunar.todayLunarMonth(), lunar.todayLunarDay());
+    final dayPillar = '${lunar.todayDayGanZhi()}${l.fortuneDaySuffix}';
+    final monthPillar = '${lunar.todayMonthGanZhi()}${l.fortuneMonthSuffix}';
+    final yearPillar = '${lunar.todayYearGanZhi()}${l.fortuneYearSuffix}';
     final solarTerm = lunar.todaySolarTerm();
 
     return Scaffold(

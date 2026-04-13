@@ -125,6 +125,20 @@ class AppLocalizationsRu extends AppLocalizations {
   String get fortuneToday => 'Сегодня';
 
   @override
+  String fortuneLunarDate(int month, int day) {
+    return 'Лун. кал. $month/$day';
+  }
+
+  @override
+  String get fortuneYearSuffix => 'Год';
+
+  @override
+  String get fortuneMonthSuffix => 'Мес.';
+
+  @override
+  String get fortuneDaySuffix => 'День';
+
+  @override
   String fortuneSolarTerm(String term) {
     return 'Сезон: $term';
   }

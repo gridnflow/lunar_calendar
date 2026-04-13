@@ -20,6 +20,17 @@ class LunarService {
     return '음력 ${lunar.getMonth()}월 ${lunar.getDay()}일';
   }
 
+  /// Lunar month number for today.
+  int todayLunarMonth() => solarToLunar(DateTime.now()).getMonth();
+
+  /// Lunar day number for today.
+  int todayLunarDay() => solarToLunar(DateTime.now()).getDay();
+
+  /// GanZhi only (without suffix), e.g. "甲辰"
+  String todayYearGanZhi() => solarToLunar(DateTime.now()).getYearInGanZhi();
+  String todayMonthGanZhi() => solarToLunar(DateTime.now()).getMonthInGanZhi();
+  String todayDayGanZhi() => solarToLunar(DateTime.now()).getDayInGanZhi();
+
   /// Get today's 일주 (day pillar) — Heavenly Stem + Earthly Branch.
   String todayDayPillar() {
     final lunar = solarToLunar(DateTime.now());
