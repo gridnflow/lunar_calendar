@@ -42,7 +42,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           loc == '/language' || loc == '/onboarding';
 
       if (needsOnboarding && !onOnboardingFlow) return '/language';
-      if (!needsOnboarding && (loc == '/login' || onOnboardingFlow)) {
+      if (!needsOnboarding && (loc == '/login' || loc == '/onboarding')) {
         return '/calendar';
       }
       return null;

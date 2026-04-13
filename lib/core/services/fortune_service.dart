@@ -18,6 +18,7 @@ class FortuneService {
     String? sajuMonth,
     String? sajuDay,
     String? sajuHour,
+    String languageCode = 'ko',
   }) async {
     if (_apiKey.isNotEmpty && await _canUseGemini()) {
       try {
@@ -30,6 +31,7 @@ class FortuneService {
           sajuMonth: sajuMonth,
           sajuDay: sajuDay,
           sajuHour: sajuHour,
+          languageCode: languageCode,
         );
         await _incrementCount();
         return result;
@@ -73,6 +75,7 @@ class FortuneService {
     String? sajuMonth,
     String? sajuDay,
     String? sajuHour,
+    String languageCode = 'ko',
   }) async {
     final model = GenerativeModel(
       model: 'gemini-1.5-flash',
@@ -80,30 +83,47 @@ class FortuneService {
     );
 
     final sajuInfo = (sajuYear != null && sajuYear.isNotEmpty)
-        ? '사주: 년주=$sajuYear, 월주=$sajuMonth, 일주=$sajuDay'
-            '${sajuHour != null && sajuHour.isNotEmpty ? ", 시주=$sajuHour" : ""}'
+        ? 'Four Pillars: Year=$sajuYear, Month=$sajuMonth, Day=$sajuDay'
+            '${sajuHour != null && sajuHour.isNotEmpty ? ", Hour=$sajuHour" : ""}'
         : '';
 
+    final langName = _languageName(languageCode);
     final prompt = '''
-오늘의 운세를 한국어로 알려주세요.
+Please provide today's fortune in $langName.
 
-오늘 날짜: $lunarDate
-오늘의 연주: $yearPillar
-오늘의 월주: $monthPillar
-오늘의 일주: $dayPillar
+Today's lunar date: $lunarDate
+Today's year pillar: $yearPillar
+Today's month pillar: $monthPillar
+Today's day pillar: $dayPillar
 ${sajuInfo.isNotEmpty ? sajuInfo : ''}
 
-다음 항목별로 간결하게 2~3문장씩 작성해주세요:
-- 총운
-- 재물운
-- 연애운
-- 건강운
+Write 2–3 concise sentences for each category:
+- Overall Fortune
+- Wealth Fortune
+- Love Fortune
+- Health Fortune
 
-따뜻하고 긍정적인 톤으로, 실용적인 조언을 포함해주세요.
+Use a warm, positive tone with practical advice.
+Respond entirely in $langName.
 ''';
 
     final response = await model.generateContent([Content.text(prompt)]);
     return response.text ?? _getLocalFortune(dayPillar: dayPillar, monthPillar: monthPillar);
+  }
+
+  String _languageName(String code) {
+    switch (code) {
+      case 'ko': return 'Korean';
+      case 'ja': return 'Japanese';
+      case 'zh': return 'Simplified Chinese';
+      case 'zh_TW': return 'Traditional Chinese';
+      case 'vi': return 'Vietnamese';
+      case 'id': return 'Indonesian';
+      case 'ms': return 'Malay';
+      case 'ru': return 'Russian';
+      case 'tr': return 'Turkish';
+      default:   return 'English';
+    }
   }
 
   String _getLocalFortune({

@@ -14,6 +14,7 @@ import '../services/ad_service.dart';
 import '../services/notification_service.dart';
 import '../services/user_service.dart';
 import '../services/widget_service.dart';
+import 'locale_provider.dart';
 
 final authServiceProvider = Provider<AuthService>((ref) => AuthService());
 
@@ -87,6 +88,10 @@ final todayFortuneProvider = FutureProvider<String>((ref) async {
   final lunar = ref.read(lunarServiceProvider);
   final profile = await ref.watch(userProfileProvider.future);
   final fortune = ref.read(fortuneServiceProvider);
+  final locale = ref.watch(localeProvider);
+  final langCode = locale.countryCode != null
+      ? '${locale.languageCode}_${locale.countryCode}'
+      : locale.languageCode;
 
   Map<String, String>? saju;
   if (profile != null && profile.birthYear != 0) {
@@ -110,6 +115,7 @@ final todayFortuneProvider = FutureProvider<String>((ref) async {
     sajuMonth: saju?['month'],
     sajuDay: saju?['day'],
     sajuHour: saju?['hour'],
+    languageCode: langCode,
   );
 
   // 위젯 데이터 갱신 (fire-and-forget)
