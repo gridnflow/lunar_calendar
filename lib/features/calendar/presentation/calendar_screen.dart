@@ -436,7 +436,7 @@ class _AnniversaryBar extends StatelessWidget {
           return Chip(
             avatar: Icon(icon, size: 16, color: color),
             label: Text(
-              '${ann.name} (음력 ${ann.lunarMonth}/${ann.lunarDay})',
+              '${ann.name} (${AppLocalizations.of(outerContext)!.fortuneLunarDate(ann.lunarMonth, ann.lunarDay)})',
               style: const TextStyle(color: Colors.black),
             ),
             backgroundColor: color.withValues(alpha: 0.12),
@@ -620,8 +620,7 @@ class _AnniversaryListSheet extends ConsumerWidget {
                       ),
                       title: Text(ann.name),
                       subtitle: Text(
-                          '${l.anniversaryLunarMonth} ${ann.lunarMonth} ${l.anniversaryLunarDay} ${ann.lunarDay}'
-                          '${ann.isLeap ? ' (${l.anniversaryLeapMonth})' : ''}  ·  ${ann.type}'),
+                          '${l.fortuneLunarDate(ann.lunarMonth, ann.lunarDay)}${ann.isLeap ? ' (${l.anniversaryLeapMonth})' : ''}  ·  ${ann.type}'),
                       trailing: IconButton(
                         icon: Icon(Icons.delete_outline,
                             color: colorScheme.error),
