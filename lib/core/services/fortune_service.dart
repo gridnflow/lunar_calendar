@@ -2,16 +2,16 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FortuneService {
-  static const String _countKey = 'gemini_daily_count';
-  static const String _dateKey = 'gemini_daily_date';
-  static const int _dailyLimit = 1200;
-
   final String _apiKey;
 
-  /// In-memory cache: languageCode → (date, fortuneText)
-  final Map<String, (String, String)> _cache = {};
+  /// In-memory cache: languageCode → fortuneText (cleared on new day)
+  final Map<String, String> _memCache = {};
+  String _cacheDate = '';
 
   FortuneService({String apiKey = ''}) : _apiKey = apiKey;
+
+  String _cacheKey(String languageCode) =>
+      'fortune_${_todayString()}_$languageCode';
 
   Future<String> getTodayFortune({
     required String yearPillar,
@@ -26,14 +26,28 @@ class FortuneService {
   }) async {
     final today = _todayString();
 
-    // Return cached result if same language & same day
-    final cached = _cache[languageCode];
-    if (cached != null && cached.$1 == today) {
-      return cached.$2;
+    // Clear in-memory cache on new day
+    if (_cacheDate != today) {
+      _memCache.clear();
+      _cacheDate = today;
     }
 
+    // 1. In-memory cache hit
+    if (_memCache.containsKey(languageCode)) {
+      return _memCache[languageCode]!;
+    }
+
+    // 2. Persistent cache hit (survived app restart)
+    final prefs = await SharedPreferences.getInstance();
+    final persisted = prefs.getString(_cacheKey(languageCode));
+    if (persisted != null) {
+      _memCache[languageCode] = persisted;
+      return persisted;
+    }
+
+    // 3. Generate via Gemini (once per language per day)
     String result;
-    if (_apiKey.isNotEmpty && await _canUseGemini()) {
+    if (_apiKey.isNotEmpty) {
       try {
         result = await _getGeminiFortune(
           yearPillar: yearPillar,
@@ -46,7 +60,6 @@ class FortuneService {
           sajuHour: sajuHour,
           languageCode: languageCode,
         );
-        await _incrementCount();
       } catch (_) {
         result = _getLocalFortune(dayPillar: dayPillar, monthPillar: monthPillar, languageCode: languageCode);
       }
@@ -54,27 +67,10 @@ class FortuneService {
       result = _getLocalFortune(dayPillar: dayPillar, monthPillar: monthPillar, languageCode: languageCode);
     }
 
-    _cache[languageCode] = (today, result);
+    // Save to both caches
+    _memCache[languageCode] = result;
+    await prefs.setString(_cacheKey(languageCode), result);
     return result;
-  }
-
-  Future<bool> _canUseGemini() async {
-    final prefs = await SharedPreferences.getInstance();
-    final today = _todayString();
-    final savedDate = prefs.getString(_dateKey) ?? '';
-    if (savedDate != today) {
-      await prefs.setString(_dateKey, today);
-      await prefs.setInt(_countKey, 0);
-      return true;
-    }
-    final count = prefs.getInt(_countKey) ?? 0;
-    return count < _dailyLimit;
-  }
-
-  Future<void> _incrementCount() async {
-    final prefs = await SharedPreferences.getInstance();
-    final count = prefs.getInt(_countKey) ?? 0;
-    await prefs.setInt(_countKey, count + 1);
   }
 
   String _todayString() {
