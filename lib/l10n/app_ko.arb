@@ -87,6 +87,14 @@
   },
   "familyTitle": "가족 기념일",
   "familyEmpty": "등록된 기념일이 없습니다",
+  "generalError": "오류: {error}",
+  "@generalError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "familyAddButton": "기념일 추가",
   "familyToday": "오늘 🎉",
   "familyDDaySoon": "D-{diff}  {lunarDate}",

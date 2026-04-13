@@ -87,6 +87,14 @@
   },
   "familyTitle": "家人纪念日",
   "familyEmpty": "暂无纪念日",
+  "generalError": "错误: {error}",
+  "@generalError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "familyAddButton": "添加纪念日",
   "familyToday": "今天 🎉",
   "familyDDaySoon": "D-{diff}  {lunarDate}",

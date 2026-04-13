@@ -148,6 +148,11 @@ class AppLocalizationsJa extends AppLocalizations {
   String get familyEmpty => '登録された記念日はありません';
 
   @override
+  String generalError(String error) {
+    return 'エラー: $error';
+  }
+
+  @override
   String get familyAddButton => '記念日を追加';
 
   @override

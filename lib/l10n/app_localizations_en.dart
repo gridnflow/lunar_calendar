@@ -149,6 +149,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get familyEmpty => 'No anniversaries registered';
 
   @override
+  String generalError(String error) {
+    return 'Error: $error';
+  }
+
+  @override
   String get familyAddButton => 'Add Anniversary';
 
   @override

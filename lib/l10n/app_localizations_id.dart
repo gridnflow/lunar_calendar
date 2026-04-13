@@ -149,6 +149,11 @@ class AppLocalizationsId extends AppLocalizations {
   String get familyEmpty => 'Belum ada peringatan terdaftar';
 
   @override
+  String generalError(String error) {
+    return 'Kesalahan: $error';
+  }
+
+  @override
   String get familyAddButton => 'Tambah Peringatan';
 
   @override

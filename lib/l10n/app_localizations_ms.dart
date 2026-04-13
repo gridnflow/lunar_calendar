@@ -149,6 +149,11 @@ class AppLocalizationsMs extends AppLocalizations {
   String get familyEmpty => 'Tiada ulang tahun didaftarkan';
 
   @override
+  String generalError(String error) {
+    return 'Ralat: $error';
+  }
+
+  @override
   String get familyAddButton => 'Tambah Ulang Tahun';
 
   @override

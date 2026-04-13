@@ -603,7 +603,7 @@ class _AnniversaryListSheet extends ConsumerWidget {
           Expanded(
             child: anniversariesAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(child: Text('Error: $e')),
+              error: (e, _) => Center(child: Text(l.generalError(e.toString()))),
               data: (list) {
                 if (list.isEmpty) {
                   return Center(

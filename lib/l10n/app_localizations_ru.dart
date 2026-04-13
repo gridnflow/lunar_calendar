@@ -150,6 +150,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get familyEmpty => 'Нет зарегистрированных дат';
 
   @override
+  String generalError(String error) {
+    return 'Ошибка: $error';
+  }
+
+  @override
   String get familyAddButton => 'Добавить дату';
 
   @override

@@ -365,6 +365,12 @@ abstract class AppLocalizations {
   /// **'No anniversaries registered'**
   String get familyEmpty;
 
+  /// No description provided for @generalError.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {error}'**
+  String generalError(String error);
+
   /// No description provided for @familyAddButton.
   ///
   /// In en, this message translates to:

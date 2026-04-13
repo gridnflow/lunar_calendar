@@ -87,6 +87,14 @@
   },
   "familyTitle": "Peringatan Keluarga",
   "familyEmpty": "Belum ada peringatan terdaftar",
+  "generalError": "Kesalahan: {error}",
+  "@generalError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "familyAddButton": "Tambah Peringatan",
   "familyToday": "Hari ini 🎉",
   "familyDDaySoon": "D-{diff}  {lunarDate}",

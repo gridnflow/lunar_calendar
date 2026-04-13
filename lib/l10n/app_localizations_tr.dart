@@ -149,6 +149,11 @@ class AppLocalizationsTr extends AppLocalizations {
   String get familyEmpty => 'Kayıtlı yıl dönümü yok';
 
   @override
+  String generalError(String error) {
+    return 'Hata: $error';
+  }
+
+  @override
   String get familyAddButton => 'Yıl Dönümü Ekle';
 
   @override

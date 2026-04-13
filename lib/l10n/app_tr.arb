@@ -87,6 +87,14 @@
   },
   "familyTitle": "Aile Yıl Dönümleri",
   "familyEmpty": "Kayıtlı yıl dönümü yok",
+  "generalError": "Hata: {error}",
+  "@generalError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "familyAddButton": "Yıl Dönümü Ekle",
   "familyToday": "Bugün 🎉",
   "familyDDaySoon": "D-{diff}  {lunarDate}",

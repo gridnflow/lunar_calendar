@@ -148,6 +148,11 @@ class AppLocalizationsKo extends AppLocalizations {
   String get familyEmpty => '등록된 기념일이 없습니다';
 
   @override
+  String generalError(String error) {
+    return '오류: $error';
+  }
+
+  @override
   String get familyAddButton => '기념일 추가';
 
   @override

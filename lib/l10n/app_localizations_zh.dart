@@ -147,6 +147,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String get familyEmpty => '暂无纪念日';
 
   @override
+  String generalError(String error) {
+    return '错误: $error';
+  }
+
+  @override
   String get familyAddButton => '添加纪念日';
 
   @override
@@ -463,6 +468,11 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get familyEmpty => '尚無紀念日';
+
+  @override
+  String generalError(String error) {
+    return '錯誤: $error';
+  }
 
   @override
   String get familyAddButton => '新增紀念日';

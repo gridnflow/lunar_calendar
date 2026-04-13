@@ -87,6 +87,14 @@
   },
   "familyTitle": "Kỷ niệm gia đình",
   "familyEmpty": "Chưa có ngày kỷ niệm nào",
+  "generalError": "Lỗi: {error}",
+  "@generalError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "familyAddButton": "Thêm kỷ niệm",
   "familyToday": "Hôm nay 🎉",
   "familyDDaySoon": "D-{diff}  {lunarDate}",

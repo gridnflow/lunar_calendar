@@ -87,6 +87,14 @@
   },
   "familyTitle": "Семейные даты",
   "familyEmpty": "Нет зарегистрированных дат",
+  "generalError": "Ошибка: {error}",
+  "@generalError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "familyAddButton": "Добавить дату",
   "familyToday": "Сегодня 🎉",
   "familyDDaySoon": "D-{diff}  {lunarDate}",

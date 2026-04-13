@@ -87,6 +87,14 @@
   },
   "familyTitle": "Family Anniversaries",
   "familyEmpty": "No anniversaries registered",
+  "generalError": "Error: {error}",
+  "@generalError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "familyAddButton": "Add Anniversary",
   "familyToday": "Today 🎉",
   "familyDDaySoon": "D-{diff}  {lunarDate}",

@@ -148,6 +148,11 @@ class AppLocalizationsVi extends AppLocalizations {
   String get familyEmpty => 'Chưa có ngày kỷ niệm nào';
 
   @override
+  String generalError(String error) {
+    return 'Lỗi: $error';
+  }
+
+  @override
   String get familyAddButton => 'Thêm kỷ niệm';
 
   @override

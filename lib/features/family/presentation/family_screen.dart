@@ -40,7 +40,7 @@ class FamilyScreen extends ConsumerWidget {
       ),
       body: anniversariesAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text('오류: $e')),
+        error: (e, _) => Center(child: Text(l.generalError(e.toString()))),
         data: (list) {
           if (list.isEmpty) {
             return Center(

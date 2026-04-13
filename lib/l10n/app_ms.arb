@@ -87,6 +87,14 @@
   },
   "familyTitle": "Ulang Tahun Keluarga",
   "familyEmpty": "Tiada ulang tahun didaftarkan",
+  "generalError": "Ralat: {error}",
+  "@generalError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "familyAddButton": "Tambah Ulang Tahun",
   "familyToday": "Hari ini 🎉",
   "familyDDaySoon": "D-{diff}  {lunarDate}",
