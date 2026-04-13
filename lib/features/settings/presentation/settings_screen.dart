@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/models/user_profile.dart';
 import '../../../core/providers/service_providers.dart';
 import '../../../l10n/app_localizations.dart';
 
@@ -13,6 +14,112 @@ class SettingsScreen extends ConsumerStatefulWidget {
 }
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
+  Future<void> _editBirthday(BuildContext context, AppLocalizations l) async {
+    final user = ref.read(currentUserProvider);
+    if (user == null) return;
+
+    final profile = await ref.read(userServiceProvider).getProfile(user.uid);
+
+    final yearCtrl = TextEditingController(
+        text: (profile != null && profile.birthYear != 0)
+            ? '${profile.birthYear}'
+            : '');
+    final monthCtrl = TextEditingController(
+        text: (profile != null && profile.birthMonth != 0)
+            ? '${profile.birthMonth}'
+            : '');
+    final dayCtrl = TextEditingController(
+        text: (profile != null && profile.birthDay != 0)
+            ? '${profile.birthDay}'
+            : '');
+    final hourCtrl = TextEditingController(
+        text: profile?.birthHour != null ? '${profile!.birthHour}' : '');
+    bool isLunar = profile?.isLunarBirth ?? false;
+
+    if (!context.mounted) return;
+
+    final formKey = GlobalKey<FormState>();
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setState) => AlertDialog(
+          title: Text(l.settingsBirthDate),
+          content: SingleChildScrollView(
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SegmentedButton<bool>(
+                    segments: [
+                      ButtonSegment(
+                          value: false,
+                          label: Text(l.onboardingSolar),
+                          icon: const Icon(Icons.wb_sunny_outlined)),
+                      ButtonSegment(
+                          value: true,
+                          label: Text(l.onboardingLunar),
+                          icon: const Icon(Icons.nightlight_outlined)),
+                    ],
+                    selected: {isLunar},
+                    onSelectionChanged: (v) =>
+                        setState(() => isLunar = v.first),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(children: [
+                    Expanded(child: _EditField(ctrl: yearCtrl, label: l.onboardingYear, min: 1900, max: 2100, required: true, requiredMsg: l.onboardingRequired)),
+                    const SizedBox(width: 8),
+                    Expanded(child: _EditField(ctrl: monthCtrl, label: l.onboardingMonth, min: 1, max: 12, required: true, requiredMsg: l.onboardingRequired)),
+                    const SizedBox(width: 8),
+                    Expanded(child: _EditField(ctrl: dayCtrl, label: l.onboardingDay, min: 1, max: 31, required: true, requiredMsg: l.onboardingRequired)),
+                  ]),
+                  const SizedBox(height: 12),
+                  _EditField(ctrl: hourCtrl, label: l.onboardingHour, min: 0, max: 23, required: false, requiredMsg: l.onboardingRequired),
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+                onPressed: () => Navigator.pop(ctx, false),
+                child: Text(l.anniversaryCancel)),
+            FilledButton(
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    Navigator.pop(ctx, true);
+                  }
+                },
+                child: Text(l.anniversarySave)),
+          ],
+        ),
+      ),
+    );
+
+    if (confirmed != true) return;
+
+    final updated = profile != null
+        ? profile.copyWith(
+            birthYear: int.parse(yearCtrl.text),
+            birthMonth: int.parse(monthCtrl.text),
+            birthDay: int.parse(dayCtrl.text),
+            birthHour: hourCtrl.text.isEmpty ? null : int.parse(hourCtrl.text),
+            isLunarBirth: isLunar,
+          )
+        : UserProfile(
+            uid: user.uid,
+            email: user.email ?? '',
+            displayName: user.displayName ?? '',
+            birthYear: int.parse(yearCtrl.text),
+            birthMonth: int.parse(monthCtrl.text),
+            birthDay: int.parse(dayCtrl.text),
+            birthHour: hourCtrl.text.isEmpty ? null : int.parse(hourCtrl.text),
+            isLunarBirth: isLunar,
+          );
+    await ref.read(userServiceProvider).saveProfile(updated);
+    ref.invalidate(userProfileProvider);
+    ref.invalidate(todayFortuneProvider);
+  }
+
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
@@ -73,27 +180,48 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             error: (err, st) => const SizedBox.shrink(),
             data: (profile) {
               if (profile == null || profile.birthYear == 0) {
-                return const SizedBox.shrink();
+                return OutlinedButton.icon(
+                  onPressed: () => _editBirthday(context, l),
+                  icon: const Icon(Icons.cake_outlined),
+                  label: Text(l.settingsBirthDate),
+                  style: OutlinedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(48)),
+                );
               }
               return Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(l.settingsBirthDate,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(fontWeight: FontWeight.bold)),
-                      const SizedBox(height: 8),
-                      Text(
-                        '${profile.birthYear}년 ${profile.birthMonth}월 ${profile.birthDay}일'
-                        '${profile.birthHour != null ? '  ${profile.birthHour}시' : ''}'
-                        '  (${profile.isLunarBirth ? l.onboardingLunar : l.onboardingSolar})',
-                        style: const TextStyle(fontSize: 15),
-                      ),
-                    ],
+                child: InkWell(
+                  onTap: () => _editBirthday(context, l),
+                  borderRadius: BorderRadius.circular(12),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(l.settingsBirthDate,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(fontWeight: FontWeight.bold)),
+                              const SizedBox(height: 8),
+                              Text(
+                                '${profile.birthYear}년 ${profile.birthMonth}월 ${profile.birthDay}일'
+                                '${profile.birthHour != null ? '  ${profile.birthHour}시' : ''}'
+                                '  (${profile.isLunarBirth ? l.onboardingLunar : l.onboardingSolar})',
+                                style: const TextStyle(fontSize: 15),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Icon(Icons.edit_outlined,
+                            size: 18,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurfaceVariant),
+                      ],
+                    ),
                   ),
                 ),
               );
@@ -162,6 +290,41 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           const SizedBox(height: 16),
         ],
       ),
+    );
+  }
+}
+
+class _EditField extends StatelessWidget {
+  final TextEditingController ctrl;
+  final String label;
+  final int min;
+  final int max;
+  final bool required;
+  final String requiredMsg;
+
+  const _EditField({
+    required this.ctrl,
+    required this.label,
+    required this.min,
+    required this.max,
+    required this.requiredMsg,
+    this.required = true,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: ctrl,
+      decoration:
+          InputDecoration(labelText: label, border: const OutlineInputBorder()),
+      keyboardType: TextInputType.number,
+      validator: (v) {
+        if (!required && (v == null || v.isEmpty)) return null;
+        if (required && (v == null || v.isEmpty)) return requiredMsg;
+        final n = int.tryParse(v!);
+        if (n == null || n < min || n > max) return '$min–$max';
+        return null;
+      },
     );
   }
 }

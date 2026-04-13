@@ -1,3 +1,5 @@
+const _sentinel = Object();
+
 class UserProfile {
   final String uid;
   final String email;
@@ -31,6 +33,28 @@ class UserProfile {
         'birthHour': birthHour,
         'isLunarBirth': isLunarBirth,
       };
+
+  UserProfile copyWith({
+    String? uid,
+    String? email,
+    String? displayName,
+    int? birthYear,
+    int? birthMonth,
+    int? birthDay,
+    Object? birthHour = _sentinel,
+    bool? isLunarBirth,
+  }) {
+    return UserProfile(
+      uid: uid ?? this.uid,
+      email: email ?? this.email,
+      displayName: displayName ?? this.displayName,
+      birthYear: birthYear ?? this.birthYear,
+      birthMonth: birthMonth ?? this.birthMonth,
+      birthDay: birthDay ?? this.birthDay,
+      birthHour: birthHour == _sentinel ? this.birthHour : birthHour as int?,
+      isLunarBirth: isLunarBirth ?? this.isLunarBirth,
+    );
+  }
 
   factory UserProfile.fromFirestore(Map<String, dynamic> data) => UserProfile(
         uid: data['uid'] as String,
