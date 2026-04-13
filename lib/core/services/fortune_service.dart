@@ -39,7 +39,7 @@ class FortuneService {
         // Fall through to local
       }
     }
-    return _getLocalFortune(dayPillar: dayPillar, monthPillar: monthPillar);
+    return _getLocalFortune(dayPillar: dayPillar, monthPillar: monthPillar, languageCode: languageCode);
   }
 
   Future<bool> _canUseGemini() async {
@@ -109,8 +109,8 @@ Respond entirely in $langName.
 
     final response = await model
         .generateContent([Content.text(prompt)])
-        .timeout(const Duration(seconds: 15));
-    return response.text ?? _getLocalFortune(dayPillar: dayPillar, monthPillar: monthPillar);
+        .timeout(const Duration(seconds: 30));
+    return response.text ?? _getLocalFortune(dayPillar: dayPillar, monthPillar: monthPillar, languageCode: languageCode);
   }
 
   String _languageName(String code) {
@@ -131,21 +131,64 @@ Respond entirely in $langName.
   String _getLocalFortune({
     required String dayPillar,
     required String monthPillar,
+    String languageCode = 'ko',
   }) {
-    final index = (dayPillar.hashCode ^ monthPillar.hashCode).abs() % _localFortunes.length;
-    return _localFortunes[index];
+    final fortunes = _localFortunesByLang[languageCode] ??
+        _localFortunesByLang['en']!;
+    final index = (dayPillar.hashCode ^ monthPillar.hashCode).abs() % fortunes.length;
+    return fortunes[index];
   }
 
-  static const List<String> _localFortunes = [
-    '**총운** 오늘은 새로운 시작에 좋은 날입니다. 미루던 일을 시작해보세요.\n\n**재물운** 불필요한 지출을 자제하면 좋겠습니다. 계획적인 소비가 필요한 날입니다.\n\n**연애운** 가까운 사람에게 먼저 다가가면 좋은 결과가 있을 것입니다.\n\n**건강운** 충분한 수면과 규칙적인 식사로 컨디션을 유지하세요.',
-    '**총운** 오늘은 인내가 필요한 날입니다. 서두르지 말고 차분하게 행동하세요.\n\n**재물운** 예상치 못한 소득의 기회가 있을 수 있습니다. 주변을 잘 살펴보세요.\n\n**연애운** 솔직한 대화가 관계를 더욱 깊게 만들어 줄 것입니다.\n\n**건강운** 가벼운 운동이 스트레스 해소에 도움이 됩니다.',
-    '**총운** 오늘은 협력과 소통이 중요한 날입니다. 혼자보다 함께 할 때 더 큰 성과가 있습니다.\n\n**재물운** 투자보다는 저축에 집중하는 것이 유리합니다.\n\n**연애운** 상대방의 입장에서 생각해보는 하루가 되세요.\n\n**건강운** 과로를 피하고 적절한 휴식을 취하세요.',
-    '**총운** 창의적인 아이디어가 빛을 발하는 날입니다. 자신감을 가지고 표현해보세요.\n\n**재물운** 작은 돈도 소중히 여기는 자세가 큰 재물을 부릅니다.\n\n**연애운** 뜻밖의 만남에서 좋은 인연이 시작될 수 있습니다.\n\n**건강운** 물을 충분히 마시고 스트레칭을 자주 해주세요.',
-    '**총운** 오늘은 감사한 마음으로 주변을 돌아보는 날입니다. 작은 것에서 행복을 찾아보세요.\n\n**재물운** 신중한 판단이 필요한 날입니다. 큰 결정은 미루는 것이 좋습니다.\n\n**연애운** 진심 어린 표현이 마음을 움직입니다.\n\n**건강운** 무리한 다이어트보다 균형 잡힌 식사가 중요합니다.',
-    '**총운** 오늘은 계획한 일들이 순조롭게 진행되는 날입니다. 적극적으로 움직여 보세요.\n\n**재물운** 재물운이 상승하는 날입니다. 중요한 계약이나 거래에 좋은 날입니다.\n\n**연애운** 진지한 대화를 통해 관계가 한 단계 발전할 수 있습니다.\n\n**건강운** 오늘은 몸 상태가 좋습니다. 운동을 시작하기 좋은 날입니다.',
-    '**총운** 변화와 도전을 두려워하지 마세요. 오늘의 용기가 내일의 성공을 만듭니다.\n\n**재물운** 지출보다 수입에 집중하는 날입니다. 부업이나 추가 소득을 고려해보세요.\n\n**연애운** 기다림보다 먼저 다가가는 것이 좋은 결과를 가져옵니다.\n\n**건강운** 정신 건강에 신경 쓰는 날입니다. 명상이나 독서를 추천합니다.',
-    '**총운** 오늘은 주변 사람들과의 관계에서 에너지를 얻는 날입니다. 소통을 즐겨보세요.\n\n**재물운** 분산 투자보다 안정적인 자산 관리가 유리합니다.\n\n**연애운** 작은 배려와 관심이 큰 감동을 줄 수 있습니다.\n\n**건강운** 오늘은 소화기 건강에 주의하세요. 과식을 피하세요.',
-    '**총운** 집중력이 높아지는 날입니다. 중요한 업무나 공부에 집중하기 좋습니다.\n\n**재물운** 충동구매를 자제하면 월말에 여유 자금이 생길 것입니다.\n\n**연애운** 오늘은 자신을 사랑하는 시간을 가져보세요. 자기 사랑이 먼저입니다.\n\n**건강운** 규칙적인 생활 패턴이 건강의 기본입니다.',
-    '**총운** 좋은 소식이 기다리고 있는 날입니다. 긍정적인 마음으로 하루를 시작하세요.\n\n**재물운** 오늘은 재물운이 평범합니다. 현상 유지에 집중하세요.\n\n**연애운** 감정 표현에 솔직해지는 날입니다. 마음을 전해보세요.\n\n**건강운** 야외 활동이 기분 전환에 도움이 됩니다.',
-  ];
+  static const Map<String, List<String>> _localFortunesByLang = {
+    'ko': [
+      '**총운** 오늘은 새로운 시작에 좋은 날입니다. 미루던 일을 시작해보세요.\n\n**재물운** 불필요한 지출을 자제하면 좋겠습니다.\n\n**연애운** 가까운 사람에게 먼저 다가가면 좋은 결과가 있을 것입니다.\n\n**건강운** 충분한 수면과 규칙적인 식사로 컨디션을 유지하세요.',
+      '**총운** 오늘은 인내가 필요한 날입니다. 차분하게 행동하세요.\n\n**재물운** 예상치 못한 소득의 기회가 있을 수 있습니다.\n\n**연애운** 솔직한 대화가 관계를 더욱 깊게 만들어 줄 것입니다.\n\n**건강운** 가벼운 운동이 스트레스 해소에 도움이 됩니다.',
+      '**총운** 협력과 소통이 중요한 날입니다.\n\n**재물운** 투자보다는 저축에 집중하는 것이 유리합니다.\n\n**연애운** 상대방의 입장에서 생각해보는 하루가 되세요.\n\n**건강운** 과로를 피하고 적절한 휴식을 취하세요.',
+    ],
+    'en': [
+      '**Overall** A great day for new beginnings. Start something you have been putting off.\n\n**Wealth** Avoid unnecessary spending and plan your finances carefully.\n\n**Love** Taking the first step toward someone close will bring good results.\n\n**Health** Maintain your condition with enough sleep and regular meals.',
+      '**Overall** Patience is key today. Act calmly without rushing.\n\n**Wealth** An unexpected income opportunity may arise — keep your eyes open.\n\n**Love** Honest conversation will deepen your relationship.\n\n**Health** Light exercise helps relieve stress.',
+      '**Overall** Cooperation and communication matter most today.\n\n**Wealth** Focus on saving rather than investing.\n\n**Love** Try to see things from your partner\'s perspective today.\n\n**Health** Avoid overwork and take adequate rest.',
+    ],
+    'ja': [
+      '**総運** 新しいことを始めるのに良い日です。後回しにしていたことを始めましょう。\n\n**金運** 不要な出費を控え、計画的な消費を心がけましょう。\n\n**恋愛運** 身近な人に自分から近づくと良い結果が生まれます。\n\n**健康運** 十分な睡眠と規則正しい食事でコンディションを維持してください。',
+      '**総運** 今日は忍耐が必要な日です。焦らず落ち着いて行動しましょう。\n\n**金運** 思わぬ収入のチャンスがあるかもしれません。\n\n**恋愛運** 正直な会話が関係をより深めてくれるでしょう。\n\n**健康運** 軽い運動がストレス解消に役立ちます。',
+      '**総運** 協力とコミュニケーションが大切な日です。\n\n**金運** 投資よりも貯蓄に集中するのが有利です。\n\n**恋愛運** 相手の立場で考えてみる一日にしてください。\n\n**健康運** 過労を避け、適切な休息をとりましょう。',
+    ],
+    'zh': [
+      '**总运** 今天是新开始的好日子，开始那些一直推迟的事情吧。\n\n**财运** 避免不必要的支出，做好财务规划。\n\n**爱情运** 主动接近身边的人会带来好的结果。\n\n**健康运** 保持充足睡眠和规律饮食来维持良好状态。',
+      '**总运** 今天需要耐心，不要急躁，保持冷静。\n\n**财运** 可能会有意外收入的机会出现。\n\n**爱情运** 坦诚的交流会让关系更加深厚。\n\n**健康运** 适度运动有助于缓解压力。',
+      '**总运** 今天合作与沟通至关重要。\n\n**财运** 专注储蓄比投资更为有利。\n\n**爱情运** 试着从对方的角度思考问题。\n\n**健康运** 避免过度劳累，适当休息。',
+    ],
+    'zh_TW': [
+      '**總運** 今天是新開始的好日子，開始那些一直推遲的事情吧。\n\n**財運** 避免不必要的支出，做好財務規劃。\n\n**愛情運** 主動接近身邊的人會帶來好的結果。\n\n**健康運** 保持充足睡眠和規律飲食來維持良好狀態。',
+      '**總運** 今天需要耐心，不要急躁，保持冷靜。\n\n**財運** 可能會有意外收入的機會出現。\n\n**愛情運** 坦誠的交流會讓關係更加深厚。\n\n**健康運** 適度運動有助於緩解壓力。',
+      '**總運** 今天合作與溝通至關重要。\n\n**財運** 專注儲蓄比投資更為有利。\n\n**愛情運** 試著從對方的角度思考問題。\n\n**健康運** 避免過度勞累，適當休息。',
+    ],
+    'vi': [
+      '**Tổng vận** Hôm nay là ngày tốt để bắt đầu điều mới. Hãy bắt đầu những việc bạn đã trì hoãn.\n\n**Tài vận** Tránh chi tiêu không cần thiết, hãy lên kế hoạch tài chính cẩn thận.\n\n**Tình duyên** Chủ động tiếp cận người thân sẽ mang lại kết quả tốt.\n\n**Sức khỏe** Duy trì ngủ đủ giấc và ăn uống điều độ.',
+      '**Tổng vận** Hôm nay cần kiên nhẫn, hành động bình tĩnh không vội vàng.\n\n**Tài vận** Có thể xuất hiện cơ hội thu nhập bất ngờ.\n\n**Tình duyên** Cuộc trò chuyện thẳng thắn sẽ làm sâu sắc thêm mối quan hệ.\n\n**Sức khỏe** Tập thể dục nhẹ giúp giải tỏa căng thẳng.',
+      '**Tổng vận** Hợp tác và giao tiếp rất quan trọng hôm nay.\n\n**Tài vận** Tập trung tiết kiệm hơn là đầu tư.\n\n**Tình duyên** Hãy thử nhìn mọi thứ từ góc độ của đối phương.\n\n**Sức khỏe** Tránh làm việc quá sức và nghỉ ngơi hợp lý.',
+    ],
+    'id': [
+      '**Keberuntungan Umum** Hari yang baik untuk memulai hal baru. Mulailah hal yang telah Anda tunda.\n\n**Keberuntungan Finansial** Hindari pengeluaran yang tidak perlu.\n\n**Keberuntungan Cinta** Mengambil inisiatif mendekati orang terdekat akan membawa hasil baik.\n\n**Kesehatan** Jaga kondisi dengan tidur cukup dan makan teratur.',
+      '**Keberuntungan Umum** Kesabaran adalah kunci hari ini. Bertindaklah dengan tenang.\n\n**Keberuntungan Finansial** Peluang pendapatan tak terduga mungkin muncul.\n\n**Keberuntungan Cinta** Percakapan jujur akan mempererat hubungan Anda.\n\n**Kesehatan** Olahraga ringan membantu mengurangi stres.',
+      '**Keberuntungan Umum** Kerjasama dan komunikasi sangat penting hari ini.\n\n**Keberuntungan Finansial** Fokus menabung lebih menguntungkan dari berinvestasi.\n\n**Keberuntungan Cinta** Cobalah melihat sesuatu dari sudut pandang pasangan Anda.\n\n**Kesehatan** Hindari kerja berlebihan dan istirahat yang cukup.',
+    ],
+    'ms': [
+      '**Nasib Umum** Hari yang baik untuk permulaan baru. Mulakan perkara yang telah ditangguhkan.\n\n**Nasib Kewangan** Elakkan perbelanjaan yang tidak perlu.\n\n**Nasib Cinta** Mengambil langkah pertama mendekati orang terdekat akan membawa hasil baik.\n\n**Kesihatan** Jaga kondisi dengan tidur cukup dan makan secara teratur.',
+      '**Nasib Umum** Kesabaran adalah kunci hari ini. Bertindaklah dengan tenang.\n\n**Nasib Kewangan** Peluang pendapatan tidak dijangka mungkin muncul.\n\n**Nasib Cinta** Perbualan yang jujur akan mengeratkan hubungan anda.\n\n**Kesihatan** Senaman ringan membantu melegakan tekanan.',
+      '**Nasib Umum** Kerjasama dan komunikasi amat penting hari ini.\n\n**Nasib Kewangan** Fokus menabung lebih menguntungkan berbanding melabur.\n\n**Nasib Cinta** Cuba lihat sesuatu dari perspektif pasangan anda.\n\n**Kesihatan** Elakkan kerja berlebihan dan rehat secukupnya.',
+    ],
+    'ru': [
+      '**Общая удача** Отличный день для нового начала. Начните то, что откладывали.\n\n**Финансы** Избегайте лишних трат, планируйте расходы.\n\n**Любовь** Первый шаг навстречу близкому человеку принесёт хороший результат.\n\n**Здоровье** Поддерживайте форму полноценным сном и регулярным питанием.',
+      '**Общая удача** Сегодня важно терпение. Действуйте спокойно, не торопитесь.\n\n**Финансы** Может появиться неожиданная возможность для дохода.\n\n**Любовь** Честный разговор углубит ваши отношения.\n\n**Здоровье** Лёгкие упражнения помогут снять стресс.',
+      '**Общая удача** Сотрудничество и общение сегодня особенно важны.\n\n**Финансы** Сосредоточьтесь на сбережениях, а не на инвестициях.\n\n**Любовь** Попробуйте взглянуть на ситуацию глазами партнёра.\n\n**Здоровье** Избегайте переутомления и хорошо отдыхайте.',
+    ],
+    'tr': [
+      '**Genel Şans** Yeni başlangıçlar için harika bir gün. Ertelediğiniz şeylere başlayın.\n\n**Para Şansı** Gereksiz harcamalardan kaçının, finansal plan yapın.\n\n**Aşk Şansı** Yakınlarınıza ilk adımı atmak iyi sonuçlar getirecektir.\n\n**Sağlık** Yeterli uyku ve düzenli öğünlerle kondisyonunuzu koruyun.',
+      '**Genel Şans** Bugün sabır anahtar kelime. Acelesiz ve sakin hareket edin.\n\n**Para Şansı** Beklenmedik bir gelir fırsatı çıkabilir.\n\n**Aşk Şansı** Dürüst bir konuşma ilişkinizi derinleştirecektir.\n\n**Sağlık** Hafif egzersiz stresi azaltmaya yardımcı olur.',
+      '**Genel Şans** Bugün iş birliği ve iletişim çok önemli.\n\n**Para Şansı** Yatırım yerine tasarrufa odaklanmak daha avantajlı.\n\n**Aşk Şansı** Olaylara partnerinizin bakış açısından görmeye çalışın.\n\n**Sağlık** Aşırı çalışmaktan kaçının ve yeterince dinlenin.',
+    ],
+  };
 }
