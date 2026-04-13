@@ -401,6 +401,30 @@ abstract class AppLocalizations {
   /// **'Birth Date'**
   String get settingsBirthDate;
 
+  /// No description provided for @settingsBirthYear.
+  ///
+  /// In en, this message translates to:
+  /// **'{year}'**
+  String settingsBirthYear(int year);
+
+  /// No description provided for @settingsBirthMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'{month}'**
+  String settingsBirthMonth(int month);
+
+  /// No description provided for @settingsBirthDay.
+  ///
+  /// In en, this message translates to:
+  /// **'{day}'**
+  String settingsBirthDay(int day);
+
+  /// No description provided for @settingsBirthHour.
+  ///
+  /// In en, this message translates to:
+  /// **'{hour}:00'**
+  String settingsBirthHour(int hour);
+
   /// No description provided for @settingsRegisterBirthday.
   ///
   /// In en, this message translates to:

@@ -169,6 +169,26 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settingsBirthDate => '生日';
 
   @override
+  String settingsBirthYear(int year) {
+    return '$year年';
+  }
+
+  @override
+  String settingsBirthMonth(int month) {
+    return '$month月';
+  }
+
+  @override
+  String settingsBirthDay(int day) {
+    return '$day日';
+  }
+
+  @override
+  String settingsBirthHour(int hour) {
+    return '$hour时';
+  }
+
+  @override
   String get settingsRegisterBirthday => '将生日注册到 Google 日历';
 
   @override
@@ -465,6 +485,26 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get settingsBirthDate => '生日';
+
+  @override
+  String settingsBirthYear(int year) {
+    return '$year年';
+  }
+
+  @override
+  String settingsBirthMonth(int month) {
+    return '$month月';
+  }
+
+  @override
+  String settingsBirthDay(int day) {
+    return '$day日';
+  }
+
+  @override
+  String settingsBirthHour(int hour) {
+    return '$hour時';
+  }
 
   @override
   String get settingsRegisterBirthday => '將生日註冊到 Google 日曆';

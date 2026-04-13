@@ -171,6 +171,26 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsBirthDate => 'Doğum Tarihi';
 
   @override
+  String settingsBirthYear(int year) {
+    return '$year';
+  }
+
+  @override
+  String settingsBirthMonth(int month) {
+    return '$month';
+  }
+
+  @override
+  String settingsBirthDay(int day) {
+    return '$day';
+  }
+
+  @override
+  String settingsBirthHour(int hour) {
+    return '$hour:00';
+  }
+
+  @override
   String get settingsRegisterBirthday => 'Doğum Gününü Google Takvim\'e Ekle';
 
   @override

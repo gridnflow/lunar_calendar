@@ -171,6 +171,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsBirthDate => 'Birth Date';
 
   @override
+  String settingsBirthYear(int year) {
+    return '$year';
+  }
+
+  @override
+  String settingsBirthMonth(int month) {
+    return '$month';
+  }
+
+  @override
+  String settingsBirthDay(int day) {
+    return '$day';
+  }
+
+  @override
+  String settingsBirthHour(int hour) {
+    return '$hour:00';
+  }
+
+  @override
   String get settingsRegisterBirthday => 'Register Birthday in Google Calendar';
 
   @override

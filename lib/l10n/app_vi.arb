@@ -113,6 +113,38 @@
   },
   "settingsTitle": "Cài đặt",
   "settingsBirthDate": "Ngày sinh",
+  "settingsBirthYear": "năm {year}",
+  "@settingsBirthYear": {
+    "placeholders": {
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsBirthMonth": "tháng {month}",
+  "@settingsBirthMonth": {
+    "placeholders": {
+      "month": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsBirthDay": "ngày {day}",
+  "@settingsBirthDay": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsBirthHour": "{hour}:00",
+  "@settingsBirthHour": {
+    "placeholders": {
+      "hour": {
+        "type": "int"
+      }
+    }
+  },
   "settingsRegisterBirthday": "Đăng ký sinh nhật vào Google Calendar",
   "settingsSignOut": "Đăng xuất",
   "settingsBirthdayDialogTitle": "Đăng ký sinh nhật",

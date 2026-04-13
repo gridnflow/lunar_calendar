@@ -170,6 +170,26 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settingsBirthDate => '생년월일';
 
   @override
+  String settingsBirthYear(int year) {
+    return '$year년';
+  }
+
+  @override
+  String settingsBirthMonth(int month) {
+    return '$month월';
+  }
+
+  @override
+  String settingsBirthDay(int day) {
+    return '$day일';
+  }
+
+  @override
+  String settingsBirthHour(int hour) {
+    return '$hour시';
+  }
+
+  @override
   String get settingsRegisterBirthday => '내 생일 Google Calendar에 등록';
 
   @override

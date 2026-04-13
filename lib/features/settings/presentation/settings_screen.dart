@@ -207,8 +207,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                       ?.copyWith(fontWeight: FontWeight.bold)),
                               const SizedBox(height: 8),
                               Text(
-                                '${profile.birthYear}년 ${profile.birthMonth}월 ${profile.birthDay}일'
-                                '${profile.birthHour != null ? '  ${profile.birthHour}시' : ''}'
+                                '${l.settingsBirthYear(profile.birthYear)}  '
+                                '${l.settingsBirthMonth(profile.birthMonth)}  '
+                                '${l.settingsBirthDay(profile.birthDay)}'
+                                '${profile.birthHour != null ? '   ${l.settingsBirthHour(profile.birthHour!)}' : ''}'
                                 '  (${profile.isLunarBirth ? l.onboardingLunar : l.onboardingSolar})',
                                 style: const TextStyle(fontSize: 15),
                               ),

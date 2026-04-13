@@ -113,6 +113,38 @@
   },
   "settingsTitle": "Settings",
   "settingsBirthDate": "생년월일",
+  "settingsBirthYear": "{year}년",
+  "@settingsBirthYear": {
+    "placeholders": {
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsBirthMonth": "{month}월",
+  "@settingsBirthMonth": {
+    "placeholders": {
+      "month": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsBirthDay": "{day}일",
+  "@settingsBirthDay": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsBirthHour": "{hour}시",
+  "@settingsBirthHour": {
+    "placeholders": {
+      "hour": {
+        "type": "int"
+      }
+    }
+  },
   "settingsRegisterBirthday": "내 생일 Google Calendar에 등록",
   "settingsSignOut": "Sign Out",
   "settingsBirthdayDialogTitle": "내 생일 등록",

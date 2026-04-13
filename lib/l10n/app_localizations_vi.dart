@@ -170,6 +170,26 @@ class AppLocalizationsVi extends AppLocalizations {
   String get settingsBirthDate => 'Ngày sinh';
 
   @override
+  String settingsBirthYear(int year) {
+    return 'năm $year';
+  }
+
+  @override
+  String settingsBirthMonth(int month) {
+    return 'tháng $month';
+  }
+
+  @override
+  String settingsBirthDay(int day) {
+    return 'ngày $day';
+  }
+
+  @override
+  String settingsBirthHour(int hour) {
+    return '$hour:00';
+  }
+
+  @override
   String get settingsRegisterBirthday =>
       'Đăng ký sinh nhật vào Google Calendar';
 

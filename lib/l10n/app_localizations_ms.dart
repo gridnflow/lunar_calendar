@@ -171,6 +171,26 @@ class AppLocalizationsMs extends AppLocalizations {
   String get settingsBirthDate => 'Tarikh Lahir';
 
   @override
+  String settingsBirthYear(int year) {
+    return '$year';
+  }
+
+  @override
+  String settingsBirthMonth(int month) {
+    return '$month';
+  }
+
+  @override
+  String settingsBirthDay(int day) {
+    return '$day';
+  }
+
+  @override
+  String settingsBirthHour(int hour) {
+    return 'pukul $hour';
+  }
+
+  @override
   String get settingsRegisterBirthday => 'Daftar Hari Lahir ke Google Calendar';
 
   @override

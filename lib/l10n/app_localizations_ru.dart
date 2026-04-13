@@ -172,6 +172,26 @@ class AppLocalizationsRu extends AppLocalizations {
   String get settingsBirthDate => 'Дата рождения';
 
   @override
+  String settingsBirthYear(int year) {
+    return '$year г.';
+  }
+
+  @override
+  String settingsBirthMonth(int month) {
+    return '$month';
+  }
+
+  @override
+  String settingsBirthDay(int day) {
+    return '$day';
+  }
+
+  @override
+  String settingsBirthHour(int hour) {
+    return '$hour:00';
+  }
+
+  @override
   String get settingsRegisterBirthday =>
       'Добавить день рождения в Google Календарь';
 

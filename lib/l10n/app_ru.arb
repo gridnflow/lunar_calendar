@@ -113,6 +113,38 @@
   },
   "settingsTitle": "Настройки",
   "settingsBirthDate": "Дата рождения",
+  "settingsBirthYear": "{year} г.",
+  "@settingsBirthYear": {
+    "placeholders": {
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsBirthMonth": "{month}",
+  "@settingsBirthMonth": {
+    "placeholders": {
+      "month": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsBirthDay": "{day}",
+  "@settingsBirthDay": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsBirthHour": "{hour}:00",
+  "@settingsBirthHour": {
+    "placeholders": {
+      "hour": {
+        "type": "int"
+      }
+    }
+  },
   "settingsRegisterBirthday": "Добавить день рождения в Google Календарь",
   "settingsSignOut": "Выйти",
   "settingsBirthdayDialogTitle": "Зарегистрировать день рождения",
