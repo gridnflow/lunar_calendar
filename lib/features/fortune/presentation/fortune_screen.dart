@@ -85,7 +85,11 @@ class _FortuneScreenState extends ConsumerState<FortuneScreen> {
                   l.fortuneError(e.toString()),
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.error)),
-              data: (text) => _FortuneText(text: text),
+              data: (text) {
+              // 운세 로드 성공 시 리뷰 조건 체크 (fire-and-forget)
+              ref.read(reviewServiceProvider).recordFortuneViewAndMaybeReview();
+              return _FortuneText(text: text);
+            },
             ),
           ),
           const SizedBox(height: 16),

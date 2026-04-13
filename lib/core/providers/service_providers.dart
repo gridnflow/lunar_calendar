@@ -12,6 +12,7 @@ import '../services/fortune_service.dart';
 import '../services/lunar_service.dart';
 import '../services/ad_service.dart';
 import '../services/notification_service.dart';
+import '../services/review_service.dart';
 import '../services/user_service.dart';
 import '../services/widget_service.dart';
 import 'locale_provider.dart';
@@ -82,6 +83,9 @@ final widgetServiceProvider =
 
 final adServiceProvider =
     Provider<AdService>((ref) => AdService());
+
+final reviewServiceProvider =
+    Provider<ReviewService>((ref) => ReviewService());
 
 /// Today's fortune text (cached per session).
 final todayFortuneProvider = FutureProvider<String>((ref) async {
