@@ -7,6 +7,10 @@ class FortuneService {
   static const int _dailyLimit = 1200;
 
   final String _apiKey;
+
+  /// In-memory cache: languageCode → (date, fortuneText)
+  final Map<String, (String, String)> _cache = {};
+
   FortuneService({String apiKey = ''}) : _apiKey = apiKey;
 
   Future<String> getTodayFortune({
@@ -20,9 +24,18 @@ class FortuneService {
     String? sajuHour,
     String languageCode = 'ko',
   }) async {
+    final today = _todayString();
+
+    // Return cached result if same language & same day
+    final cached = _cache[languageCode];
+    if (cached != null && cached.$1 == today) {
+      return cached.$2;
+    }
+
+    String result;
     if (_apiKey.isNotEmpty && await _canUseGemini()) {
       try {
-        final result = await _getGeminiFortune(
+        result = await _getGeminiFortune(
           yearPillar: yearPillar,
           monthPillar: monthPillar,
           dayPillar: dayPillar,
@@ -34,12 +47,15 @@ class FortuneService {
           languageCode: languageCode,
         );
         await _incrementCount();
-        return result;
       } catch (_) {
-        // Fall through to local
+        result = _getLocalFortune(dayPillar: dayPillar, monthPillar: monthPillar, languageCode: languageCode);
       }
+    } else {
+      result = _getLocalFortune(dayPillar: dayPillar, monthPillar: monthPillar, languageCode: languageCode);
     }
-    return _getLocalFortune(dayPillar: dayPillar, monthPillar: monthPillar, languageCode: languageCode);
+
+    _cache[languageCode] = (today, result);
+    return result;
   }
 
   Future<bool> _canUseGemini() async {
