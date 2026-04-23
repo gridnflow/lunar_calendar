@@ -125,23 +125,12 @@ class FamilyScreen extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 12),
-                SegmentedButton<String>(
-                  segments: [
-                    ButtonSegment(
-                        value: AnniversaryType.jesa,
-                        label: Text(l.anniversaryType_jesa),
-                        icon: const Icon(Icons.local_fire_department)),
-                    ButtonSegment(
-                        value: AnniversaryType.birthday,
-                        label: Text(l.anniversaryType_birthday),
-                        icon: const Icon(Icons.cake)),
-                    ButtonSegment(
-                        value: AnniversaryType.other,
-                        label: Text(l.anniversaryType_other),
-                        icon: const Icon(Icons.star)),
-                  ],
-                  selected: {type},
-                  onSelectionChanged: (v) => setState(() => type = v.first),
+                _AnniversaryTypeSelector(
+                  selected: type,
+                  onChanged: (v) => setState(() => type = v),
+                  jesa: l.anniversaryType_jesa,
+                  birthday: l.anniversaryType_birthday,
+                  other: l.anniversaryType_other,
                 ),
                 const SizedBox(height: 12),
                 Container(
@@ -177,6 +166,7 @@ class FamilyScreen extends ConsumerWidget {
                       value: lunarMonth,
                       min: 1,
                       max: 12,
+                      suffix: l.fortuneMonthSuffix,
                       onChanged: (v) => setState(() => lunarMonth = v),
                     ),
                   ),
@@ -187,6 +177,7 @@ class FamilyScreen extends ConsumerWidget {
                       value: lunarDay,
                       min: 1,
                       max: 30,
+                      suffix: l.fortuneDaySuffix,
                       onChanged: (v) => setState(() => lunarDay = v),
                     ),
                   ),
@@ -374,6 +365,7 @@ class _PickerField extends StatelessWidget {
   final int value;
   final int min;
   final int max;
+  final String suffix;
   final void Function(int) onChanged;
 
   const _PickerField({
@@ -382,6 +374,7 @@ class _PickerField extends StatelessWidget {
     required this.min,
     required this.max,
     required this.onChanged,
+    this.suffix = '',
   });
 
   @override
@@ -395,9 +388,77 @@ class _PickerField extends StatelessWidget {
       ),
       items: List.generate(
         max - min + 1,
-        (i) => DropdownMenuItem(value: min + i, child: Text('${min + i}')),
+        (i) => DropdownMenuItem(value: min + i, child: Text('${min + i}$suffix')),
       ),
       onChanged: (v) => onChanged(v ?? value),
+    );
+  }
+}
+
+class _AnniversaryTypeSelector extends StatelessWidget {
+  final String selected;
+  final void Function(String) onChanged;
+  final String jesa;
+  final String birthday;
+  final String other;
+
+  const _AnniversaryTypeSelector({
+    required this.selected,
+    required this.onChanged,
+    required this.jesa,
+    required this.birthday,
+    required this.other,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final types = [
+      (value: AnniversaryType.jesa, icon: Icons.local_fire_department, label: jesa),
+      (value: AnniversaryType.birthday, icon: Icons.cake, label: birthday),
+      (value: AnniversaryType.other, icon: Icons.star_outline, label: other),
+    ];
+    return Row(
+      children: types.map((t) {
+        final isSelected = selected == t.value;
+        return Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 3),
+            child: InkWell(
+              onTap: () => onChanged(t.value),
+              borderRadius: BorderRadius.circular(12),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 150),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  color: isSelected ? cs.primary : cs.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(12),
+                  border: isSelected
+                      ? null
+                      : Border.all(color: cs.outlineVariant),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(t.icon,
+                        size: 22,
+                        color: isSelected ? cs.onPrimary : cs.onSurfaceVariant),
+                    const SizedBox(height: 5),
+                    Text(
+                      t.label,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: isSelected ? cs.onPrimary : cs.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      }).toList(),
     );
   }
 }

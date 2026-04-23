@@ -181,7 +181,7 @@ class _LunarInfoCard extends StatelessWidget {
               children: [
                 Text(
                   todayLunar,
-                  style: GoogleFonts.nanumMyeongjo(
+                  style: GoogleFonts.notoSansKr(
                     fontSize: 22,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,

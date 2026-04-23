@@ -128,11 +128,11 @@ class AppTheme {
         backgroundColor: cs.surface,
         foregroundColor: cs.onSurface,
         titleTextStyle: TextStyle(
-          fontFamily: GoogleFonts.nanumMyeongjo().fontFamily,
-          fontSize: 21,
+          fontFamily: GoogleFonts.notoSansKr().fontFamily,
+          fontSize: 20,
           fontWeight: FontWeight.w700,
           color: cs.onSurface,
-          letterSpacing: 0.2,
+          letterSpacing: -0.5,
         ),
       );
 
@@ -218,7 +218,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(24),
         ),
         titleTextStyle: TextStyle(
-          fontFamily: GoogleFonts.nanumMyeongjo().fontFamily,
+          fontFamily: GoogleFonts.notoSansKr().fontFamily,
           fontSize: 18,
           fontWeight: FontWeight.w700,
           color: cs.onSurface,
@@ -276,7 +276,7 @@ class AppTheme {
   // ──────────────────────────────────────────────
 
   static TextTheme _textTheme(ColorScheme colorScheme) {
-    final serifFamily = GoogleFonts.nanumMyeongjo().fontFamily;
+    final serifFamily = GoogleFonts.notoSansKr().fontFamily;
     final base = ThemeData(colorScheme: colorScheme).textTheme;
     return base.copyWith(
       displayLarge: base.displayLarge?.copyWith(
