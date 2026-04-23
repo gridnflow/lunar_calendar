@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/models/user_profile.dart';
+import '../../../core/providers/locale_provider.dart';
 import '../../../core/providers/service_providers.dart';
 import '../../../l10n/app_localizations.dart';
 
@@ -237,6 +238,38 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             label: Text(l.languageSelect),
             style: OutlinedButton.styleFrom(
                 minimumSize: const Size.fromHeight(48)),
+          ),
+          const SizedBox(height: 12),
+          // 다크/라이트 모드 토글
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              child: Row(
+                children: [
+                  Icon(
+                    ref.watch(themeModeProvider) == ThemeMode.dark
+                        ? Icons.dark_mode_outlined
+                        : Icons.light_mode_outlined,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      ref.watch(themeModeProvider) == ThemeMode.dark
+                          ? '다크 모드' : '라이트 모드',
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  Switch(
+                    value: ref.watch(themeModeProvider) == ThemeMode.dark,
+                    onChanged: (isDark) {
+                      ref.read(themeModeProvider.notifier).setThemeMode(
+                          isDark ? ThemeMode.dark : ThemeMode.light);
+                    },
+                  ),
+                ],
+              ),
+            ),
           ),
           const SizedBox(height: 12),
           OutlinedButton(

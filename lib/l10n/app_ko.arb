@@ -1,11 +1,11 @@
 {
   "@@locale": "ko",
   "appTitle": "음력 달력",
-  "navCalendar": "Calendar",
-  "navFortune": "Fortune",
+  "navCalendar": "달력",
+  "navFortune": "운세",
   "navFamily": "가족",
-  "navSettings": "Settings",
-  "calendarTitle": "Calendar",
+  "navSettings": "설정",
+  "calendarTitle": "달력",
   "calendarNoEvents": "이 날의 일정이 없습니다",
   "calendarConnectRequired": "Google Calendar 연결 필요",
   "calendarRetry": "재시도",
@@ -119,7 +119,7 @@
       }
     }
   },
-  "settingsTitle": "Settings",
+  "settingsTitle": "설정",
   "settingsBirthDate": "생년월일",
   "settingsBirthYear": "{year}년",
   "@settingsBirthYear": {

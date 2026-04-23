@@ -20,12 +20,20 @@ final _authStreamProvider = StreamProvider<User?>(
 );
 
 final routerProvider = Provider<GoRouter>((ref) {
-  final authState = ref.watch(_authStreamProvider);
-  final profileAsync = ref.watch(userProfileProvider);
+  // Use a ValueNotifier so GoRouter is created ONCE and only refreshes
+  // its redirect logic — not recreated — when auth/profile state changes.
+  final notifier = ValueNotifier<int>(0);
 
-  return GoRouter(
+  ref.listen(_authStreamProvider, (prev, next) => notifier.value++);
+  ref.listen(userProfileProvider, (prev, next) => notifier.value++);
+
+  final router = GoRouter(
     initialLocation: '/login',
+    refreshListenable: notifier,
     redirect: (context, state) {
+      final authState = ref.read(_authStreamProvider);
+      final profileAsync = ref.read(userProfileProvider);
+
       final isLoggedIn = authState.valueOrNull != null;
       final loc = state.matchedLocation;
 
@@ -38,8 +46,7 @@ final routerProvider = Provider<GoRouter>((ref) {
 
       final profile = profileAsync.valueOrNull;
       final needsOnboarding = profile == null;
-      final onOnboardingFlow =
-          loc == '/language' || loc == '/onboarding';
+      final onOnboardingFlow = loc == '/language' || loc == '/onboarding';
 
       if (needsOnboarding && !onOnboardingFlow) return '/language';
       if (!needsOnboarding && (loc == '/login' || loc == '/onboarding')) {
@@ -83,6 +90,13 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
     ],
   );
+
+  ref.onDispose(() {
+    notifier.dispose();
+    router.dispose();
+  });
+
+  return router;
 });
 
 class MainShell extends ConsumerStatefulWidget {

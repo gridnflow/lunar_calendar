@@ -29,12 +29,14 @@ class App extends ConsumerWidget {
     ref.watch(anniversaryNotificationSchedulerProvider);
     final locale = ref.watch(localeProvider);
     final router = ref.watch(routerProvider);
+    final themeMode = ref.watch(themeModeProvider);
 
     return MaterialApp.router(
       title: 'Lunar Calendar',
       routerConfig: router,
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
+      themeMode: themeMode,
       locale: locale,
       localizationsDelegates: const [
         AppLocalizations.delegate,

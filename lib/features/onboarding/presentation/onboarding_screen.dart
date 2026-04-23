@@ -35,36 +35,42 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _saving = true);
 
-    final user = ref.read(currentUserProvider)!;
-    final profile = UserProfile(
-      uid: user.uid,
-      email: user.email ?? '',
-      displayName: user.displayName ?? '',
-      birthYear: int.parse(_yearCtrl.text),
-      birthMonth: int.parse(_monthCtrl.text),
-      birthDay: int.parse(_dayCtrl.text),
-      birthHour: _hourCtrl.text.isEmpty ? null : int.parse(_hourCtrl.text),
-      isLunarBirth: _isLunar,
-    );
+    try {
+      final user = ref.read(currentUserProvider)!;
+      final profile = UserProfile(
+        uid: user.uid,
+        email: user.email ?? '',
+        displayName: user.displayName ?? '',
+        birthYear: int.parse(_yearCtrl.text),
+        birthMonth: int.parse(_monthCtrl.text),
+        birthDay: int.parse(_dayCtrl.text),
+        birthHour: _hourCtrl.text.isEmpty ? null : int.parse(_hourCtrl.text),
+        isLunarBirth: _isLunar,
+      );
 
-    await ref.read(userServiceProvider).saveProfile(profile);
-    ref.invalidate(userProfileProvider);
+      await ref.read(userServiceProvider).saveProfile(profile);
+      ref.invalidate(userProfileProvider);
 
-    if (mounted) context.go('/calendar');
+      if (mounted) context.go('/calendar');
+    } catch (e) {
+      if (mounted) setState(() => _saving = false);
+    }
   }
 
   Future<void> _skip() async {
-    final user = ref.read(currentUserProvider)!;
-    await ref.read(userServiceProvider).saveProfile(UserProfile(
-      uid: user.uid,
-      email: user.email ?? '',
-      displayName: user.displayName ?? '',
-      birthYear: 0,
-      birthMonth: 0,
-      birthDay: 0,
-    ));
-    ref.invalidate(userProfileProvider);
-    if (mounted) context.go('/calendar');
+    try {
+      final user = ref.read(currentUserProvider)!;
+      await ref.read(userServiceProvider).saveProfile(UserProfile(
+        uid: user.uid,
+        email: user.email ?? '',
+        displayName: user.displayName ?? '',
+        birthYear: 0,
+        birthMonth: 0,
+        birthDay: 0,
+      ));
+      ref.invalidate(userProfileProvider);
+      if (mounted) context.go('/calendar');
+    } catch (_) {}
   }
 
   @override

@@ -12,19 +12,19 @@ class AppLocalizationsKo extends AppLocalizations {
   String get appTitle => '음력 달력';
 
   @override
-  String get navCalendar => 'Calendar';
+  String get navCalendar => '달력';
 
   @override
-  String get navFortune => 'Fortune';
+  String get navFortune => '운세';
 
   @override
   String get navFamily => '가족';
 
   @override
-  String get navSettings => 'Settings';
+  String get navSettings => '설정';
 
   @override
-  String get calendarTitle => 'Calendar';
+  String get calendarTitle => '달력';
 
   @override
   String get calendarNoEvents => '이 날의 일정이 없습니다';
@@ -169,7 +169,7 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get settingsTitle => 'Settings';
+  String get settingsTitle => '설정';
 
   @override
   String get settingsBirthDate => '생년월일';
