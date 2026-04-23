@@ -327,4 +327,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get languageZhHant => '繁體中文';
+
+  @override
+  String get settingsDarkMode => '다크 모드';
+
+  @override
+  String get settingsLightMode => '라이트 모드';
 }

@@ -329,4 +329,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get languageZhHant => '繁體中文';
+
+  @override
+  String get settingsDarkMode => 'Dark Mode';
+
+  @override
+  String get settingsLightMode => 'Light Mode';
 }

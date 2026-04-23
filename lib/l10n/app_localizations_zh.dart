@@ -325,6 +325,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get languageZhHant => '繁體中文';
+
+  @override
+  String get settingsDarkMode => '深色模式';
+
+  @override
+  String get settingsLightMode => '浅色模式';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -648,4 +654,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get languageZhHant => '繁體中文';
+
+  @override
+  String get settingsDarkMode => '深色模式';
+
+  @override
+  String get settingsLightMode => '淺色模式';
 }

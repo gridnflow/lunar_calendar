@@ -333,4 +333,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get languageZhHant => '繁體中文';
+
+  @override
+  String get settingsDarkMode => 'Тёмный режим';
+
+  @override
+  String get settingsLightMode => 'Светлый режим';
 }

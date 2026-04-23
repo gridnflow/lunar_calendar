@@ -670,6 +670,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'繁體中文'**
   String get languageZhHant;
+
+  /// No description provided for @settingsDarkMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get settingsDarkMode;
+
+  /// No description provided for @settingsLightMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Light Mode'**
+  String get settingsLightMode;
 }
 
 class _AppLocalizationsDelegate

@@ -331,4 +331,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get languageZhHant => '繁體中文';
+
+  @override
+  String get settingsDarkMode => 'Mode Gelap';
+
+  @override
+  String get settingsLightMode => 'Mode Terang';
 }

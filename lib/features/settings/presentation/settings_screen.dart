@@ -256,7 +256,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   Expanded(
                     child: Text(
                       ref.watch(themeModeProvider) == ThemeMode.dark
-                          ? '다크 모드' : '라이트 모드',
+                          ? l.settingsDarkMode : l.settingsLightMode,
                       style: const TextStyle(fontWeight: FontWeight.w500),
                     ),
                   ),

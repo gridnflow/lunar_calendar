@@ -330,4 +330,10 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get languageZhHant => '繁體中文';
+
+  @override
+  String get settingsDarkMode => 'Mod Gelap';
+
+  @override
+  String get settingsLightMode => 'Mod Cerah';
 }

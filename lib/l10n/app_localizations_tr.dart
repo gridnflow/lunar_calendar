@@ -329,4 +329,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get languageZhHant => '繁體中文';
+
+  @override
+  String get settingsDarkMode => 'Karanlık Mod';
+
+  @override
+  String get settingsLightMode => 'Aydınlık Mod';
 }

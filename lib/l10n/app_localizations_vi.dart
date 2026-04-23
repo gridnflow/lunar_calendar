@@ -330,4 +330,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get languageZhHant => '繁體中文';
+
+  @override
+  String get settingsDarkMode => 'Chế độ tối';
+
+  @override
+  String get settingsLightMode => 'Chế độ sáng';
 }

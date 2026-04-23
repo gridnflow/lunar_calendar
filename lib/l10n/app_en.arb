@@ -226,5 +226,7 @@
   "languageKo": "한국어",
   "languageJa": "日本語",
   "languageZhHans": "简体中文",
-  "languageZhHant": "繁體中文"
+  "languageZhHant": "繁體中文",
+  "settingsDarkMode": "Dark Mode",
+  "settingsLightMode": "Light Mode"
 }
