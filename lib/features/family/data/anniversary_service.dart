@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../models/family_anniversary.dart';
+import '../../../core/models/family_anniversary.dart';
 
 class AnniversaryService {
   final FirebaseFirestore _db;

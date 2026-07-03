@@ -1,3 +1,7 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'family_anniversary.freezed.dart';
+
 class AnniversaryType {
   static const jesa = 'jesa';
   static const birthday = 'birthday';
@@ -27,32 +31,23 @@ class AnniversaryType {
   }
 }
 
-class FamilyAnniversary {
-  final String id;
-  final String name;
-  final String type; // AnniversaryType.jesa | .birthday | .other
-  final int lunarMonth;
-  final int lunarDay;
-  final bool isLeap;
+@freezed
+abstract class FamilyAnniversary with _$FamilyAnniversary {
+  const FamilyAnniversary._();
 
-  const FamilyAnniversary({
-    required this.id,
-    required this.name,
-    required this.type,
-    required this.lunarMonth,
-    required this.lunarDay,
-    this.isLeap = false,
-  });
+  const factory FamilyAnniversary({
+    required String id,
+    required String name,
 
-  Map<String, dynamic> toFirestore() => {
-        'name': name,
-        'type': type,
-        'lunarMonth': lunarMonth,
-        'lunarDay': lunarDay,
-        'isLeap': isLeap,
-      };
+    /// AnniversaryType.jesa | .birthday | .other
+    required String type,
+    required int lunarMonth,
+    required int lunarDay,
+    @Default(false) bool isLeap,
+  }) = _FamilyAnniversary;
 
-  factory FamilyAnniversary.fromFirestore(String id, Map<String, dynamic> data) =>
+  factory FamilyAnniversary.fromFirestore(
+          String id, Map<String, dynamic> data) =>
       FamilyAnniversary(
         id: id,
         name: data['name'] as String,
@@ -61,4 +56,12 @@ class FamilyAnniversary {
         lunarDay: data['lunarDay'] as int,
         isLeap: data['isLeap'] as bool? ?? false,
       );
+
+  Map<String, dynamic> toFirestore() => {
+        'name': name,
+        'type': type,
+        'lunarMonth': lunarMonth,
+        'lunarDay': lunarDay,
+        'isLeap': isLeap,
+      };
 }

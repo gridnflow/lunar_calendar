@@ -1,60 +1,27 @@
-const _sentinel = Object();
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class UserProfile {
-  final String uid;
-  final String email;
-  final String displayName;
+part 'user_profile.freezed.dart';
 
-  // Birth info for fortune calculation
-  final int birthYear;
-  final int birthMonth;
-  final int birthDay;
-  final int? birthHour; // optional (시)
-  final bool isLunarBirth; // is birth date in lunar calendar
+@freezed
+abstract class UserProfile with _$UserProfile {
+  const UserProfile._();
 
-  const UserProfile({
-    required this.uid,
-    required this.email,
-    required this.displayName,
-    required this.birthYear,
-    required this.birthMonth,
-    required this.birthDay,
-    this.birthHour,
-    this.isLunarBirth = false,
-  });
+  const factory UserProfile({
+    required String uid,
+    required String email,
+    required String displayName,
 
-  Map<String, dynamic> toFirestore() => {
-        'uid': uid,
-        'email': email,
-        'displayName': displayName,
-        'birthYear': birthYear,
-        'birthMonth': birthMonth,
-        'birthDay': birthDay,
-        'birthHour': birthHour,
-        'isLunarBirth': isLunarBirth,
-      };
+    /// Birth info for fortune calculation
+    required int birthYear,
+    required int birthMonth,
+    required int birthDay,
 
-  UserProfile copyWith({
-    String? uid,
-    String? email,
-    String? displayName,
-    int? birthYear,
-    int? birthMonth,
-    int? birthDay,
-    Object? birthHour = _sentinel,
-    bool? isLunarBirth,
-  }) {
-    return UserProfile(
-      uid: uid ?? this.uid,
-      email: email ?? this.email,
-      displayName: displayName ?? this.displayName,
-      birthYear: birthYear ?? this.birthYear,
-      birthMonth: birthMonth ?? this.birthMonth,
-      birthDay: birthDay ?? this.birthDay,
-      birthHour: birthHour == _sentinel ? this.birthHour : birthHour as int?,
-      isLunarBirth: isLunarBirth ?? this.isLunarBirth,
-    );
-  }
+    /// optional (시)
+    int? birthHour,
+
+    /// is birth date in lunar calendar
+    @Default(false) bool isLunarBirth,
+  }) = _UserProfile;
 
   factory UserProfile.fromFirestore(Map<String, dynamic> data) => UserProfile(
         uid: data['uid'] as String,
@@ -66,4 +33,15 @@ class UserProfile {
         birthHour: data['birthHour'] as int?,
         isLunarBirth: data['isLunarBirth'] as bool? ?? false,
       );
+
+  Map<String, dynamic> toFirestore() => {
+        'uid': uid,
+        'email': email,
+        'displayName': displayName,
+        'birthYear': birthYear,
+        'birthMonth': birthMonth,
+        'birthDay': birthDay,
+        'birthHour': birthHour,
+        'isLunarBirth': isLunarBirth,
+      };
 }

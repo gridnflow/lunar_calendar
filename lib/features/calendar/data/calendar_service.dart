@@ -1,7 +1,7 @@
 import 'package:googleapis/calendar/v3.dart' as gcal;
 import 'package:http/http.dart' as http;
 
-import 'auth_service.dart';
+import '../../auth/data/auth_service.dart';
 
 class CalendarService {
   final AuthService _authService;
