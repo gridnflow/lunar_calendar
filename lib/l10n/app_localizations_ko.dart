@@ -142,6 +142,18 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String get fortuneDetailedTitle => 'AI 상세운세';
+
+  @override
+  String get fortuneUnlockDesc => '짧은 광고를 보면 오늘의 맞춤 AI 상세운세가 열려요.';
+
+  @override
+  String get fortuneUnlockButton => '광고 보고 상세운세 보기';
+
+  @override
+  String get fortuneUnlocking => '광고 불러오는 중…';
+
+  @override
   String get familyTitle => '가족 기념일';
 
   @override

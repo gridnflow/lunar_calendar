@@ -85,6 +85,10 @@
       }
     }
   },
+  "fortuneDetailedTitle": "Ramalan AI Terperinci",
+  "fortuneUnlockDesc": "Tonton iklan pendek untuk membuka ramalan AI peribadi hari ini.",
+  "fortuneUnlockButton": "Tonton iklan untuk buka",
+  "fortuneUnlocking": "Memuatkan iklan…",
   "familyTitle": "Ulang Tahun Keluarga",
   "familyEmpty": "Tiada ulang tahun didaftarkan",
   "generalError": "Ralat: {error}",

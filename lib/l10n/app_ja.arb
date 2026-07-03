@@ -85,6 +85,10 @@
       }
     }
   },
+  "fortuneDetailedTitle": "AI詳細運勢",
+  "fortuneUnlockDesc": "短い広告を見ると、今日のパーソナルAI運勢が見られます。",
+  "fortuneUnlockButton": "広告を見て解除",
+  "fortuneUnlocking": "広告を読み込み中…",
   "familyTitle": "家族の記念日",
   "familyEmpty": "登録された記念日はありません",
   "generalError": "エラー: {error}",

@@ -141,6 +141,18 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String get fortuneDetailedTitle => 'AI详细运势';
+
+  @override
+  String get fortuneUnlockDesc => '观看短广告即可解锁今日专属AI运势。';
+
+  @override
+  String get fortuneUnlockButton => '看广告解锁';
+
+  @override
+  String get fortuneUnlocking => '广告加载中…';
+
+  @override
   String get familyTitle => '家人纪念日';
 
   @override
@@ -468,6 +480,18 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String fortuneSolarTerm(String term) {
     return '節氣: $term';
   }
+
+  @override
+  String get fortuneDetailedTitle => 'AI詳細運勢';
+
+  @override
+  String get fortuneUnlockDesc => '觀看短廣告即可解鎖今日專屬AI運勢。';
+
+  @override
+  String get fortuneUnlockButton => '看廣告解鎖';
+
+  @override
+  String get fortuneUnlocking => '廣告載入中…';
 
   @override
   String get familyTitle => '家人紀念日';

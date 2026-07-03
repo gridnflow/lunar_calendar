@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/providers/fortune_unlock_provider.dart';
 import '../../../core/providers/service_providers.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../l10n/app_localizations.dart';
@@ -14,18 +15,18 @@ class FortuneScreen extends ConsumerStatefulWidget {
 }
 
 class _FortuneScreenState extends ConsumerState<FortuneScreen> {
-  @override
-  void initState() {
-    super.initState();
-    _loadAndShowRewarded();
-  }
+  bool _adLoading = false;
 
-  Future<void> _loadAndShowRewarded() async {
+  /// 보상형 광고를 로드·표시하고, 시청 완료 시 오늘의 상세운세 잠금 해제.
+  Future<void> _unlockWithAd() async {
+    setState(() => _adLoading = true);
     final adService = ref.read(adServiceProvider);
     await adService.loadRewarded();
-    if (mounted) {
-      adService.showRewarded(onRewarded: () {});
-    }
+    if (!mounted) return;
+    setState(() => _adLoading = false);
+    adService.showRewarded(
+      onRewarded: () => ref.read(fortuneUnlockedProvider.notifier).unlock(),
+    );
   }
 
   @override
@@ -33,7 +34,8 @@ class _FortuneScreenState extends ConsumerState<FortuneScreen> {
     final l = AppLocalizations.of(context)!;
     final lunar = ref.read(lunarServiceProvider);
     final profileAsync = ref.watch(userProfileProvider);
-    final fortuneAsync = ref.watch(todayFortuneProvider);
+    final basicFortuneAsync = ref.watch(basicFortuneProvider);
+    final isUnlocked = ref.watch(fortuneUnlockedProvider);
 
     final todayLunar = l.fortuneLunarDate(lunar.todayLunarMonth(), lunar.todayLunarDay());
     final dayPillar = '${lunar.todayDayGanZhi()}${l.fortuneDaySuffix}';
@@ -58,11 +60,11 @@ class _FortuneScreenState extends ConsumerState<FortuneScreen> {
           ),
           const SizedBox(height: 16),
 
-          // ── 오늘의 운세 ──
+          // ── 오늘의 운세 (무료 기본) ──
           _SectionCard(
             title: l.fortuneTitle,
-            icon: Icons.auto_awesome,
-            child: fortuneAsync.when(
+            icon: Icons.today_outlined,
+            child: basicFortuneAsync.when(
               loading: () => const Padding(
                 padding: EdgeInsets.symmetric(vertical: 32),
                 child: Center(child: CircularProgressIndicator()),
@@ -77,6 +79,34 @@ class _FortuneScreenState extends ConsumerState<FortuneScreen> {
               },
             ),
           ),
+          const SizedBox(height: 16),
+
+          // ── AI 상세운세 (보상형 광고로 잠금 해제) ──
+          if (isUnlocked)
+            _SectionCard(
+              title: l.fortuneDetailedTitle,
+              icon: Icons.auto_awesome,
+              child: ref.watch(todayFortuneProvider).when(
+                    loading: () => const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 32),
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+                    error: (e, _) => Text(
+                      l.fortuneError(e.toString()),
+                      style:
+                          TextStyle(color: Theme.of(context).colorScheme.error),
+                    ),
+                    data: (text) => _FortuneText(text: text),
+                  ),
+            )
+          else
+            _UnlockCard(
+              title: l.fortuneDetailedTitle,
+              description: l.fortuneUnlockDesc,
+              buttonLabel: _adLoading ? l.fortuneUnlocking : l.fortuneUnlockButton,
+              loading: _adLoading,
+              onPressed: _adLoading ? null : _unlockWithAd,
+            ),
           const SizedBox(height: 16),
 
           // ── 사주 ──
@@ -376,6 +406,79 @@ class _FortuneText extends StatelessWidget {
                   ?.copyWith(height: 1.7)),
         );
       }).toList(),
+    );
+  }
+}
+
+// ────────────────────────────────────────────────
+// AI 상세운세 잠금 해제 카드
+// ────────────────────────────────────────────────
+class _UnlockCard extends StatelessWidget {
+  final String title;
+  final String description;
+  final String buttonLabel;
+  final bool loading;
+  final VoidCallback? onPressed;
+
+  const _UnlockCard({
+    required this.title,
+    required this.description,
+    required this.buttonLabel,
+    required this.loading,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: cs.primary.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(Icons.auto_awesome, size: 16, color: cs.primary),
+                ),
+                const SizedBox(width: 10),
+                Text(title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontWeight: FontWeight.bold)),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Text(description,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: cs.onSurfaceVariant, height: 1.5)),
+            const SizedBox(height: 14),
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton.icon(
+                onPressed: onPressed,
+                icon: loading
+                    ? const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.play_circle_outline, size: 20),
+                label: Text(buttonLabel),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

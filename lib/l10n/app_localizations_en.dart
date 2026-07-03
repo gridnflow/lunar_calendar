@@ -143,6 +143,19 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get fortuneDetailedTitle => 'AI Detailed Fortune';
+
+  @override
+  String get fortuneUnlockDesc =>
+      'Watch a short ad to unlock today\'s personalized AI fortune.';
+
+  @override
+  String get fortuneUnlockButton => 'Watch ad to unlock';
+
+  @override
+  String get fortuneUnlocking => 'Loading ad…';
+
+  @override
   String get familyTitle => 'Family Anniversaries';
 
   @override

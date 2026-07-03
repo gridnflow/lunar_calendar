@@ -78,6 +78,19 @@ class FortuneService {
     return '${now.year}-${now.month}-${now.day}';
   }
 
+  /// 광고 없이 항상 무료로 제공되는 기본 운세 (로컬 생성, 일자별 고정).
+  String getBasicFortune({
+    required String dayPillar,
+    required String monthPillar,
+    String languageCode = 'ko',
+  }) {
+    return _getLocalFortune(
+      dayPillar: dayPillar,
+      monthPillar: monthPillar,
+      languageCode: languageCode,
+    );
+  }
+
   Future<String> _getGeminiFortune({
     required String yearPillar,
     required String monthPillar,
@@ -90,7 +103,7 @@ class FortuneService {
     String languageCode = 'ko',
   }) async {
     final model = GenerativeModel(
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.5-flash',
       apiKey: _apiKey,
     );
 

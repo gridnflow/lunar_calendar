@@ -142,6 +142,19 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
+  String get fortuneDetailedTitle => 'Tử vi AI chi tiết';
+
+  @override
+  String get fortuneUnlockDesc =>
+      'Xem một quảng cáo ngắn để mở khóa tử vi AI cá nhân hóa hôm nay.';
+
+  @override
+  String get fortuneUnlockButton => 'Xem quảng cáo để mở khóa';
+
+  @override
+  String get fortuneUnlocking => 'Đang tải quảng cáo…';
+
+  @override
   String get familyTitle => 'Kỷ niệm gia đình';
 
   @override

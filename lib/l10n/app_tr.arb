@@ -85,6 +85,10 @@
       }
     }
   },
+  "fortuneDetailedTitle": "Yapay Zekâ Detaylı Fal",
+  "fortuneUnlockDesc": "Kısa bir reklam izleyerek bugünün kişisel yapay zekâ falını açın.",
+  "fortuneUnlockButton": "Reklam izle ve aç",
+  "fortuneUnlocking": "Reklam yükleniyor…",
   "familyTitle": "Aile Yıl Dönümleri",
   "familyEmpty": "Kayıtlı yıl dönümü yok",
   "generalError": "Hata: {error}",

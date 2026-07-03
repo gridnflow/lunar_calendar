@@ -144,6 +144,19 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get fortuneDetailedTitle => 'Подробный AI-прогноз';
+
+  @override
+  String get fortuneUnlockDesc =>
+      'Посмотрите короткую рекламу, чтобы открыть персональный AI-прогноз на сегодня.';
+
+  @override
+  String get fortuneUnlockButton => 'Смотреть рекламу';
+
+  @override
+  String get fortuneUnlocking => 'Загрузка рекламы…';
+
+  @override
   String get familyTitle => 'Семейные даты';
 
   @override

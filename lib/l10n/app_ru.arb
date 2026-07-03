@@ -85,6 +85,10 @@
       }
     }
   },
+  "fortuneDetailedTitle": "Подробный AI-прогноз",
+  "fortuneUnlockDesc": "Посмотрите короткую рекламу, чтобы открыть персональный AI-прогноз на сегодня.",
+  "fortuneUnlockButton": "Смотреть рекламу",
+  "fortuneUnlocking": "Загрузка рекламы…",
   "familyTitle": "Семейные даты",
   "familyEmpty": "Нет зарегистрированных дат",
   "generalError": "Ошибка: {error}",

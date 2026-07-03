@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 /// 테스트 ID → 릴리스 시 실제 AdMob ID로 교체하세요.
@@ -20,15 +22,24 @@ class AdService {
 
   // ── Interstitial ────────────────────────────────────────────────────────
 
-  Future<void> loadInterstitial() async {
-    await InterstitialAd.load(
+  /// 전면 광고를 로드. 실제 로드 성공 여부를 반환.
+  Future<bool> loadInterstitial() {
+    final completer = Completer<bool>();
+    InterstitialAd.load(
       adUnitId: AdIds.interstitial,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (ad) => _interstitial = ad,
-        onAdFailedToLoad: (_) => _interstitial = null,
+        onAdLoaded: (ad) {
+          _interstitial = ad;
+          completer.complete(true);
+        },
+        onAdFailedToLoad: (_) {
+          _interstitial = null;
+          completer.complete(false);
+        },
       ),
     );
+    return completer.future;
   }
 
   /// 로드된 인터스티셜 광고를 표시하고 내부 참조 해제.
@@ -39,22 +50,32 @@ class AdService {
 
   // ── Rewarded ────────────────────────────────────────────────────────────
 
-  Future<void> loadRewarded() async {
-    await RewardedAd.load(
+  /// 보상형 광고를 로드. 실제 로드 성공 여부를 반환.
+  Future<bool> loadRewarded() {
+    final completer = Completer<bool>();
+    RewardedAd.load(
       adUnitId: AdIds.rewarded,
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
-        onAdLoaded: (ad) => _rewarded = ad,
-        onAdFailedToLoad: (_) => _rewarded = null,
+        onAdLoaded: (ad) {
+          _rewarded = ad;
+          completer.complete(true);
+        },
+        onAdFailedToLoad: (_) {
+          _rewarded = null;
+          completer.complete(false);
+        },
       ),
     );
+    return completer.future;
   }
 
   /// 보상형 광고를 표시. 시청 완료 시 [onRewarded] 호출.
+  /// 광고가 준비되지 않았으면(네트워크 오류 등) 사용자 경험을 위해 즉시 보상.
   void showRewarded({required void Function() onRewarded}) {
     final ad = _rewarded;
     if (ad == null) {
-      onRewarded(); // 광고 없으면 바로 보상 지급
+      onRewarded();
       return;
     }
     ad.show(onUserEarnedReward: (_, reward) => onRewarded());

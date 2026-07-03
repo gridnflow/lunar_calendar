@@ -142,6 +142,18 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String get fortuneDetailedTitle => 'AI詳細運勢';
+
+  @override
+  String get fortuneUnlockDesc => '短い広告を見ると、今日のパーソナルAI運勢が見られます。';
+
+  @override
+  String get fortuneUnlockButton => '広告を見て解除';
+
+  @override
+  String get fortuneUnlocking => '広告を読み込み中…';
+
+  @override
   String get familyTitle => '家族の記念日';
 
   @override

@@ -85,6 +85,10 @@
       }
     }
   },
+  "fortuneDetailedTitle": "Tử vi AI chi tiết",
+  "fortuneUnlockDesc": "Xem một quảng cáo ngắn để mở khóa tử vi AI cá nhân hóa hôm nay.",
+  "fortuneUnlockButton": "Xem quảng cáo để mở khóa",
+  "fortuneUnlocking": "Đang tải quảng cáo…",
   "familyTitle": "Kỷ niệm gia đình",
   "familyEmpty": "Chưa có ngày kỷ niệm nào",
   "generalError": "Lỗi: {error}",

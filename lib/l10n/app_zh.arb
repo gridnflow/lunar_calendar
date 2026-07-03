@@ -85,6 +85,10 @@
       }
     }
   },
+  "fortuneDetailedTitle": "AI详细运势",
+  "fortuneUnlockDesc": "观看短广告即可解锁今日专属AI运势。",
+  "fortuneUnlockButton": "看广告解锁",
+  "fortuneUnlocking": "广告加载中…",
   "familyTitle": "家人纪念日",
   "familyEmpty": "暂无纪念日",
   "generalError": "错误: {error}",

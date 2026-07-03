@@ -143,6 +143,19 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
+  String get fortuneDetailedTitle => 'Ramalan AI Terperinci';
+
+  @override
+  String get fortuneUnlockDesc =>
+      'Tonton iklan singkat untuk membuka ramalan AI personal hari ini.';
+
+  @override
+  String get fortuneUnlockButton => 'Tonton iklan untuk membuka';
+
+  @override
+  String get fortuneUnlocking => 'Memuat iklan…';
+
+  @override
   String get familyTitle => 'Peringatan Keluarga';
 
   @override

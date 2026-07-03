@@ -353,6 +353,30 @@ abstract class AppLocalizations {
   /// **'Solar term: {term}'**
   String fortuneSolarTerm(String term);
 
+  /// No description provided for @fortuneDetailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Detailed Fortune'**
+  String get fortuneDetailedTitle;
+
+  /// No description provided for @fortuneUnlockDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch a short ad to unlock today\'s personalized AI fortune.'**
+  String get fortuneUnlockDesc;
+
+  /// No description provided for @fortuneUnlockButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch ad to unlock'**
+  String get fortuneUnlockButton;
+
+  /// No description provided for @fortuneUnlocking.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading ad…'**
+  String get fortuneUnlocking;
+
   /// No description provided for @familyTitle.
   ///
   /// In en, this message translates to:

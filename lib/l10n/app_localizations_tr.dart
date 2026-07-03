@@ -143,6 +143,19 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String get fortuneDetailedTitle => 'Yapay Zekâ Detaylı Fal';
+
+  @override
+  String get fortuneUnlockDesc =>
+      'Kısa bir reklam izleyerek bugünün kişisel yapay zekâ falını açın.';
+
+  @override
+  String get fortuneUnlockButton => 'Reklam izle ve aç';
+
+  @override
+  String get fortuneUnlocking => 'Reklam yükleniyor…';
+
+  @override
   String get familyTitle => 'Aile Yıl Dönümleri';
 
   @override

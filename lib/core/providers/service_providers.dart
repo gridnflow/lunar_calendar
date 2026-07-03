@@ -87,7 +87,33 @@ final adServiceProvider =
 final reviewServiceProvider =
     Provider<ReviewService>((ref) => ReviewService());
 
-/// Today's fortune text (cached per session).
+/// 무료 기본 운세 (로컬 생성). 홈 위젯 데이터도 여기서 갱신.
+final basicFortuneProvider = FutureProvider<String>((ref) async {
+  final lunar = ref.read(lunarServiceProvider);
+  final fortune = ref.read(fortuneServiceProvider);
+  final locale = ref.watch(localeProvider);
+  final langCode = locale.countryCode != null
+      ? '${locale.languageCode}_${locale.countryCode}'
+      : locale.languageCode;
+
+  final text = fortune.getBasicFortune(
+    dayPillar: lunar.todayDayPillar(),
+    monthPillar: lunar.todayMonthPillar(),
+    languageCode: langCode,
+  );
+
+  // 위젯 데이터 갱신 (fire-and-forget)
+  final profile = await ref.watch(userProfileProvider.future);
+  ref.read(widgetServiceProvider).updateWidgets(
+        lunar: lunar,
+        profile: profile,
+        fortuneText: text,
+      );
+
+  return text;
+});
+
+/// AI 상세운세 (Gemini, 하루 1회 생성 후 캐시). 보상형 광고로 잠금 해제.
 final todayFortuneProvider = FutureProvider<String>((ref) async {
   final lunar = ref.read(lunarServiceProvider);
   final profile = await ref.watch(userProfileProvider.future);

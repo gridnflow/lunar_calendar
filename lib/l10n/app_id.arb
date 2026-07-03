@@ -85,6 +85,10 @@
       }
     }
   },
+  "fortuneDetailedTitle": "Ramalan AI Terperinci",
+  "fortuneUnlockDesc": "Tonton iklan singkat untuk membuka ramalan AI personal hari ini.",
+  "fortuneUnlockButton": "Tonton iklan untuk membuka",
+  "fortuneUnlocking": "Memuat iklan…",
   "familyTitle": "Peringatan Keluarga",
   "familyEmpty": "Belum ada peringatan terdaftar",
   "generalError": "Kesalahan: {error}",
