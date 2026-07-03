@@ -32,9 +32,17 @@ final calendarServiceProvider = Provider<CalendarService>(
   (ref) => CalendarService(ref.read(authServiceProvider)),
 );
 
+/// Firebase 인증 상태 스트림 (로그인/로그아웃 즉시 반영).
+final authStateProvider = StreamProvider<User?>(
+  (ref) => FirebaseAuth.instance.authStateChanges(),
+);
+
 /// The current Firebase user (null if signed out). Override in tests.
+/// authStateChanges를 watch하므로 로그인 직후에도 최신 값을 반환한다.
 final currentUserProvider = Provider<User?>((ref) {
-  return FirebaseAuth.instance.currentUser;
+  final authState = ref.watch(authStateProvider);
+  // 스트림 첫 이벤트 전에는 동기값으로 폴백
+  return authState.valueOrNull ?? FirebaseAuth.instance.currentUser;
 });
 
 /// Convenience provider for just the uid.

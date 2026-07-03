@@ -53,7 +53,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
       if (mounted) context.go('/calendar');
     } catch (e) {
-      if (mounted) setState(() => _saving = false);
+      if (mounted) {
+        setState(() => _saving = false);
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('$e')));
+      }
     }
   }
 
@@ -70,7 +74,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       ));
       ref.invalidate(userProfileProvider);
       if (mounted) context.go('/calendar');
-    } catch (_) {}
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('$e')));
+      }
+    }
   }
 
   @override
