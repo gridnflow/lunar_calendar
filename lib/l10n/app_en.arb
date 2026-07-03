@@ -97,6 +97,7 @@
   "premiumRestoreFailed": "No purchases to restore.",
   "premiumUnavailable": "The store is currently unavailable.",
   "premiumActive": "Premium active",
+  "loginTagline": "Your day, in the rhythm of the moon",
   "familyTitle": "Family Anniversaries",
   "familyEmpty": "No anniversaries registered",
   "generalError": "Error: {error}",

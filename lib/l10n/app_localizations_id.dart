@@ -181,6 +181,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get premiumActive => 'Premium aktif';
 
   @override
+  String get loginTagline => 'Hari Anda dalam irama bulan';
+
+  @override
   String get familyTitle => 'Peringatan Keluarga';
 
   @override

@@ -181,6 +181,9 @@ class AppLocalizationsMs extends AppLocalizations {
   String get premiumActive => 'Premium aktif';
 
   @override
+  String get loginTagline => 'Hari anda mengikut irama bulan';
+
+  @override
   String get familyTitle => 'Ulang Tahun Keluarga';
 
   @override

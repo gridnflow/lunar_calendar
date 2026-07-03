@@ -97,6 +97,7 @@
   "premiumRestoreFailed": "복원할 구매 내역이 없습니다.",
   "premiumUnavailable": "지금은 스토어를 이용할 수 없습니다.",
   "premiumActive": "프리미엄 이용 중",
+  "loginTagline": "달의 흐름을 담은 하루",
   "familyTitle": "가족 기념일",
   "familyEmpty": "등록된 기념일이 없습니다",
   "generalError": "오류: {error}",

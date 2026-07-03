@@ -97,6 +97,7 @@
   "premiumRestoreFailed": "Нет покупок для восстановления.",
   "premiumUnavailable": "Магазин сейчас недоступен.",
   "premiumActive": "Премиум активен",
+  "loginTagline": "Ваш день в ритме луны",
   "familyTitle": "Семейные даты",
   "familyEmpty": "Нет зарегистрированных дат",
   "generalError": "Ошибка: {error}",

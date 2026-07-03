@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:googleapis/calendar/v3.dart' as gcal;
 import 'package:table_calendar/table_calendar.dart';
 
@@ -364,11 +365,14 @@ class _CalendarBody extends StatelessWidget {
             markersMaxCount: 0, // we handle markers ourselves
             cellMargin: EdgeInsets.all(2),
           ),
-          headerStyle: const HeaderStyle(
+          headerStyle: HeaderStyle(
             formatButtonVisible: false,
             titleCentered: true,
-            titleTextStyle:
-                TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            titleTextStyle: GoogleFonts.notoSansKr(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: colorScheme.onSurface,
+            ),
           ),
           rowHeight: 72,
         ),
@@ -472,14 +476,19 @@ class _DayCell extends StatelessWidget {
     final lunarLabel = '$lunarMonth/$lunarDay';
 
     Color? bgColor;
-    Color textColor = cs.onSurface;
+    Border? border;
+    // 한국식 달력 요일 색: 일요일 적색, 토요일 청색
+    Color textColor = switch (day.weekday) {
+      DateTime.sunday => const Color(0xFFC94F4F),
+      DateTime.saturday => const Color(0xFF4F6EC9),
+      _ => cs.onSurface,
+    };
 
     if (isSelected) {
       bgColor = cs.primary;
       textColor = cs.onPrimary;
     } else if (isToday) {
-      bgColor = cs.primaryContainer;
-      textColor = cs.onPrimaryContainer;
+      border = Border.all(color: AppTheme.moonGold, width: 1.8);
     }
 
     return Column(
@@ -488,8 +497,9 @@ class _DayCell extends StatelessWidget {
         Container(
           width: 34,
           height: 34,
-          decoration: bgColor != null
-              ? BoxDecoration(color: bgColor, shape: BoxShape.circle)
+          decoration: bgColor != null || border != null
+              ? BoxDecoration(
+                  color: bgColor, border: border, shape: BoxShape.circle)
               : null,
           alignment: Alignment.center,
           child: Text(

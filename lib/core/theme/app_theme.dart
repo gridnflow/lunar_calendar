@@ -129,10 +129,10 @@ class AppTheme {
         foregroundColor: cs.onSurface,
         titleTextStyle: TextStyle(
           fontFamily: GoogleFonts.notoSansKr().fontFamily,
-          fontSize: 20,
-          fontWeight: FontWeight.w700,
+          fontSize: 21,
+          fontWeight: FontWeight.w600,
           color: cs.onSurface,
-          letterSpacing: -0.5,
+          letterSpacing: -0.3,
         ),
       );
 
@@ -220,7 +220,7 @@ class AppTheme {
         titleTextStyle: TextStyle(
           fontFamily: GoogleFonts.notoSansKr().fontFamily,
           fontSize: 18,
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w600,
           color: cs.onSurface,
         ),
       );
@@ -246,28 +246,30 @@ class AppTheme {
         ),
       );
 
+  /// 밤하늘 컨셉의 네비게이션 바 — 라이트/다크 모두 딥 네이비 + 달빛 골드.
   static NavigationBarThemeData _navBarTheme(ColorScheme cs) =>
       NavigationBarThemeData(
         height: 68,
+        backgroundColor: const Color(0xFF10193B),
+        surfaceTintColor: Colors.transparent,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-        indicatorColor: cs.primary.withValues(alpha: 0.15),
+        indicatorColor: moonGold.withValues(alpha: 0.18),
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
-            return TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                color: cs.primary);
+            return const TextStyle(
+                fontSize: 11, fontWeight: FontWeight.w700, color: moonGold);
           }
           return TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w500,
-              color: cs.onSurfaceVariant);
+              color: Colors.white.withValues(alpha: 0.65));
         }),
         iconTheme: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
-            return IconThemeData(color: cs.primary, size: 24);
+            return const IconThemeData(color: moonGold, size: 24);
           }
-          return IconThemeData(color: cs.onSurfaceVariant, size: 24);
+          return IconThemeData(
+              color: Colors.white.withValues(alpha: 0.65), size: 24);
         }),
       );
 
@@ -277,7 +279,9 @@ class AppTheme {
 
   static TextTheme _textTheme(ColorScheme colorScheme) {
     final serifFamily = GoogleFonts.notoSansKr().fontFamily;
-    final base = ThemeData(colorScheme: colorScheme).textTheme;
+    // 본문 전체를 Noto Sans KR로 (한글 시스템 폰트 대체)
+    final base = GoogleFonts.notoSansKrTextTheme(
+        ThemeData(colorScheme: colorScheme).textTheme);
     return base.copyWith(
       displayLarge: base.displayLarge?.copyWith(
         fontFamily: serifFamily,
@@ -377,15 +381,18 @@ class AppTheme {
   // ──────────────────────────────────────────────
 
   static LinearGradient nightSkyGradient = const LinearGradient(
-    colors: [Color(0xFF0D1B3E), Color(0xFF1A2F6A), Color(0xFF0A1628)],
+    colors: [Color(0xFF0B1233), Color(0xFF1D2F66), Color(0xFF0A1428)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    stops: [0.0, 0.5, 1.0],
+    stops: [0.0, 0.55, 1.0],
   );
 
   static LinearGradient goldAccentGradient = const LinearGradient(
-    colors: [Color(0xFFB8860B), Color(0xFFD4A72C), Color(0xFFF5C842)],
+    colors: [Color(0xFFB88A1B), Color(0xFFD9AE3E), Color(0xFFF0CE6B)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
+
+  /// 초승달 달빛 색 (밤하늘 배경 위 포인트 텍스트/아이콘용)
+  static const Color moonGold = Color(0xFFF2D98D);
 }

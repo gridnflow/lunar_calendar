@@ -178,6 +178,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get premiumActive => 'プレミアム利用中';
 
   @override
+  String get loginTagline => '月の流れとともに過ごす一日';
+
+  @override
   String get familyTitle => '家族の記念日';
 
   @override

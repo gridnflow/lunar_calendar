@@ -180,6 +180,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get premiumActive => 'Đang dùng gói Cao cấp';
 
   @override
+  String get loginTagline => 'Một ngày theo nhịp của vầng trăng';
+
+  @override
   String get familyTitle => 'Kỷ niệm gia đình';
 
   @override

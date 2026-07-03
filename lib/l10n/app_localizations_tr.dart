@@ -181,6 +181,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get premiumActive => 'Premium etkin';
 
   @override
+  String get loginTagline => 'Ayın ritmiyle geçen bir gün';
+
+  @override
   String get familyTitle => 'Aile Yıl Dönümleri';
 
   @override

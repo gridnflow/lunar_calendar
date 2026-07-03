@@ -97,6 +97,7 @@
   "premiumRestoreFailed": "Tidak ada pembelian untuk dipulihkan.",
   "premiumUnavailable": "Toko sedang tidak tersedia.",
   "premiumActive": "Premium aktif",
+  "loginTagline": "Hari Anda dalam irama bulan",
   "familyTitle": "Peringatan Keluarga",
   "familyEmpty": "Belum ada peringatan terdaftar",
   "generalError": "Kesalahan: {error}",

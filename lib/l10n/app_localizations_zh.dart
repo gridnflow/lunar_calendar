@@ -177,6 +177,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get premiumActive => '高级版已激活';
 
   @override
+  String get loginTagline => '伴随月光节律的每一天';
+
+  @override
   String get familyTitle => '家人纪念日';
 
   @override
@@ -540,6 +543,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get premiumActive => '高級版已啟用';
+
+  @override
+  String get loginTagline => '伴隨月光節律的每一天';
 
   @override
   String get familyTitle => '家人紀念日';

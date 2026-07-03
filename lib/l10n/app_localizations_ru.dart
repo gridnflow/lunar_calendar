@@ -182,6 +182,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get premiumActive => 'Премиум активен';
 
   @override
+  String get loginTagline => 'Ваш день в ритме луны';
+
+  @override
   String get familyTitle => 'Семейные даты';
 
   @override

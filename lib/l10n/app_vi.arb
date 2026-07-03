@@ -97,6 +97,7 @@
   "premiumRestoreFailed": "Không có giao dịch nào để khôi phục.",
   "premiumUnavailable": "Cửa hàng hiện không khả dụng.",
   "premiumActive": "Đang dùng gói Cao cấp",
+  "loginTagline": "Một ngày theo nhịp của vầng trăng",
   "familyTitle": "Kỷ niệm gia đình",
   "familyEmpty": "Chưa có ngày kỷ niệm nào",
   "generalError": "Lỗi: {error}",

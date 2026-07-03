@@ -425,6 +425,12 @@ abstract class AppLocalizations {
   /// **'Premium active'**
   String get premiumActive;
 
+  /// No description provided for @loginTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Your day, in the rhythm of the moon'**
+  String get loginTagline;
+
   /// No description provided for @familyTitle.
   ///
   /// In en, this message translates to:

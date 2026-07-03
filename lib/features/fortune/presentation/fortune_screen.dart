@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/providers/fortune_unlock_provider.dart';
 import '../../../core/providers/service_providers.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../core/theme/night_sky.dart';
 import '../../../l10n/app_localizations.dart';
 
 class FortuneScreen extends ConsumerStatefulWidget {
@@ -190,99 +191,68 @@ class _LunarInfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: AppTheme.nightSkyGradient,
         borderRadius: BorderRadius.circular(AppTheme.radiusLg),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF0D1B3E).withValues(alpha: 0.5),
+            color: const Color(0xFF0B1233).withValues(alpha: 0.5),
             blurRadius: 20,
             offset: const Offset(0, 6),
           ),
         ],
       ),
-      child: Stack(
-        children: [
-          // 별 장식
-          Positioned(top: 14, right: 20, child: _StarDot(size: 3)),
-          Positioned(top: 30, right: 60, child: _StarDot(size: 2)),
-          Positioned(top: 10, right: 110, child: _StarDot(size: 2.5)),
-          Positioned(top: 50, right: 35, child: _StarDot(size: 1.5)),
-          Positioned(top: 22, right: 85, child: _StarDot(size: 3.5)),
-          // 달 장식
-          Positioned(
-            top: 12,
-            right: 16,
-            child: Icon(Icons.nightlight_round,
-                size: 36, color: Colors.white.withValues(alpha: 0.12)),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  todayLunar,
-                  style: GoogleFonts.notoSansKr(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    letterSpacing: 0.2,
-                  ),
+      child: NightSky(
+        borderRadius: BorderRadius.circular(AppTheme.radiusLg),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 22, 20, 22),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                todayLunar,
+                style: GoogleFonts.notoSansKr(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                  letterSpacing: 0.2,
                 ),
-                const SizedBox(height: 14),
-                Row(
-                  children: [
-                    _GoldChip(label: yearPillar),
-                    const SizedBox(width: 8),
-                    _GoldChip(label: monthPillar),
-                    const SizedBox(width: 8),
-                    _GoldChip(label: dayPillar),
-                  ],
-                ),
-                if (solarTerm != null) ...[
-                  const SizedBox(height: 10),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.25)),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.eco_outlined,
-                            size: 13, color: Colors.white.withValues(alpha: 0.8)),
-                        const SizedBox(width: 4),
-                        Text(solarTerm!,
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.white.withValues(alpha: 0.9))),
-                      ],
-                    ),
-                  ),
+              ),
+              const SizedBox(height: 14),
+              Row(
+                children: [
+                  _GoldChip(label: yearPillar),
+                  const SizedBox(width: 8),
+                  _GoldChip(label: monthPillar),
+                  const SizedBox(width: 8),
+                  _GoldChip(label: dayPillar),
                 ],
+              ),
+              if (solarTerm != null) ...[
+                const SizedBox(height: 10),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: AppTheme.moonGold.withValues(alpha: 0.45)),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.eco_outlined,
+                          size: 13, color: AppTheme.moonGold),
+                      const SizedBox(width: 4),
+                      Text(solarTerm!,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white.withValues(alpha: 0.9))),
+                    ],
+                  ),
+                ),
               ],
-            ),
+            ],
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class _StarDot extends StatelessWidget {
-  final double size;
-  const _StarDot({required this.size});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.6),
-        shape: BoxShape.circle,
+        ),
       ),
     );
   }

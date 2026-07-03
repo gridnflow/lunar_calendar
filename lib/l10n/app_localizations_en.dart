@@ -181,6 +181,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get premiumActive => 'Premium active';
 
   @override
+  String get loginTagline => 'Your day, in the rhythm of the moon';
+
+  @override
   String get familyTitle => 'Family Anniversaries';
 
   @override

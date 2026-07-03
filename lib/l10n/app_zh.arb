@@ -97,6 +97,7 @@
   "premiumRestoreFailed": "没有可恢复的购买记录。",
   "premiumUnavailable": "商店暂时不可用。",
   "premiumActive": "高级版已激活",
+  "loginTagline": "伴随月光节律的每一天",
   "familyTitle": "家人纪念日",
   "familyEmpty": "暂无纪念日",
   "generalError": "错误: {error}",

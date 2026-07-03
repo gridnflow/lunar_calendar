@@ -97,6 +97,7 @@
   "premiumRestoreFailed": "Geri yüklenecek satın alım yok.",
   "premiumUnavailable": "Mağaza şu anda kullanılamıyor.",
   "premiumActive": "Premium etkin",
+  "loginTagline": "Ayın ritmiyle geçen bir gün",
   "familyTitle": "Aile Yıl Dönümleri",
   "familyEmpty": "Kayıtlı yıl dönümü yok",
   "generalError": "Hata: {error}",

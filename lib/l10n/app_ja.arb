@@ -97,6 +97,7 @@
   "premiumRestoreFailed": "復元できる購入がありません。",
   "premiumUnavailable": "現在ストアを利用できません。",
   "premiumActive": "プレミアム利用中",
+  "loginTagline": "月の流れとともに過ごす一日",
   "familyTitle": "家族の記念日",
   "familyEmpty": "登録された記念日はありません",
   "generalError": "エラー: {error}",

@@ -178,6 +178,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get premiumActive => '프리미엄 이용 중';
 
   @override
+  String get loginTagline => '달의 흐름을 담은 하루';
+
+  @override
   String get familyTitle => '가족 기념일';
 
   @override
