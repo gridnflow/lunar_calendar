@@ -5,6 +5,7 @@ import 'package:googleapis/calendar/v3.dart' as gcal;
 
 import '../models/family_anniversary.dart';
 import '../models/user_profile.dart';
+import '../services/analytics_service.dart';
 import '../services/anniversary_service.dart';
 import '../services/auth_service.dart';
 import '../services/calendar_service.dart';
@@ -86,6 +87,9 @@ final adServiceProvider =
 
 final reviewServiceProvider =
     Provider<ReviewService>((ref) => ReviewService());
+
+final analyticsServiceProvider =
+    Provider<AnalyticsService>((ref) => AnalyticsService());
 
 /// 무료 기본 운세 (로컬 생성). 홈 위젯 데이터도 여기서 갱신.
 final basicFortuneProvider = FutureProvider<String>((ref) async {

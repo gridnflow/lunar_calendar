@@ -17,6 +17,12 @@ class FortuneScreen extends ConsumerStatefulWidget {
 class _FortuneScreenState extends ConsumerState<FortuneScreen> {
   bool _adLoading = false;
 
+  @override
+  void initState() {
+    super.initState();
+    ref.read(analyticsServiceProvider).logFortuneViewed();
+  }
+
   /// 보상형 광고를 로드·표시하고, 시청 완료 시 오늘의 상세운세 잠금 해제.
   Future<void> _unlockWithAd() async {
     setState(() => _adLoading = true);
@@ -25,7 +31,10 @@ class _FortuneScreenState extends ConsumerState<FortuneScreen> {
     if (!mounted) return;
     setState(() => _adLoading = false);
     adService.showRewarded(
-      onRewarded: () => ref.read(fortuneUnlockedProvider.notifier).unlock(),
+      onRewarded: () {
+        ref.read(analyticsServiceProvider).logDetailedFortuneUnlocked();
+        ref.read(fortuneUnlockedProvider.notifier).unlock();
+      },
     );
   }
 

@@ -217,6 +217,7 @@ class FamilyScreen extends ConsumerWidget {
             isLeap: isLeap,
           ),
         );
+    ref.read(analyticsServiceProvider).logAnniversaryAdded(type: type);
 
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -248,6 +249,7 @@ class FamilyScreen extends ConsumerWidget {
 
     if (ok == true && context.mounted) {
       await ref.read(anniversaryServiceProvider).delete(uid, ann.id);
+      ref.read(analyticsServiceProvider).logAnniversaryDeleted();
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(l.anniversaryDeleted(ann.name))),

@@ -27,9 +27,12 @@ final routerProvider = Provider<GoRouter>((ref) {
   ref.listen(_authStreamProvider, (prev, next) => notifier.value++);
   ref.listen(userProfileProvider, (prev, next) => notifier.value++);
 
+  final analytics = ref.read(analyticsServiceProvider);
+
   final router = GoRouter(
     initialLocation: '/login',
     refreshListenable: notifier,
+    observers: [analytics.createObserver()],
     redirect: (context, state) {
       final authState = ref.read(_authStreamProvider);
       final profileAsync = ref.read(userProfileProvider);
@@ -68,6 +71,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const OnboardingScreen(),
       ),
       ShellRoute(
+        observers: [analytics.createObserver()],
         builder: (context, state, child) => MainShell(child: child),
         routes: [
           GoRoute(

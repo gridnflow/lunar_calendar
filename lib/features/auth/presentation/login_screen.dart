@@ -75,6 +75,7 @@ class LoginScreen extends ConsumerWidget {
       final user = credential.user!;
 
       await ref.read(userServiceProvider).createFromGoogleUser(user);
+      ref.read(analyticsServiceProvider).logLogin();
 
       final fcmToken = await ref.read(notificationServiceProvider).getToken();
       if (fcmToken != null) {
