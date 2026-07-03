@@ -36,4 +36,11 @@ class AnalyticsService {
 
   /// 기념일 삭제.
   Future<void> logAnniversaryDeleted() => _log('anniversary_deleted');
+
+  /// 프리미엄 구매 완료.
+  Future<void> logPremiumPurchased({required String packageId}) =>
+      _log('premium_purchased', {'package': packageId});
+
+  /// 구매 복원 성공.
+  Future<void> logPurchasesRestored() => _log('purchases_restored');
 }

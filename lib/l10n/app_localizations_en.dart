@@ -156,6 +156,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get fortuneUnlocking => 'Loading ad…';
 
   @override
+  String get premiumSectionTitle => 'Premium';
+
+  @override
+  String get premiumBenefits =>
+      'Remove all ads and unlock the AI detailed fortune every day.';
+
+  @override
+  String get premiumPurchase => 'Get Premium';
+
+  @override
+  String get premiumRestore => 'Restore purchases';
+
+  @override
+  String get premiumRestored => 'Purchases restored.';
+
+  @override
+  String get premiumRestoreFailed => 'No purchases to restore.';
+
+  @override
+  String get premiumUnavailable => 'The store is currently unavailable.';
+
+  @override
+  String get premiumActive => 'Premium active';
+
+  @override
   String get familyTitle => 'Family Anniversaries';
 
   @override

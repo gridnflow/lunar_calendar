@@ -11,6 +11,7 @@ import 'core/providers/service_providers.dart';
 import 'core/router/app_router.dart';
 import 'core/services/ad_service.dart';
 import 'core/services/notification_service.dart';
+import 'core/services/purchase_service.dart';
 import 'core/theme/app_theme.dart';
 import 'l10n/app_localizations.dart';
 
@@ -31,6 +32,7 @@ void main() async {
 
   await NotificationService().initialize();
   await AdService().initialize();
+  await PurchaseService.instance.initialize();
   runApp(const ProviderScope(child: App()));
 }
 

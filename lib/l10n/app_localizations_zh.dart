@@ -153,6 +153,30 @@ class AppLocalizationsZh extends AppLocalizations {
   String get fortuneUnlocking => '广告加载中…';
 
   @override
+  String get premiumSectionTitle => '高级版';
+
+  @override
+  String get premiumBenefits => '移除所有广告，每天直接查看AI详细运势。';
+
+  @override
+  String get premiumPurchase => '开通高级版';
+
+  @override
+  String get premiumRestore => '恢复购买';
+
+  @override
+  String get premiumRestored => '购买已恢复。';
+
+  @override
+  String get premiumRestoreFailed => '没有可恢复的购买记录。';
+
+  @override
+  String get premiumUnavailable => '商店暂时不可用。';
+
+  @override
+  String get premiumActive => '高级版已激活';
+
+  @override
   String get familyTitle => '家人纪念日';
 
   @override
@@ -492,6 +516,30 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get fortuneUnlocking => '廣告載入中…';
+
+  @override
+  String get premiumSectionTitle => '高級版';
+
+  @override
+  String get premiumBenefits => '移除所有廣告，每天直接查看AI詳細運勢。';
+
+  @override
+  String get premiumPurchase => '開通高級版';
+
+  @override
+  String get premiumRestore => '恢復購買';
+
+  @override
+  String get premiumRestored => '購買已恢復。';
+
+  @override
+  String get premiumRestoreFailed => '沒有可恢復的購買記錄。';
+
+  @override
+  String get premiumUnavailable => '商店暫時無法使用。';
+
+  @override
+  String get premiumActive => '高級版已啟用';
 
   @override
   String get familyTitle => '家人紀念日';

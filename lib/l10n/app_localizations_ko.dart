@@ -154,6 +154,30 @@ class AppLocalizationsKo extends AppLocalizations {
   String get fortuneUnlocking => '광고 불러오는 중…';
 
   @override
+  String get premiumSectionTitle => '프리미엄';
+
+  @override
+  String get premiumBenefits => '모든 광고 제거 + AI 상세운세를 매일 바로 볼 수 있어요.';
+
+  @override
+  String get premiumPurchase => '프리미엄 시작하기';
+
+  @override
+  String get premiumRestore => '구매 복원';
+
+  @override
+  String get premiumRestored => '구매가 복원되었습니다.';
+
+  @override
+  String get premiumRestoreFailed => '복원할 구매 내역이 없습니다.';
+
+  @override
+  String get premiumUnavailable => '지금은 스토어를 이용할 수 없습니다.';
+
+  @override
+  String get premiumActive => '프리미엄 이용 중';
+
+  @override
   String get familyTitle => '가족 기념일';
 
   @override

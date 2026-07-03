@@ -155,6 +155,31 @@ class AppLocalizationsVi extends AppLocalizations {
   String get fortuneUnlocking => 'Đang tải quảng cáo…';
 
   @override
+  String get premiumSectionTitle => 'Cao cấp';
+
+  @override
+  String get premiumBenefits =>
+      'Xóa mọi quảng cáo và mở khóa tử vi AI chi tiết mỗi ngày.';
+
+  @override
+  String get premiumPurchase => 'Nâng cấp Cao cấp';
+
+  @override
+  String get premiumRestore => 'Khôi phục mua hàng';
+
+  @override
+  String get premiumRestored => 'Đã khôi phục mua hàng.';
+
+  @override
+  String get premiumRestoreFailed => 'Không có giao dịch nào để khôi phục.';
+
+  @override
+  String get premiumUnavailable => 'Cửa hàng hiện không khả dụng.';
+
+  @override
+  String get premiumActive => 'Đang dùng gói Cao cấp';
+
+  @override
   String get familyTitle => 'Kỷ niệm gia đình';
 
   @override

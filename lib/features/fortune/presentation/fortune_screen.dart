@@ -44,7 +44,9 @@ class _FortuneScreenState extends ConsumerState<FortuneScreen> {
     final lunar = ref.read(lunarServiceProvider);
     final profileAsync = ref.watch(userProfileProvider);
     final basicFortuneAsync = ref.watch(basicFortuneProvider);
-    final isUnlocked = ref.watch(fortuneUnlockedProvider);
+    // 프리미엄 사용자는 광고 없이 항상 상세운세 이용 가능
+    final isUnlocked =
+        ref.watch(isPremiumProvider) || ref.watch(fortuneUnlockedProvider);
 
     final todayLunar = l.fortuneLunarDate(lunar.todayLunarMonth(), lunar.todayLunarDay());
     final dayPillar = '${lunar.todayDayGanZhi()}${l.fortuneDaySuffix}';

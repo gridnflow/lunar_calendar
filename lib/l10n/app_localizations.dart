@@ -377,6 +377,54 @@ abstract class AppLocalizations {
   /// **'Loading ad…'**
   String get fortuneUnlocking;
 
+  /// No description provided for @premiumSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium'**
+  String get premiumSectionTitle;
+
+  /// No description provided for @premiumBenefits.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove all ads and unlock the AI detailed fortune every day.'**
+  String get premiumBenefits;
+
+  /// No description provided for @premiumPurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Premium'**
+  String get premiumPurchase;
+
+  /// No description provided for @premiumRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get premiumRestore;
+
+  /// No description provided for @premiumRestored.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchases restored.'**
+  String get premiumRestored;
+
+  /// No description provided for @premiumRestoreFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'No purchases to restore.'**
+  String get premiumRestoreFailed;
+
+  /// No description provided for @premiumUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The store is currently unavailable.'**
+  String get premiumUnavailable;
+
+  /// No description provided for @premiumActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium active'**
+  String get premiumActive;
+
   /// No description provided for @familyTitle.
   ///
   /// In en, this message translates to:

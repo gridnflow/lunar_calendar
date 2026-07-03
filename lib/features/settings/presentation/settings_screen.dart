@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../../../core/models/user_profile.dart';
 import '../../../core/providers/locale_provider.dart';
@@ -121,6 +122,82 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     ref.invalidate(todayFortuneProvider);
   }
 
+  void _showSnack(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  /// 프리미엄 패키지 목록을 바텀시트로 보여주고 구매 처리.
+  Future<void> _showPaywall(AppLocalizations l) async {
+    final purchases = ref.read(purchaseServiceProvider);
+    final packages = await purchases.getPackages();
+    if (!mounted) return;
+    if (packages.isEmpty) {
+      _showSnack(l.premiumUnavailable);
+      return;
+    }
+
+    final selected = await showModalBottomSheet<Package>(
+      context: context,
+      showDragHandle: true,
+      builder: (ctx) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(24, 0, 24, 8),
+              child: Column(
+                children: [
+                  Text(l.premiumSectionTitle,
+                      style: Theme.of(ctx)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 4),
+                  Text(l.premiumBenefits,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(ctx).textTheme.bodySmall),
+                ],
+              ),
+            ),
+            for (final pkg in packages)
+              ListTile(
+                leading: const Icon(Icons.workspace_premium_outlined),
+                title: Text(pkg.storeProduct.title),
+                subtitle: Text(pkg.storeProduct.description),
+                trailing: Text(pkg.storeProduct.priceString,
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                onTap: () => Navigator.pop(ctx, pkg),
+              ),
+            const SizedBox(height: 8),
+          ],
+        ),
+      ),
+    );
+    if (selected == null || !mounted) return;
+
+    try {
+      final ok = await purchases.purchase(selected);
+      if (ok) {
+        ref.read(analyticsServiceProvider)
+            .logPremiumPurchased(packageId: selected.identifier);
+        await ref.read(isPremiumProvider.notifier).refresh();
+        _showSnack(l.premiumActive);
+      }
+    } catch (e) {
+      _showSnack(l.premiumUnavailable);
+    }
+  }
+
+  Future<void> _restorePurchases(AppLocalizations l) async {
+    final restored = await ref.read(purchaseServiceProvider).restore();
+    if (restored) {
+      ref.read(analyticsServiceProvider).logPurchasesRestored();
+      await ref.read(isPremiumProvider.notifier).refresh();
+    }
+    _showSnack(restored ? l.premiumRestored : l.premiumRestoreFailed);
+  }
+
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
@@ -172,6 +249,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 ],
               ),
             ),
+          ),
+          const SizedBox(height: 16),
+
+          // 프리미엄 (광고 제거 + AI 상세운세)
+          _PremiumCard(
+            isPremium: ref.watch(isPremiumProvider),
+            l: l,
+            onPurchase: () => _showPaywall(l),
+            onRestore: () => _restorePurchases(l),
           ),
           const SizedBox(height: 16),
 
@@ -324,6 +410,68 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           ),
           const SizedBox(height: 16),
         ],
+      ),
+    );
+  }
+}
+
+class _PremiumCard extends StatelessWidget {
+  final bool isPremium;
+  final AppLocalizations l;
+  final VoidCallback onPurchase;
+  final VoidCallback onRestore;
+
+  const _PremiumCard({
+    required this.isPremium,
+    required this.l,
+    required this.onPurchase,
+    required this.onRestore,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(Icons.workspace_premium_outlined, color: cs.primary),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    isPremium ? l.premiumActive : l.premiumSectionTitle,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+            if (!isPremium) ...[
+              const SizedBox(height: 8),
+              Text(l.premiumBenefits,
+                  style: TextStyle(
+                      fontSize: 13,
+                      height: 1.5,
+                      color: cs.onSurfaceVariant)),
+              const SizedBox(height: 12),
+              FilledButton.icon(
+                onPressed: onPurchase,
+                icon: const Icon(Icons.workspace_premium, size: 18),
+                label: Text(l.premiumPurchase),
+                style:
+                    FilledButton.styleFrom(minimumSize: const Size.fromHeight(44)),
+              ),
+            ],
+            // 구매 복원은 항상 노출 (스토어 정책)
+            TextButton(
+              onPressed: onRestore,
+              child: Text(l.premiumRestore),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -147,12 +147,13 @@ class _MainShellState extends ConsumerState<MainShell> {
 
   @override
   Widget build(BuildContext context) {
+    final isPremium = ref.watch(isPremiumProvider);
     return Scaffold(
       body: widget.child,
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (_bannerLoaded && _bannerAd != null)
+          if (!isPremium && _bannerLoaded && _bannerAd != null)
             SizedBox(
               height: _bannerAd!.size.height.toDouble(),
               child: AdWidget(ad: _bannerAd!),

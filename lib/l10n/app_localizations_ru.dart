@@ -157,6 +157,31 @@ class AppLocalizationsRu extends AppLocalizations {
   String get fortuneUnlocking => 'Загрузка рекламы…';
 
   @override
+  String get premiumSectionTitle => 'Премиум';
+
+  @override
+  String get premiumBenefits =>
+      'Уберите всю рекламу и открывайте подробный AI-прогноз каждый день.';
+
+  @override
+  String get premiumPurchase => 'Оформить Премиум';
+
+  @override
+  String get premiumRestore => 'Восстановить покупки';
+
+  @override
+  String get premiumRestored => 'Покупки восстановлены.';
+
+  @override
+  String get premiumRestoreFailed => 'Нет покупок для восстановления.';
+
+  @override
+  String get premiumUnavailable => 'Магазин сейчас недоступен.';
+
+  @override
+  String get premiumActive => 'Премиум активен';
+
+  @override
   String get familyTitle => 'Семейные даты';
 
   @override

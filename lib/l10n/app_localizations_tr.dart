@@ -156,6 +156,31 @@ class AppLocalizationsTr extends AppLocalizations {
   String get fortuneUnlocking => 'Reklam yükleniyor…';
 
   @override
+  String get premiumSectionTitle => 'Premium';
+
+  @override
+  String get premiumBenefits =>
+      'Tüm reklamları kaldırın ve yapay zekâ detaylı falı her gün açın.';
+
+  @override
+  String get premiumPurchase => 'Premium\'a Geç';
+
+  @override
+  String get premiumRestore => 'Satın alımları geri yükle';
+
+  @override
+  String get premiumRestored => 'Satın alımlar geri yüklendi.';
+
+  @override
+  String get premiumRestoreFailed => 'Geri yüklenecek satın alım yok.';
+
+  @override
+  String get premiumUnavailable => 'Mağaza şu anda kullanılamıyor.';
+
+  @override
+  String get premiumActive => 'Premium etkin';
+
+  @override
   String get familyTitle => 'Aile Yıl Dönümleri';
 
   @override

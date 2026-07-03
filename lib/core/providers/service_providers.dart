@@ -13,6 +13,7 @@ import '../services/fortune_service.dart';
 import '../services/lunar_service.dart';
 import '../services/ad_service.dart';
 import '../services/notification_service.dart';
+import '../services/purchase_service.dart';
 import '../services/review_service.dart';
 import '../services/user_service.dart';
 import '../services/widget_service.dart';
@@ -90,6 +91,32 @@ final reviewServiceProvider =
 
 final analyticsServiceProvider =
     Provider<AnalyticsService>((ref) => AnalyticsService());
+
+final purchaseServiceProvider =
+    Provider<PurchaseService>((ref) => PurchaseService.instance);
+
+/// 프리미엄 활성 여부. 구매/복원/만료 시 RevenueCat 리스너로 자동 갱신.
+class PremiumNotifier extends Notifier<bool> {
+  @override
+  bool build() {
+    final purchases = ref.read(purchaseServiceProvider);
+    purchases.isPremium().then((value) {
+      if (value != state) state = value;
+    });
+    final sub = purchases.premiumStream.listen((value) => state = value);
+    ref.onDispose(sub.cancel);
+    return false;
+  }
+
+  /// 구매/복원 직후 즉시 재확인.
+  Future<void> refresh() async {
+    state = await ref.read(purchaseServiceProvider).isPremium();
+  }
+}
+
+final isPremiumProvider = NotifierProvider<PremiumNotifier, bool>(
+  PremiumNotifier.new,
+);
 
 /// 무료 기본 운세 (로컬 생성). 홈 위젯 데이터도 여기서 갱신.
 final basicFortuneProvider = FutureProvider<String>((ref) async {

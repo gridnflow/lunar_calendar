@@ -154,6 +154,30 @@ class AppLocalizationsJa extends AppLocalizations {
   String get fortuneUnlocking => '広告を読み込み中…';
 
   @override
+  String get premiumSectionTitle => 'プレミアム';
+
+  @override
+  String get premiumBenefits => 'すべての広告を削除し、AI詳細運勢を毎日すぐに見られます。';
+
+  @override
+  String get premiumPurchase => 'プレミアムを始める';
+
+  @override
+  String get premiumRestore => '購入を復元';
+
+  @override
+  String get premiumRestored => '購入が復元されました。';
+
+  @override
+  String get premiumRestoreFailed => '復元できる購入がありません。';
+
+  @override
+  String get premiumUnavailable => '現在ストアを利用できません。';
+
+  @override
+  String get premiumActive => 'プレミアム利用中';
+
+  @override
   String get familyTitle => '家族の記念日';
 
   @override

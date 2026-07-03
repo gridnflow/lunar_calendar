@@ -156,6 +156,31 @@ class AppLocalizationsId extends AppLocalizations {
   String get fortuneUnlocking => 'Memuat iklan…';
 
   @override
+  String get premiumSectionTitle => 'Premium';
+
+  @override
+  String get premiumBenefits =>
+      'Hapus semua iklan dan buka ramalan AI terperinci setiap hari.';
+
+  @override
+  String get premiumPurchase => 'Dapatkan Premium';
+
+  @override
+  String get premiumRestore => 'Pulihkan pembelian';
+
+  @override
+  String get premiumRestored => 'Pembelian dipulihkan.';
+
+  @override
+  String get premiumRestoreFailed => 'Tidak ada pembelian untuk dipulihkan.';
+
+  @override
+  String get premiumUnavailable => 'Toko sedang tidak tersedia.';
+
+  @override
+  String get premiumActive => 'Premium aktif';
+
+  @override
   String get familyTitle => 'Peringatan Keluarga';
 
   @override
