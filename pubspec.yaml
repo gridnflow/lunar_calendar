@@ -77,6 +77,10 @@ flutter_launcher_icons:
   android: true
   ios: true
   image_path: "assets/icons/app_icon.png"
+  # 어댑티브 아이콘: 런처가 원형/스쿼클로 마스킹할 수 있도록 레이어 분리
+  adaptive_icon_background: "#0B1233"
+  adaptive_icon_foreground: "assets/icons/app_icon_foreground.png"
+  adaptive_icon_monochrome: "assets/icons/app_icon_foreground.png"
   min_sdk_android: 21
   web:
     generate: false
